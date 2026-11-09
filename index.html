@@ -123,20 +123,13 @@
 
             <!-- 主分頁切換按鈕 -->
             <div class="flex items-center bg-slate-800 p-1 rounded-xl border border-slate-700">
-                <button id="navTabLevels" onclick="switchMainTab('levels')" class="px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 bg-sky-600 text-white shadow">
+                <button id="navTabLevels" onclick="switchMainTab('levels')" class="px-4 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 bg-sky-600 text-white shadow">
                     <i class="fa-solid fa-award"></i>
-                    <span class="hidden sm:inline">領隊分級制度</span>
-                    <span class="sm:hidden">分級制度</span>
+                    <span>領隊分級制度</span>
                 </button>
-                <button id="navTabSOP" onclick="switchMainTab('sop')" class="px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 text-slate-300 hover:text-white">
-                    <i class="fa-solid fa-lock text-amber-400"></i>
-                    <span class="hidden sm:inline">標準作業規範</span>
-                    <span class="sm:hidden">作業規範</span>
-                </button>
-                <button id="navTabDashboard" onclick="switchMainTab('dashboard')" class="px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 text-slate-300 hover:text-white">
-                    <i class="fa-solid fa-chart-line text-emerald-400"></i>
-                    <span class="hidden sm:inline">職等與晉升查詢</span>
-                    <span class="sm:hidden">考核紀錄</span>
+                <button id="navTabDashboard" onclick="switchMainTab('dashboard')" class="px-4 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 text-slate-300 hover:text-white">
+                    <i class="fa-solid fa-id-card-clip text-emerald-400"></i>
+                    <span>職等查詢 & 作業手冊</span>
                 </button>
             </div>
         </div>
@@ -626,416 +619,18 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- 分頁二：領隊標準作業規範 (需身分證驗證) -->
-    <!-- ========================================== -->
-    <div id="tabContentSOP" class="hidden">
-
-        <!-- 驗證彈窗 / 鎖定視窗 (未登入時顯示) -->
-        <div id="sopAuthGate" class="max-w-md mx-auto my-20 p-8 bg-white rounded-2xl shadow-xl border border-slate-200 text-center">
-            <div class="w-16 h-16 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl shadow-inner">
-                <i class="fa-solid fa-id-card-clip"></i>
-            </div>
-            <h3 class="text-xl font-black text-slate-900 mb-2">何時旅遊 內部帶團手冊</h3>
-            <p class="text-xs text-slate-500 mb-6">此手冊含重要營運 SOP 與通報機密，僅供授權領隊查閱，請輸入身分證字號解鎖。</p>
-            
-            <form onsubmit="handleIdAuth(event)" class="space-y-4">
-                <div>
-                    <input type="password" id="inputIdNumber" placeholder="請輸入身分證字號（如：A123456789）" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-center text-sm font-mono tracking-widest uppercase focus:outline-none focus:ring-2 focus:ring-sky-500 transition" required>
-                </div>
-                <div id="authErrorMsg" class="text-rose-600 text-xs font-semibold hidden flex items-center justify-center gap-1">
-                    <i class="fa-solid fa-circle-exclamation"></i>
-                    <span>身分證字號驗證未通過，非授權名單或輸入有誤</span>
-                </div>
-                <button type="submit" class="w-full py-3 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl text-sm transition shadow-md flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-key"></i> 驗證身分並解鎖手冊
-                </button>
-            </form>
-            <p class="text-[11px] text-slate-400 mt-6">如您為現職合作領隊且無法登入，請洽詢產品部線控主管卡卡建立名單。</p>
-        </div>
-
-        <!-- 授權通過後顯示的完整手冊內容 -->
-        <div id="sopProtectedContent" class="hidden max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            
-            <!-- 授權狀態條 -->
-            <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5 mb-8 flex items-center justify-between text-xs text-emerald-900 shadow-sm no-print">
-                <div class="flex items-center gap-2">
-                    <i class="fa-solid fa-circle-check text-emerald-600 text-sm"></i>
-                    <span>身分授權已確認：<strong id="displayAuthId" class="font-mono"></strong>（已解鎖內部帶團手冊）</span>
-                </div>
-                <button onclick="logoutSOP()" class="text-slate-500 hover:text-rose-600 text-[11px] underline">
-                    重新登出鎖定
-                </button>
-            </div>
-
-            <div class="bg-white rounded-2xl p-6 sm:p-10 shadow-md border border-slate-200 sop-content">
-                
-                <div class="border-b-2 border-slate-900 pb-4 mb-6 text-center">
-                    <h1 class="text-2xl sm:text-3xl font-black text-slate-900 mb-2">何時旅遊 x 國內旅遊 內部帶團手冊</h1>
-                    <div class="text-base text-slate-600 font-bold mb-2">領隊帶團 SOP 與完整話術指南</div>
-                    <span class="bg-sky-700 text-white text-xs font-semibold px-3 py-1 rounded">卡卡製作版本：v2.0 (2026.10.27)[cite: 6]</span>
-                </div>
-
-                <!-- 核心精神 -->
-                <div class="bg-sky-50 border border-sky-200 border-l-4 border-l-sky-600 p-4 rounded-lg my-6">
-                    <div class="font-bold text-sky-900 text-sm mb-2">★ 核心精神[cite: 6]</div>
-                    <div class="text-slate-800 text-sm font-semibold mb-2">「帶著熱忱出發，用專業說好土地的故事；在每個細膩的款待時刻裡，好好感受旅行。」[cite: 6]</div>
-                    <div class="text-xs text-slate-700 space-y-1.5 leading-relaxed">
-                        <p>• <strong>服務熱忱</strong>：服務不是制式的 SOP，是把客人的每件小事，都當成自己的重要大事，用真誠去打動人心。[cite: 6]</p>
-                        <p>• <strong>專業分享</strong>：我們不背誦生硬的歷史年份，透過生動立體的故事，把在地的風土、人情與生活感，說進旅人的心坎裡。[cite: 6]</p>
-                        <p>• <strong>款待時刻</strong>：從遞上一杯剛泡好的熱茶、一個剛好合心意的引導，到安頓好每個細微感受，讓每位團員深刻體會被真心相待的美好。[cite: 6]</p>
-                    </div>
-                    <hr class="border-dashed border-sky-300 my-3">
-                    <div class="font-bold text-sky-900 text-sm mb-1">★ 全程帶團最高核心原則[cite: 6]</div>
-                    <div class="text-slate-800 text-sm font-semibold">「出門就是放鬆，把時間留給自己，好好感受旅程。」[cite: 6]</div>
-                    <div class="text-xs text-slate-600 mt-1">
-                        旅遊是一件極度放鬆的事情，放下所有生活裡的焦慮。將繁瑣的行李上下、路況調度交給專業團隊打理，讓大家全力享受同行相聚的美好時光。[cite: 6]
-                    </div>
-                </div>
-
-                <!-- 一、出發前準備 -->
-                <h2>一、出發前準備（核對與前置作業）[cite: 6]</h2>
-                <h3>1. 前置作業排程[cite: 6]</h3>
-                <ul>
-                    <li><strong>出團前 7 天確認前置</strong>：主動聯繫團控，確認電話交團時間（統一出發前 3 個工作天）、確認團包內容與寄送資訊、報到點是否需要安排寄鋪。</li>
-                    <li><strong>出團前 3 天發布行前提醒</strong>：出發 3 天前於群組發布完整注意事項清單，發布內容包含：自我介紹、集合時間與地點、遊覽車車號、每日天氣提醒、建議個人攜帶物品、行程飯店特別說明（如泳池開放與泳具攜帶）。[cite: 6]</li>
-                </ul>
-
-                <h3>2. 客群提問與上下車點嚴謹規範[cite: 6]</h3>
-                <ul>
-                    <li><strong>群組問題回覆</strong>：旅客在群組發問旅遊相關問題，記得主動協助回覆；若該問題當下無法立即解決，請回覆客人：「確認後第一時間回覆給您。」[cite: 6]</li>
-                    <li><strong>報名、座位與上車點異動</strong>：客人若提出報名、選座位、改上車點需求，請引導客人直接聯繫業務窗口，讓業務修改系統以確保資訊同步。[cite: 6]</li>
-                    <li><strong>上下車點嚴禁私下答應</strong>：不論在群組或出團期間，客人要求修改、增加上下車點，切勿自行答應，請統一聯繫業務窗口。上車點皆為固定站點，不能因為順路就修改，此舉對其他準時依約前往的客人不公平，且一旦破例後續難以管理。[cite: 6]</li>
-                </ul>
-
-                <h3>3. 交團資料齊全度核對[cite: 6]</h3>
-                <ul>
-                    <li><strong>線上領隊作業回報系統連結</strong>：[cite: 6]
-                        <ul>
-                            <li>確認領隊日報檢查表是否與行前資料相符。[cite: 6]</li>
-                            <li>確認預支團支金額是否與實領款項相符。[cite: 6]</li>
-                            <li>確認分房表是否與座位報表席次相符。[cite: 6]</li>
-                            <li><em>註：線上系統內座位報表之完整個資解密密碼為當團出發日期（例如：20261005）。[cite: 6]</em></li>
-                        </ul>
-                    </li>
-                    <li><strong>NAS 資料夾連結</strong>：[cite: 6]
-                        <ul>
-                            <li>逐一核對派車報到單、車籍資料、客戶行前資料、操作書、分房表、飯店房號表、保險保單、車條、相關供應商預訂憑證與電子車票。[cite: 6]</li>
-                            <li>車況規格確認：務必確認操作書上遊覽車指定車齡在 5 年內，並核對車籍資料座位數（車籍座位數已包含司機大哥與領隊）。[cite: 6]</li>
-                            <li>保險保單查核：確認出團日期與人數相符，若有加保旅平險亦同步檢查。[cite: 6]</li>
-                            <li>行前資料核實：確認集合地點正確性（特殊集合點先以 Google 地圖確認街景與動線），並確認站與站之間的行車距離與預估時間。[cite: 6]</li>
-                        </ul>
-                    </li>
-                </ul>
-
-                <h3>4. 團包物資清點[cite: 6]</h3>
-                <ul>
-                    <li><strong>必備物件</strong>：團包袋子、領隊旗桿、何時制服與工裝背心、醫藥包、紅茶與綠茶茶包、專用茶壺、純水濕紙巾 1 包。[cite: 6]</li>
-                    <li><strong>專案物資</strong>：合照布條、客人名牌、實體手冊、各團輔銷物（依各團型配置提供）。[cite: 6]</li>
-                </ul>
-
-                <h3>5. 供應商團確與行前聯繫[cite: 6]</h3>
-                <ul>
-                    <li><strong>供應商團確</strong>：依操作書逐一聯繫車行、餐廳、景點、活動、飯店與寄鋪，出團前全數確認完畢，掌握現場接應細節。[cite: 6]</li>
-                    <li><strong>司機大哥行前聯繫</strong>：出發前一天確實電話聯繫司機大哥，提醒集合時間、地點，並請車上備妥足量礦泉水、茶壺與熱水桶。若司機未接電話，切勿只傳簡訊，請回報團控由車行通知。[cite: 6]</li>
-                    <li><strong>特殊團型與功課準備</strong>：初次帶領的路線，出團前請務必與線控主管卡卡聯繫；若為特別包團，與卡卡討論後務必再聯繫當團業務，了解客戶背景與窗口特性。[cite: 6]</li>
-                </ul>
-
-                <h3>6. 「款待時刻」慶生驚喜 SOP[cite: 6]</h3>
-                <ul>
-                    <li><strong>當月壽星</strong>：贈送精緻小蛋糕一份（金額以 300 元內為原則），由領隊於旅遊途中合適地點購買；若沿途無適合蛋糕店，可調整為在地伴手禮，並同樣安排全車齊唱生日快樂歌分享。[cite: 6]</li>
-                    <li><strong>多位壽星（4 人以上）</strong>：由當團 OP 事先向專門店家訂購大蛋糕，慶生需安排溫馨慶祝環節並錄影，提供線控主管卡卡與公司行銷使用。[cite: 6]</li>
-                </ul>
-
-                <h3>7. 氣候因素與雨天備案執行標準[cite: 6]</h3>
-                <ul>
-                    <li><strong>出團判定標準</strong>：團體是否取消，一律以地方政府發布之「停止上班上課」公告為準。若出發地與旅遊地皆未發布停班停課，該團一律正常出團。[cite: 6]</li>
-                    <li><strong>雨天備案執行</strong>：正常出團若遇現場降雨，領隊務必與線控卡卡共同討論調整行程，轉為執行雨天備案。[cite: 6]</li>
-                    <li><strong>停班停課應變流程</strong>：即使地方政府宣布停班停課，領隊切勿自行向旅客發布取消訊息；請立即將線控卡卡加入聯絡社群（LINE 群組），由卡卡親自發布官方取消公告。[cite: 6]</li>
-                </ul>
-
-                <!-- 二、領隊出團專業規範 -->
-                <h2>二、領隊出團專業規範[cite: 6]</h2>
-                <ol>
-                    <li><strong>制服穿著標準</strong>：上身穿著公司品牌 POLO 衫或工裝背心（著背心拉鍊請拉齊至胸口），穿著黑色或深色合身牛仔褲，嚴禁穿著運動褲、休閒棉褲或拖鞋。（備註：若當天有玩水活動，當天可彈性穿著短褲；如果公司 POLO 衫或工裝背心有任何損壞破舊請主動更換）。[cite: 6]</li>
-                    <li><strong>禁菸紀律</strong>：出團期間嚴禁在客人面前抽菸。抽菸習慣屬個人行為，請於休息空檔尋找隱密處，嚴禁剛下團就在客人下車處點菸，違者直接停團處分。[cite: 6]</li>
-                    <li><strong>敬酒應對紀律</strong>：出團期間客人主動邀酒，請直接以「公司規定上班中不可飲酒」回絕；若客人熱情勸酒，請以茶代酒回敬。上班期間若有飲酒行為直接停團處分。[cite: 6]</li>
-                    <li><strong>品牌代表身分</strong>：出團期間不論是簽約領隊或外調領隊皆代表何時旅遊，客人詢問時一律以「何時旅遊簽約領隊」答覆。[cite: 6]</li>
-                    <li><strong>主動拍照留念</strong>：旅遊景點我們可能來過很多次，但對很多客人來說是珍貴的第一次。主動幫客人留下美好照片，大幅提升整趟旅遊溫度，對領隊回團製作影片亦有莫大助益。[cite: 6]</li>
-                    <li><strong>長輩關心與同理心</strong>：團體多有年紀較大的長輩，請主動關心攙扶上下階梯，不厭其煩叮嚀集合時間與洗手間方位，當成自己家人細心照護。[cite: 6]</li>
-                </ol>
-
-                <!-- 三、接隊作業服務 -->
-                <h2>三、接隊作業服務（SOP 與標準話術）[cite: 6]</h2>
-                <h3>1. 司機聯繫與提早抵達[cite: 6]</h3>
-                <ul>
-                    <li>集合時間前 1 小時主動致電司機大哥，確保準時抵達報到點。[cite: 6]</li>
-                    <li>領隊請於集合時間前 10 分鐘抵達現場，定位擺放好車條，拍攝遊覽車車頭與車牌照片提供至客人群組。[cite: 6]</li>
-                    <li>上車基於禮貌可先詢問司機：「大哥早安，今天氣溫較高，方便借冰箱放濕紙巾嗎？」（若冬天則不需要放）。[cite: 6]</li>
-                </ul>
-
-                <h3>2. 精準點名與未到通報[cite: 6]</h3>
-                <ul>
-                    <li>點名時務必清楚對應每位團員，嚴禁一人前來表示同伴都到就全數勾選。[cite: 6]</li>
-                    <li>集合時間已到若有團員未到，主動致電聯繫確認路況與抵達時間；若未接聽，立即聯繫該位客人的業務窗口雙向聯繫。集合逾時現場最長等候 10 分鐘，通聯記錄務必截圖保存以避免爭議。[cite: 6]</li>
-                    <li>發車前再次點名確認人數。領隊請親自走入走道由前往後逐座確認，避免夾帶未報名孩童或遺漏人數。[cite: 6]</li>
-                </ul>
-
-                <h3>3. 沿途多站接隊動線管理[cite: 6]</h3>
-                <ul>
-                    <li>開車後立即於群組發送下一站預計抵達時間（警語備註：實際抵達時間以路況為主）。[cite: 6]</li>
-                    <li>若有多站接隊，每一站開車後親自送礦泉水到客人座位旁，簡短問候致意，說明車上豐富的互動等最後一站接齊後正式展開，並提醒行車期間繫妥安全帶。[cite: 6]</li>
-                </ul>
-
-                <h3>4. 客訴案例調整：上車地點不符之現場應對[cite: 6]</h3>
-                <p class="text-xs text-slate-600">當發現客人實際上車地點與報名資料不同時，避免在車上公開宣達，以免影響其他客人觀感與團體氛圍。領隊請於走道旁半蹲私下溝通：[cite: 6]</p>
-                <blockquote>
-                    「大哥／大姐早安，這邊跟您核對一下資料，發現您原先登記的上車點在上一站，請問之前有先跟我們業務專員告知變更嗎？有跟業務說過的話就完全沒問題，我等等幫您在系統上標註好；如果是今天臨時改來這裡，因為車輛調度與保險名冊需要同步，下次出發前請記得提前跟業務說一聲，這樣我們才能為您做最好的準備喔！」[cite: 6]
-                </blockquote>
-                <p class="text-xs text-slate-600">若客人已通知業務，領隊立即私訊回報線控；若客人未事先通知，以私下柔和提醒化解，維持全車和諧。[cite: 6]</p>
-
-                <!-- 四、車上作業服務 -->
-                <h2>四、車上作業服務（互動話術與設備宣導）[cite: 6]</h2>
-                <h3>1. 麥克風音量測試[cite: 6]</h3>
-                <blockquote>
-                    「各位大哥、大姐早安！有聽到我的聲音嗎？後排的大哥大姐聽得清楚嗎？音量如果覺得太大聲或聽不清楚，隨時跟我打個招呼，我會馬上為大家調整到最舒服的音量喔！」[cite: 6]
-                </blockquote>
-
-                <h3>2. 行車安全逃生設備宣導[cite: 6]</h3>
-                <blockquote>
-                    「出門放鬆玩，安全最優先。在此向大家報告我們這台車的安全防護設備：全車共有 4 個安全門、3 個車窗擊破器、2 個滅火器，以及 1 個車頂逃生門。擊破器位於兩側車窗旁，若遇緊急狀況，取下後敲擊車窗四個角落即可推開逃生。大家坐好後，也請隨手幫我把安全帶繫上，讓我們一路平平安安。」[cite: 6]
-                </blockquote>
-
-                <h3>3. 領隊自我介紹與長官致詞安排[cite: 6]</h3>
-                <ul>
-                    <li><strong>自我介紹重點</strong>：領隊需站在樓上走道前方與客人眼神交流，明確告知自己的稱呼（如：有問題隨時跟卡卡說），讓團員快速記住名字，建立信任感。[cite: 6]</li>
-                    <li><strong>長官致詞安排</strong>：若為企業包團或特別專案團，領隊於自我介紹結束後，依清晨事先與主辦窗口確認好的名單，主動遞麥克風邀請主辦長官向全車致詞勉勵。[cite: 6]</li>
-                </ul>
-
-                <h3>4. 車隊介紹、空調調整與車室清潔宣導[cite: 6]</h3>
-                <blockquote>
-                    「今天為我們掌舵的是最專業沉穩的司機大哥，大家給司機大哥一個熱情掌聲！我們使用的是五年內全新的歐規豪華大巴，每台車都是正規公司車，車況穩定、保養嚴謹。車上每個座位都有專屬的空調出風口，冷氣如果覺得太強，請不要將風口全部關閉，可以將風口轉向吹向窗戶玻璃，這樣既能保持車內空氣流通，也不會直接吹到頭部。每個座位前方都有為大家準備清潔袋，抵達飯店前與回程時我會為大家集中收垃圾，隨時保持我們乾淨舒爽的車室空間。」[cite: 6]
-                </blockquote>
-
-                <h3>5. 礦泉水供應與傳統倒茶服務承諾[cite: 6]</h3>
-                <blockquote>
-                    「車上的礦泉水我們準備得非常充足，是無限量為大家供應的，喝完了隨時跟我拿。另外，何時旅遊雖然是充滿朝氣的新品牌，但我們產品團隊的主管是遊覽車基層出身，非常珍惜早期遊覽車那份充滿人情味的倒茶文化。在旅途行車平穩的時段，卡卡會帶著剛泡好的熱茶，走到大家的座位旁為大家斟上一杯暖茶，讓大家在車上品茗、看風景，享受最道地的款待溫度。」[cite: 6]
-                </blockquote>
-
-                <h3>6. 下層行李托運承諾[cite: 6]</h3>
-                <blockquote>
-                    「大家出門就是來放鬆的，下層行李廂的大件行李，抵達飯店時以及回程下車時，我們都會在車下一一為大家卸下來排好。大家在車上只要牽好身邊的家人、收好隨身貴重物品，慢慢走下車就好，剩下所有粗重的體力活交給卡卡來服務，讓大家出門玩得優雅又輕鬆！」[cite: 6]
-                </blockquote>
-
-                <h3>7. 車上娛樂活動規範[cite: 6]</h3>
-                <ul>
-                    <li><strong>散客系列團</strong>：為維護全車舒適安靜的乘車品質與休息空間，行車期間僅安排影片播映或輕音樂，恕不開放卡拉 OK 點唱服務。[cite: 6]</li>
-                    <li><strong>獨立包團</strong>：依窗口需求彈性開放卡拉 OK 歡唱，請旅客透過 LINE 群組點歌，領隊唱名引導；中午 12:30 至 13:30 用餐完畢後的行車時段應暫停唱歌，保留安靜休息時間。[cite: 6]</li>
-                </ul>
-
-                <!-- 五、品牌核心故事 -->
-                <h2>五、品牌核心故事與文化傳遞（車上深度分享）[cite: 6]</h2>
-                <h3>1. 創立初心與深度客製行程開發[cite: 6]</h3>
-                <blockquote>
-                    「常常有朋友問我，何時旅遊是一家什麼樣的旅行社？我們的故事是在 2019 年開始的，當時正值觀光業最艱難的時刻，我們主管卡卡帶著團隊開發國內的深度客製行程，以細膩的照顧和扎實的好口碑一步步站穩腳步。我們總公司在苗栗，核心團隊都是在台北大型旅行社歷練十多年的專業好手。我們從苗栗出發，陸續在後龍、竹南、桃園、台北開立了五家分店，接下來更會擴展到新竹與彰化。」[cite: 6]
-                </blockquote>
-
-                <h3>2. 供應鏈實力與透明定價哲學[cite: 6]</h3>
-                <blockquote>
-                    「現在何時旅遊每個月出團高達 1500 到 2000 人次，每個月有將近 70 團大客車在全台灣各地奔馳。正是因為有這麼龐大的出團量，我們能跟全台灣優質飯店、車隊爭取到非常優秀的採購條件。我們堅持透明合理的利潤，不趁熱度胡亂漲價，用實在的價格、高品質的車況與無微不至的服務回饋給大家。」[cite: 6]
-                </blockquote>
-
-                <h3>3. 榮獲旅遊界奧斯卡「國際金旅獎」殊榮[cite: 6]</h3>
-                <blockquote>
-                    「2024 年 0403 地震後太魯閣休園近一年，飯店總監聯繫卡卡後，卡卡親自走了一趟花蓮，被大自然驚人的修復力與土地的強韌深深打動，回來後立刻策劃帶大家重返花蓮的精緻路線。這套行程榮獲觀光署指導、有『旅遊業奧斯卡』之稱的【國際金旅獎】！這個獎項嚴格評選行程內容、定價公道性與旅客滿意度，這份肯定讓我們更堅定要為大家端出真正有靈魂的在地行程。」[cite: 6]
-                </blockquote>
-
-                <!-- 六、休息站與景點操作 -->
-                <h2>六、休息站操作與景點上下車貼心服務[cite: 6]</h2>
-                <ul>
-                    <li><strong>停靠節奏</strong>：平均 1 至 1.5 小時停靠一次。除回程未包晚餐需留時間讓客人買食物外，其餘操作皆為上完洗手間即發車。[cite: 6]</li>
-                    <li><strong>下車前安全廣播</strong>：[cite: 6]
-                        <blockquote>
-                            「各位大哥大姐，我們抵達休息站囉！下車前請記好我們遊覽車的車號與車身顏色；如果忘記也沒關係，卡卡會穿著制服站在車頭前，看到我在哪裡，車子就在哪裡！遊覽車階梯在下雨天邊緣金屬較滑，下車請踩穩扶手；走過車頭時請特別留意兩側的大型後照鏡高度，小心不要撞到頭。遊覽車完全停穩、車門打開後，大家再站起來下車喔！」[cite: 6]
-                        </blockquote>
-                    </li>
-                    <li><strong>景點「5:5 導覽法則」</strong>：一小時的時間，前半小時帶著客人走訪核心拍照點，後半小時保留給客人自由逛街。[cite: 6]</li>
-                    <li><strong>覆誦式宣達集合時間</strong>：[cite: 6]
-                        <blockquote>
-                            「我們這站預計停留到下午三點半，三點半遊覽車發車。請問各位家人，我們等等幾點車上集合？（引導全車齊聲回應：三點半！）太棒了，大家默契非常好！」[cite: 6]
-                        </blockquote>
-                    </li>
-                </ul>
-
-                <!-- 七、購物政策 -->
-                <h2>七、購物政策與誠信承諾[cite: 6]</h2>
-                <blockquote>
-                    「卡卡在這邊跟大家鄭重承諾：何時旅遊的團絕對不進封閉式強迫購物的場所，車上也絕對不賣任何商品。如果有經過觀光工廠，純粹是讓大家認識在地產業。大家完全依照自己的喜好與需求決定，想買就買、不想買漫步看展覽也非常好，絕不會有任何消費壓力。」[cite: 6]
-                </blockquote>
-                <p class="text-xs text-slate-600 mt-2">
-                    車上嚴禁客人或司機推銷商品；觀光工廠佣金全額繳回公司，茶水費現場歸司機大哥。[cite: 6]
-                </p>
-
-                <!-- 八、餐飲操作 -->
-                <h2>八、餐飲操作與關懷政策[cite: 6]</h2>
-                <div class="overflow-x-auto">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>用餐人數（不含領隊司機）[cite: 6]</th>
-                                <th>開桌與加量標準[cite: 6]</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>08 - 10 人</td><td>開立一桌[cite: 6]</td></tr>
-                            <tr><td>11 人</td><td>開立一桌 ＋ 加一位份量[cite: 6]</td></tr>
-                            <tr><td>12 人</td><td>開立一桌 ＋ 加二位份量[cite: 6]</td></tr>
-                            <tr><td>13 - 15 人</td><td>開立一桌半[cite: 6]</td></tr>
-                            <tr><td>16 - 20 人</td><td>開立二桌[cite: 6]</td></tr>
-                            <tr><td>21 人</td><td>開立二桌 ＋ 加一位份量[cite: 6]</td></tr>
-                            <tr><td>22 人</td><td>開立二桌 ＋ 加二位份量[cite: 6]</td></tr>
-                            <tr><td>23 - 25 人</td><td>開立二桌半[cite: 6]</td></tr>
-                            <tr><td>26 - 30 人</td><td>開立三桌[cite: 6]</td></tr>
-                            <tr><td>31 人</td><td>開立三桌 ＋ 加一位份量[cite: 6]</td></tr>
-                            <tr><td>32 人</td><td>開立三桌 ＋ 加二位份量[cite: 6]</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <h3>合菜落實關心政策</h3>
-                <ul>
-                    <li><strong>第三道菜</strong>：全桌出到第三道菜、出菜順暢後，領隊方可前去用餐。</li>
-                    <li><strong>第七道菜</strong>：領隊用餐完畢，回到各桌巡視關心飯菜狀況與份量。</li>
-                    <li><strong>上水果時</strong>：領隊二度逐桌關懷，預告下一站抵達時間，提醒帶齊隨身包包並前往洗手間。[cite: 6]</li>
-                </ul>
-
-                <!-- 九、飯店操作 -->
-                <h2>九、飯店操作服務[cite: 6]</h2>
-                <ul>
-                    <li><strong>入住前確認房號</strong>：領隊辦理入住前需主動核對房號分配，檢查同行親友是否被拆散。[cite: 6]</li>
-                    <li><strong>三分鐘進房小檢查話術</strong>：[cite: 6]
-                        <blockquote>
-                            「等等進房間後，請大家先做三分鐘的設備小檢查：打開水龍頭測試熱水與水壓、沖一下馬桶看排水是否順暢、洗手台排水孔順不順、電視開關測試、冷氣運轉是否正常。如果有任何小狀況，請立刻在 LINE 群組跟我說，我馬上請飯店工程人員處理或協助換房。」[cite: 6]
-                        </blockquote>
-                    </li>
-                    <li><strong>駐點守護時間</strong>：進房後推 2 小時（若有用晚餐則是餐後推 1 小時）才可離開飯店。[cite: 6]</li>
-                    <li><strong>素食早餐細膩確認</strong>：主動向飯店確認素食獨立套餐或素食專區標示，主動向素食團員說明。[cite: 6]</li>
-                </ul>
-
-                <!-- 十、謝車詞與小費 -->
-                <h2>十、謝車詞、匿名意見回饋與收小費情感昇華[cite: 6]</h2>
-                <blockquote>
-                    「這幾天下來，看見大家臉上放鬆的笑容，就是我們整個團隊最大的成就感。這些美麗的景點我們領隊可能走過幾十次，但對很多大哥大姐來說，卻是今年好不容易盼到的一次假期。卡卡由衷感謝這幾天大家對我的包容與照顧，更要感謝我們勞苦功高、默默掌舵守護大家行車安全的司機大哥。我們大家一起把最熱烈的掌聲送給辛苦的司機大哥！」[cite: 6]
-                </blockquote>
-                <p class="text-xs text-slate-600">收取服務小費每位團員每天 100 元（兩歲以下幼童免收）。群組發布【線上旅客意見調查表】與【何時出團抽獎社團】。[cite: 6]</p>
-
-                <!-- 十一、旅客權益守則 -->
-                <h2>十一、旅客權益、報名規範與行前守則指南[cite: 6]</h2>
-                <ul>
-                    <li><strong>定價與小孩收費</strong>：2 至 12 歲不佔床費用包含車資、餐食、門票與行政規費（不含小費每日 100 元）；2 歲以下嬰兒收作業費 300 元。[cite: 6]</li>
-                    <li><strong>車位劃位原則</strong>：全車座位均採公開線上自選機制，現場嚴禁私下大風吹換位。70 歲以上長輩需有家人陪同。[cite: 6]</li>
-                    <li><strong>獨立保險責任</strong>：[cite: 6]
-                        <ul class="mt-1">
-                            <li><strong>公司履約保證險</strong>：獨立投保總額新台幣 <strong>9,600 萬元</strong>。[cite: 6]</li>
-                            <li><strong>團體責任險</strong>：每人 <strong>250 萬元意外身故</strong> ＋ <strong>20 萬元意外醫療</strong>。[cite: 6]</li>
-                        </ul>
-                    </li>
-                    <li><strong>不可抗力停班停課標準</strong>：遇天災，出發地或目的地地方政府宣布停班停課，該團一律由公司主動取消並全額退費。[cite: 6]</li>
-                </ul>
-
-                <!-- 十二、十大同好旅遊系列 -->
-                <h2>十二、何時旅遊「同好旅遊」十大系列帶團心法[cite: 6]</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs mt-3">
-                    <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
-                        <strong class="text-sky-900 block font-bold mb-1">1. 美食尋味 ｜ Flavor Quest[cite: 6]</strong>
-                        <p class="text-slate-600">懂得「說菜」，介紹主廚理念與在地風土，嚴格落實「熱菜上桌」原則。[cite: 6]</p>
-                    </div>
-                    <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
-                        <strong class="text-sky-900 block font-bold mb-1">2. 緩慢時光 ｜ Slow Hours[cite: 6]</strong>
-                        <p class="text-slate-600">不趕路、只感受。放寬節奏，車上多留白，盡量早進飯店享受設施。[cite: 6]</p>
-                    </div>
-                    <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
-                        <strong class="text-sky-900 block font-bold mb-1">3. 花系列 ｜ In Bloom[cite: 6]</strong>
-                        <p class="text-slate-600">掌握季節花期與光線角度，主動告知最佳取景角並協助拍照。[cite: 6]</p>
-                    </div>
-                    <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
-                        <strong class="text-sky-900 block font-bold mb-1">4. 親子企劃 ｜ Family Discovery[cite: 6]</strong>
-                        <p class="text-slate-600">蹲下身子與孩子互動，兼顧大人放鬆與孩子放電，多拍全家福合照。[cite: 6]</p>
-                    </div>
-                    <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
-                        <strong class="text-sky-900 block font-bold mb-1">5. 寵物旅遊 ｜ Paws on Tour（旺旅趣）[cite: 6]</strong>
-                        <p class="text-slate-600">貫徹「慢慢來，顧好毛寶貝就好」，休息站不設上車時間，落實冷熱濕紙巾與安全帶規範。[cite: 6]</p>
-                    </div>
-                    <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
-                        <strong class="text-sky-900 block font-bold mb-1">6. 一人旅行 ｜ Solo & Free[cite: 6]</strong>
-                        <p class="text-slate-600">拿捏好「陪伴而不打擾」的分寸，給予個人空間，隨時主動幫一人旅客拍照。[cite: 6]</p>
-                    </div>
-                    <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
-                        <strong class="text-sky-900 block font-bold mb-1">7. 不准客訴 ｜ Zero Complaints[cite: 6]</strong>
-                        <p class="text-slate-600">前置作業交代清楚，現場落實「說到做到」，凡事多走一步、多問一句。[cite: 6]</p>
-                    </div>
-                    <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
-                        <strong class="text-sky-900 block font-bold mb-1">8. 探索者 ｜ The Explorers[cite: 6]</strong>
-                        <p class="text-slate-600">萬全安全宣導與裝備檢查，隨身攜帶急救包，兼顧探索自由與安全界線。[cite: 6]</p>
-                    </div>
-                    <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
-                        <strong class="text-sky-900 block font-bold mb-1">9. 旅拍拾光 ｜ Framed Moments[cite: 6]</strong>
-                        <p class="text-slate-600">掌握黃金光影時刻，協助尋找優質視角與引導自然站姿，及時整理歸檔照片。[cite: 6]</p>
-                    </div>
-                    <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
-                        <strong class="text-sky-900 block font-bold mb-1">10. 運動美學 ｜ Game On[cite: 6]</strong>
-                        <p class="text-slate-600">車上帶動熱血節奏，嚴密掌握賽事入場動線、散場接駁與水分體能調節。[cite: 6]</p>
-                    </div>
-                </div>
-
-                <!-- 十三、NAS 操作說明 -->
-                <h2>十三、活動照片上傳 NAS 操作說明[cite: 6]</h2>
-                <ul>
-                    <li>手機下載安裝「DS file」App。[cite: 6]</li>
-                    <li>登入資訊：IP <code>60.251.127.252</code> ｜ 帳號 <code>F001</code> ｜ 密碼 <code>11111</code>[cite: 6]</li>
-                    <li>資料夾命名標準格式：<code>出發日期＋團名＋天數＋領隊全名</code>（範例：<code>20261005花蓮晶英振興三日-楊凱翔</code>）[cite: 6]</li>
-                </ul>
-
-                <!-- 十四、回團行政與通報 -->
-                <h2>十四、領隊人員回團相關須知[cite: 6]</h2>
-                <ul>
-                    <li><strong>住宿寄鋪</strong>：以<strong>平日 1200 元／間、假日 1600 元／間</strong>為補助上限，超出部分自行吸收。[cite: 6]</li>
-                    <li><strong>報帳時限</strong>：所有報帳憑證與單據需於行程結束後 <strong>3 天內</strong>完成回團。[cite: 6]</li>
-                </ul>
-
-                <h3>團上旅客意外受傷通報格式[cite: 6]</h3>
-                <div class="p-4 bg-amber-50 border border-amber-300 rounded-lg font-mono text-xs text-amber-950 leading-relaxed my-3">
-                    <strong>【團上受傷客人回報】</strong><br>
-                    出團團號：<br>
-                    團體名稱：（填寫完整）<br>
-                    業務姓名+電話：<br>
-                    受傷客人+電話：<br>
-                    陪同友人+電話：<br>
-                    受傷時間+地點：<br>
-                    處理方式：（請依時間序回報，過程詳述並持續追蹤至客人返回團上）[cite: 6]
-                </div>
-
-                <div class="text-right text-xs text-slate-400 border-t border-slate-200 pt-3 mt-8">
-                    何時旅遊內部培訓教材．版權所有．嚴禁外流[cite: 6]
-                </div>
-
-            </div>
-        </div>
-
-    </div>
-
-    <!-- ========================================== -->
-    <!-- 分頁三：領隊職等與升級現況紀錄 (管理/個人查詢) -->
+    <!-- 分頁二：職等查詢 & 作業手冊 (整合單一身分驗證) -->
     <!-- ========================================== -->
     <div id="tabContentDashboard" class="hidden">
         
-        <!-- 查詢驗證閘門 (未登入時顯示) -->
+        <!-- 查詢驗證閘門 (未登入時顯示 - 已移除預設密碼文字) -->
         <div id="dashAuthGate" class="max-w-md mx-auto my-20 p-8 bg-white rounded-2xl shadow-xl border border-slate-200 text-center">
             <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl shadow-inner">
-                <i class="fa-solid fa-address-card"></i>
+                <i class="fa-solid fa-id-card-clip"></i>
             </div>
-            <h3 class="text-xl font-black text-slate-900 mb-2">何時旅遊 領隊考核與職等查詢</h3>
+            <h3 class="text-xl font-black text-slate-900 mb-2">何時旅遊 領隊考核與作業手冊</h3>
             <p class="text-xs text-slate-500 mb-6 leading-relaxed">
-                領隊請輸入<strong>身分證字號</strong>查詢個人目前職等與晉升進度；<br>
+                領隊請輸入<strong>身分證字號</strong>查詢個人目前職等與完整帶團作業規範；<br>
                 管理者請輸入<strong>管理密碼</strong>查閱全體領隊名冊。
             </p>
             
@@ -1048,10 +643,10 @@
                     <span>查無此身分證字號或管理密碼錯誤</span>
                 </div>
                 <button type="submit" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-sm transition shadow-md flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-magnifying-glass"></i> 驗證身分並查詢進度
+                    <i class="fa-solid fa-magnifying-glass"></i> 驗證身分並解鎖專區
                 </button>
             </form>
-            <p class="text-[11px] text-slate-400 mt-6">預設管理員密碼：<code class="bg-slate-100 px-1.5 py-0.5 rounded text-slate-600 font-mono">HORAZ2027</code></p>
+            <p class="text-[11px] text-slate-400 mt-6">如您為現職合作領隊且無法登入，請洽詢產品部線控主管卡卡建立名單。</p>
         </div>
 
         <!-- 查詢結果主容器 (驗證通過後顯示) -->
@@ -1122,7 +717,7 @@
                     </div>
                 </div>
 
-                <!-- 名冊表格（全新升級改版版面） -->
+                <!-- 名冊表格 -->
                 <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
                     <div class="overflow-x-auto">
                         <table class="w-full text-left border-collapse text-xs">
@@ -1147,10 +742,11 @@
                 </div>
             </div>
 
-            <!-- 視圖 B：個人領隊專屬狀態卡 (Leader View) -->
-            <div id="leaderView" class="hidden max-w-3xl mx-auto">
+            <!-- 視圖 B：個人領隊專屬狀態卡 + 下方直接展開標準作業手冊 -->
+            <div id="leaderView" class="hidden max-w-4xl mx-auto space-y-12">
+                
+                <!-- 1. 個人狀態卡 -->
                 <div class="bg-white rounded-2xl border border-slate-200 shadow-lg overflow-hidden">
-                    <!-- 個人卡頂部 -->
                     <div class="p-6 sm:p-8 bg-gradient-to-r from-slate-900 to-sky-950 text-white flex flex-col sm:flex-row items-center justify-between gap-4">
                         <div class="flex items-center gap-4 text-center sm:text-left">
                             <div id="leaderBadgeIcon" class="w-16 h-16 rounded-2xl flex items-center justify-center font-black text-2xl shadow-md bg-amber-500 text-white">
@@ -1167,70 +763,410 @@
                         </div>
                     </div>
 
-                    <!-- 個人各項考核進度指標 -->
                     <div class="p-6 sm:p-8 space-y-6">
-                        
-                        <!-- 考核時程區塊 -->
+                        <!-- 考核時程 -->
                         <div class="grid grid-cols-2 gap-3 p-3.5 bg-slate-100/80 rounded-xl border border-slate-200">
                             <div>
                                 <span class="text-[11px] text-slate-500 block font-medium">當前職級通過日期</span>
-                                <span class="text-sm font-bold text-slate-800" id="leaderCardPassedDate">--</span>
+                                <span class="text-sm font-bold text-slate-800 font-mono" id="leaderCardPassedDate">--</span>
                             </div>
                             <div>
                                 <span class="text-[11px] text-slate-500 block font-medium">預計下一階段考核</span>
-                                <span class="text-sm font-bold text-sky-700" id="leaderCardNextDate">--</span>
+                                <span class="text-sm font-bold text-sky-700 font-mono" id="leaderCardNextDate">--</span>
                             </div>
                         </div>
 
-                        <!-- 考核三大指標明細 -->
+                        <!-- 考核三大指標 -->
                         <div class="space-y-4">
-                            <!-- 出團穩定度 -->
                             <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
                                 <span class="text-xs text-slate-500 font-bold block mb-1">半年出團無重大客訴</span>
                                 <span class="text-sm font-bold text-slate-800" id="leaderMetricStability">符合標準 (合格)</span>
                             </div>
 
-                            <!-- 主題專長 & 標籤 -->
                             <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
                                 <div class="flex justify-between items-center mb-2">
                                     <span class="text-xs text-slate-500 font-bold">已通過之同好主題專長</span>
                                     <span class="text-xs font-bold" id="leaderThemesDiffBadge"></span>
                                 </div>
-                                <div id="leaderThemesTagsContainer" class="flex flex-wrap gap-1.5 mb-1">
-                                    <!-- 標籤 -->
-                                </div>
+                                <div id="leaderThemesTagsContainer" class="flex flex-wrap gap-1.5 mb-1"></div>
                             </div>
 
-                            <!-- 業務/客指定明細 -->
                             <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
                                 <div class="flex justify-between items-center mb-2">
                                     <span class="text-xs text-slate-500 font-bold">業務或全團客人指定出團</span>
                                     <span class="text-xs font-bold" id="leaderDesignatedDiffBadge"></span>
                                 </div>
-                                <div id="leaderDesignatedListContainer" class="space-y-1.5 text-xs text-slate-700">
-                                    <!-- 明細 -->
-                                </div>
+                                <div id="leaderDesignatedListContainer" class="space-y-1.5 text-xs text-slate-700"></div>
                             </div>
                         </div>
 
-                        <!-- 目前享有權益清單 -->
+                        <!-- 專屬權益 -->
                         <div class="p-4 bg-sky-50 rounded-xl border border-sky-100">
                             <h4 class="text-xs font-bold text-sky-950 mb-2 flex items-center gap-1.5">
                                 <i class="fa-solid fa-gift text-sky-600"></i>
                                 <span>您目前等級享有之完整差旅與津貼權益：</span>
                             </h4>
-                            <ul class="text-xs text-sky-900 space-y-1.5 pl-4 list-disc" id="leaderBenefitsList">
-                                <!-- 動態填入 -->
-                            </ul>
+                            <ul class="text-xs text-sky-900 space-y-1.5 pl-4 list-disc" id="leaderBenefitsList"></ul>
                         </div>
 
                         <div class="p-3 bg-amber-50 rounded-xl border border-amber-200 text-xs text-amber-900 flex items-start gap-2">
                             <i class="fa-solid fa-circle-info text-amber-600 mt-0.5"></i>
                             <div id="leaderNotes">備註：考核資料每月結算更新乙次，若對出團量或主題專長認證有疑問，請隨時聯繫國內線產品部線控主管卡卡。</div>
                         </div>
-
                     </div>
                 </div>
+
+                <!-- 2. 下方直接完整展開「標準作業手冊 v2.0」（領隊免二次驗證） -->
+                <div class="bg-white rounded-2xl p-6 sm:p-10 shadow-md border border-slate-200 sop-content">
+                    <div class="border-b-2 border-slate-900 pb-4 mb-6 text-center">
+                        <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs font-bold mb-3">
+                            <i class="fa-solid fa-circle-check"></i> 身分已驗證通過，完整解鎖內部手冊
+                        </div>
+                        <h2 class="text-2xl sm:text-3xl font-black text-slate-900 mb-2 !border-none !bg-transparent !p-0">何時旅遊 x 國內旅遊 內部帶團手冊</h2>
+                        <div class="text-base text-slate-600 font-bold mb-2">領隊帶團 SOP 與完整話術指南</div>
+                        <span class="bg-sky-700 text-white text-xs font-semibold px-3 py-1 rounded">卡卡製作版本：v2.0 (2026.10.27)[cite: 6]</span>
+                    </div>
+
+                    <!-- 核心精神 -->
+                    <div class="bg-sky-50 border border-sky-200 border-l-4 border-l-sky-600 p-4 rounded-lg my-6">
+                        <div class="font-bold text-sky-900 text-sm mb-2">★ 核心精神[cite: 6]</div>
+                        <div class="text-slate-800 text-sm font-semibold mb-2">「帶著熱忱出發，用專業說好土地的故事；在每個細膩的款待時刻裡，好好感受旅行。」[cite: 6]</div>
+                        <div class="text-xs text-slate-700 space-y-1.5 leading-relaxed">
+                            <p>• <strong>服務熱忱</strong>：服務不是制式的 SOP，是把客人的每件小事，都當成自己的重要大事，用真誠去打動人心。[cite: 6]</p>
+                            <p>• <strong>專業分享</strong>：我們不背誦生硬的歷史年份，透過生動立體的故事，把在地的風土、人情與生活感，說進旅人的心坎裡。[cite: 6]</p>
+                            <p>• <strong>款待時刻</strong>：從遞上一杯剛泡好的熱茶、一個剛好合心意的引導，到安頓好每個細微感受，讓每位團員深刻體會被真心相待的美好。[cite: 6]</p>
+                        </div>
+                        <hr class="border-dashed border-sky-300 my-3">
+                        <div class="font-bold text-sky-900 text-sm mb-1">★ 全程帶團最高核心原則[cite: 6]</div>
+                        <div class="text-slate-800 text-sm font-semibold">「出門就是放鬆，把時間留給自己，好好感受旅程。」[cite: 6]</div>
+                        <div class="text-xs text-slate-600 mt-1">
+                            旅遊是一件極度放鬆的事情，放下所有生活裡的焦慮。將繁瑣的行李上下、路況調度交給專業團隊打理，讓大家全力享受同行相聚的美好時光。[cite: 6]
+                        </div>
+                    </div>
+
+                    <!-- 一、出發前準備 -->
+                    <h2>一、出發前準備（核對與前置作業）[cite: 6]</h2>
+                    <h3>1. 前置作業排程[cite: 6]</h3>
+                    <ul>
+                        <li><strong>出團前 7 天確認前置</strong>：主動聯繫團控，確認電話交團時間（統一出發前 3 個工作天）、確認團包內容與寄送資訊、報到點是否需要安排寄鋪。</li>
+                        <li><strong>出團前 3 天發布行前提醒</strong>：出發 3 天前於群組發布完整注意事項清單，發布內容包含：自我介紹、集合時間與地點、遊覽車車號、每日天氣提醒、建議個人攜帶物品、行程飯店特別說明（如泳池開放與泳具攜帶）。[cite: 6]</li>
+                    </ul>
+
+                    <h3>2. 客群提問與上下車點嚴謹規範[cite: 6]</h3>
+                    <ul>
+                        <li><strong>群組問題回覆</strong>：旅客在群組發問旅遊相關問題，記得主動協助回覆；若該問題當下無法立即解決，請回覆客人：「確認後第一時間回覆給您。」[cite: 6]</li>
+                        <li><strong>報名、座位與上車點異動</strong>：客人若提出報名、選座位、改上車點需求，請引導客人直接聯繫業務窗口，讓業務修改系統以確保資訊同步。[cite: 6]</li>
+                        <li><strong>上下車點嚴禁私下答應</strong>：不論在群組或出團期間，客人要求修改、增加上下車點，切勿自行答應，請統一聯繫業務窗口。上車點皆為固定站點，不能因為順路就修改，此舉對其他準時依約前往的客人不公平，且一旦破例後續難以管理。[cite: 6]</li>
+                    </ul>
+
+                    <h3>3. 交團資料齊全度核對[cite: 6]</h3>
+                    <ul>
+                        <li><strong>線上領隊作業回報系統連結</strong>：[cite: 6]
+                            <ul>
+                                <li>確認領隊日報檢查表是否與行前資料相符。[cite: 6]</li>
+                                <li>確認預支團支金額是否與實領款項相符。[cite: 6]</li>
+                                <li>確認分房表是否與座位報表席次相符。[cite: 6]</li>
+                                <li><em>註：線上系統內座位報表之完整個資解密密碼為當團出發日期（例如：20261005）。[cite: 6]</em></li>
+                            </ul>
+                        </li>
+                        <li><strong>NAS 資料夾連結</strong>：[cite: 6]
+                            <ul>
+                                <li>逐一核對派車報到單、車籍資料、客戶行前資料、操作書、分房表、飯店房號表、保險保單、車條、相關供應商預訂憑證與電子車票。[cite: 6]</li>
+                                <li>車況規格確認：務必確認操作書上遊覽車指定車齡在 5 年內，並核對車籍資料座位數（車籍座位數已包含司機大哥與領隊）。[cite: 6]</li>
+                                <li>保險保單查核：確認出團日期與人數相符，若有加保旅平險亦同步檢查。[cite: 6]</li>
+                                <li>行前資料核實：確認集合地點正確性（特殊集合點先以 Google 地圖確認街景與動線），並確認站與站之間的行車距離與預估時間。[cite: 6]</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <h3>4. 團包物資清點[cite: 6]</h3>
+                    <ul>
+                        <li><strong>必備物件</strong>：團包袋子、領隊旗桿、何時制服與工裝背心、醫藥包、紅茶與綠茶茶包、專用茶壺、純水濕紙巾 1 包。[cite: 6]</li>
+                        <li><strong>專案物資</strong>：合照布條、客人名牌、實體手冊、各團輔銷物（依各團型配置提供）。[cite: 6]</li>
+                    </ul>
+
+                    <h3>5. 供應商團確與行前聯繫[cite: 6]</h3>
+                    <ul>
+                        <li><strong>供應商團確</strong>：依操作書逐一聯繫車行、餐廳、景點、活動、飯店與寄鋪，出團前全數確認完畢，掌握現場接應細節。[cite: 6]</li>
+                        <li><strong>司機大哥行前聯繫</strong>：出發前一天確實電話聯繫司機大哥，提醒集合時間、地點，並請車上備妥足量礦泉水、茶壺與熱水桶。若司機未接電話，切勿只傳簡訊，請回報團控由車行通知。[cite: 6]</li>
+                        <li><strong>特殊團型與功課準備</strong>：初次帶領的路線，出團前請務必與線控主管卡卡聯繫；若為特別包團，與卡卡討論後務必再聯繫當團業務，了解客戶背景與窗口特性。[cite: 6]</li>
+                    </ul>
+
+                    <h3>6. 「款待時刻」慶生驚喜 SOP[cite: 6]</h3>
+                    <ul>
+                        <li><strong>當月壽星</strong>：贈送精緻小蛋糕一份（金額以 300 元內為原則），由領隊於旅遊途中合適地點購買；若沿途無適合蛋糕店，可調整為在地伴手禮，並同樣安排全車齊唱生日快樂歌分享。[cite: 6]</li>
+                        <li><strong>多位壽星（4 人以上）</strong>：由當團 OP 事先向專門店家訂購大蛋糕，慶生需安排溫馨慶祝環節並錄影，提供線控主管卡卡與公司行銷使用。[cite: 6]</li>
+                    </ul>
+
+                    <h3>7. 氣候因素與雨天備案執行標準[cite: 6]</h3>
+                    <ul>
+                        <li><strong>出團判定標準</strong>：團體是否取消，一律以地方政府發布之「停止上班上課」公告為準。若出發地與旅遊地皆未發布停班停課，該團一律正常出團。[cite: 6]</li>
+                        <li><strong>雨天備案執行</strong>：正常出團若遇現場降雨，領隊務必與線控卡卡共同討論調整行程，轉為執行雨天備案。[cite: 6]</li>
+                        <li><strong>停班停課應變流程</strong>：即使地方政府宣布停班停課，領隊切勿自行向旅客發布取消訊息；請立即將線控卡卡加入聯絡社群（LINE 群組），由卡卡親自發布官方取消公告。[cite: 6]</li>
+                    </ul>
+
+                    <!-- 二、領隊出團專業規範 -->
+                    <h2>二、領隊出團專業規範[cite: 6]</h2>
+                    <ol>
+                        <li><strong>制服穿著標準</strong>：上身穿著公司品牌 POLO 衫或工裝背心（著背心拉鍊請拉齊至胸口），穿著黑色或深色合身牛仔褲，嚴禁穿著運動褲、休閒棉褲或拖鞋。（備註：若當天有玩水活動，當天可彈性穿著短褲；如果公司 POLO 衫或工裝背心有任何損壞破舊請主動更換）。[cite: 6]</li>
+                        <li><strong>禁菸紀律</strong>：出團期間嚴禁在客人面前抽菸。抽菸習慣屬個人行為，請於休息空檔尋找隱密處，嚴禁剛下團就在客人下車處點菸，違者直接停團處分。[cite: 6]</li>
+                        <li><strong>敬酒應對紀律</strong>：出團期間客人主動邀酒，請直接以「公司規定上班中不可飲酒」回絕；若客人熱情勸酒，請以茶代酒回敬。上班期間若有飲酒行為直接停團處分。[cite: 6]</li>
+                        <li><strong>品牌代表身分</strong>：出團期間不論是簽約領隊或外調領隊皆代表何時旅遊，客人詢問時一律以「何時旅遊簽約領隊」答覆。[cite: 6]</li>
+                        <li><strong>主動拍照留念</strong>：旅遊景點我們可能來過很多次，但對很多客人來說是珍貴的第一次。主動幫客人留下美好照片，大幅提升整趟旅遊溫度，對領隊回團製作影片亦有莫大助益。[cite: 6]</li>
+                        <li><strong>長輩關心與同理心</strong>：團體多有年紀較大的長輩，請主動關心攙扶上下階梯，不厭其煩叮嚀集合時間與洗手間方位，當成自己家人細心照護。[cite: 6]</li>
+                    </ol>
+
+                    <!-- 三、接隊作業服務 -->
+                    <h2>三、接隊作業服務（SOP 與標準話術）[cite: 6]</h2>
+                    <h3>1. 司機聯繫與提早抵達[cite: 6]</h3>
+                    <ul>
+                        <li>集合時間前 1 小時主動致電司機大哥，確保準時抵達報到點。[cite: 6]</li>
+                        <li>領隊請於集合時間前 10 分鐘抵達現場，定位擺放好車條，拍攝遊覽車車頭與車牌照片提供至客人群組。[cite: 6]</li>
+                        <li>上車基於禮貌可先詢問司機：「大哥早安，今天氣溫較高，方便借冰箱放濕紙巾嗎？」（若冬天則不需要放）。[cite: 6]</li>
+                    </ul>
+
+                    <h3>2. 精準點名與未到通報[cite: 6]</h3>
+                    <ul>
+                        <li>點名時務必清楚對應每位團員，嚴禁一人前來表示同伴都到就全數勾選。[cite: 6]</li>
+                        <li>集合時間已到若有團員未到，主動致電聯繫確認路況與抵達時間；若未接聽，立即聯繫該位客人的業務窗口雙向聯繫。集合逾時現場最長等候 10 分鐘，通聯記錄務必截圖保存以避免爭議。[cite: 6]</li>
+                        <li>發車前再次點名確認人數。領隊請親自走入走道由前往後逐座確認，避免夾帶未報名孩童或遺漏人數。[cite: 6]</li>
+                    </ul>
+
+                    <h3>3. 沿途多站接隊動線管理[cite: 6]</h3>
+                    <ul>
+                        <li>開車後立即於群組發送下一站預計抵達時間（警語備註：實際抵達時間以路況為主）。[cite: 6]</li>
+                        <li>若有多站接隊，每一站開車後親自送礦泉水到客人座位旁，簡短問候致意，說明車上豐富的互動等最後一站接齊後正式展開，並提醒行車期間繫妥安全帶。[cite: 6]</li>
+                    </ul>
+
+                    <h3>4. 客訴案例調整：上車地點不符之現場應對[cite: 6]</h3>
+                    <p class="text-xs text-slate-600">當發現客人實際上車地點與報名資料不同時，避免在車上公開宣達，以免影響其他客人觀感與團體氛圍。領隊請於走道旁半蹲私下溝通：[cite: 6]</p>
+                    <blockquote>
+                        「大哥／大姐早安，這邊跟您核對一下資料，發現您原先登記的上車點在上一站，請問之前有先跟我們業務專員告知變更嗎？有跟業務說過的話就完全沒問題，我等等幫您在系統上標註好；如果是今天臨時改來這裡，因為車輛調度與保險名冊需要同步，下次出發前請記得提前跟業務說一聲，這樣我們才能為您做最好的準備喔！」[cite: 6]
+                    </blockquote>
+
+                    <!-- 四、車上作業服務 -->
+                    <h2>四、車上作業服務（互動話術與設備宣導）[cite: 6]</h2>
+                    <h3>1. 麥克風音量測試[cite: 6]</h3>
+                    <blockquote>
+                        「各位大哥、大姐早安！有聽到我的聲音嗎？後排的大哥大姐聽得清楚嗎？音量如果覺得太大聲或聽不清楚，隨時跟我打個招呼，我會馬上為大家調整到最舒服的音量喔！」[cite: 6]
+                    </blockquote>
+
+                    <h3>2. 行車安全逃生設備宣導[cite: 6]</h3>
+                    <blockquote>
+                        「出門放鬆玩，安全最優先。在此向大家報告我們這台車的安全防護設備：全車共有 4 個安全門、3 個車窗擊破器、2 個滅火器，以及 1 個車頂逃生門。擊破器位於兩側車窗旁，若遇緊急狀況，取下後敲擊車窗四個角落即可推開逃生。大家坐好後，也請隨手幫我把安全帶繫上，讓我們一路平平安安。」[cite: 6]
+                    </blockquote>
+
+                    <h3>3. 領隊自我介紹與長官致詞安排[cite: 6]</h3>
+                    <ul>
+                        <li><strong>自我介紹重點</strong>：領隊需站在樓上走道前方與客人眼神交流，明確告知自己的稱呼（如：有問題隨時跟卡卡說），讓團員快速記住名字，建立信任感。[cite: 6]</li>
+                        <li><strong>長官致詞安排</strong>：若為企業包團或特別專案團，領隊於自我介紹結束後，依清晨事先與主辦窗口確認好的名單，主動遞麥克風邀請主辦長官向全車致詞勉勵。[cite: 6]</li>
+                    </ul>
+
+                    <h3>4. 車隊介紹、空調調整與車室清潔宣導[cite: 6]</h3>
+                    <blockquote>
+                        「今天為我們掌舵的是最專業沉穩的司機大哥，大家給司機大哥一個熱情掌聲！我們使用的是五年內全新的歐規豪華大巴，每台車都是正規公司車，車況穩定、保養嚴謹。車上每個座位都有專屬的空調出風口，冷氣如果覺得太強，請不要將風口全部關閉，可以將風口轉向吹向窗戶玻璃，這樣既能保持車內空氣流通，也不會直接吹到頭部。每個座位前方都有為大家準備清潔袋，抵達飯店前與回程時我會為大家集中收垃圾，隨時保持我們乾淨舒爽的車室空間。」[cite: 6]
+                    </blockquote>
+
+                    <h3>5. 礦泉水供應與傳統倒茶服務承諾[cite: 6]</h3>
+                    <blockquote>
+                        「車上的礦泉水我們準備得非常充足，是無限量為大家供應的，喝完了隨時跟我拿。另外，何時旅遊雖然是充滿朝氣的新品牌，但我們產品團隊的主管是遊覽車基層出身，非常珍惜早期遊覽車那份充滿人情味的倒茶文化。在旅途行車平穩的時段，卡卡會帶著剛泡好的熱茶，走到大家的座位旁為大家斟上一杯暖茶，讓大家在車上品茗、看風景，享受最道地的款待溫度。」[cite: 6]
+                    </blockquote>
+
+                    <h3>6. 下層行李托運承諾[cite: 6]</h3>
+                    <blockquote>
+                        「大家出門就是來放鬆的，下層行李廂的大件行李，抵達飯店時以及回程下車時，我們都會在車下一一為大家卸下來排好。大家在車上只要牽好身邊的家人、收好隨身貴重物品，慢慢走下車就好，剩下所有粗重的體力活交給卡卡來服務，讓大家出門玩得優雅又輕鬆！」[cite: 6]
+                    </blockquote>
+
+                    <h3>7. 車上娛樂活動規範[cite: 6]</h3>
+                    <ul>
+                        <li><strong>散客系列團</strong>：為維護全車舒適安靜的乘車品質與休息空間，行車期間僅安排影片播映或輕音樂，恕不開放卡拉 OK 點唱服務。[cite: 6]</li>
+                        <li><strong>獨立包團</strong>：依窗口需求彈性開放卡拉 OK 歡唱，請旅客透過 LINE 群組點歌，領隊唱名引導；中午 12:30 至 13:30 用餐完畢後的行車時段應暫停唱歌，保留安靜休息時間。[cite: 6]</li>
+                    </ul>
+
+                    <!-- 五、品牌核心故事 -->
+                    <h2>五、品牌核心故事與文化傳遞（車上深度分享）[cite: 6]</h2>
+                    <h3>1. 創立初心與深度客製行程開發[cite: 6]</h3>
+                    <blockquote>
+                        「常常有朋友問我，何時旅遊是一家什麼樣的旅行社？我們的故事是在 2019 年開始的，當時正值觀光業最艱難的時刻，我們主管卡卡帶著團隊開發國內的深度客製行程，以細膩的照顧和扎實的好口碑一步步站穩腳步。我們總公司在苗栗，核心團隊都是在台北大型旅行社歷練十多年的專業好手。我們從苗栗出發，陸續在後龍、竹南、桃園、台北開立了五家分店，接下來更會擴展到新竹與彰化。」[cite: 6]
+                    </blockquote>
+
+                    <h3>2. 供應鏈實力與透明定價哲學[cite: 6]</h3>
+                    <blockquote>
+                        「現在何時旅遊每個月出團高達 1500 到 2000 人次，每個月有將近 70 團大客車在全台灣各地奔馳。正是因為有這麼龐大的出團量，我們能跟全台灣優質飯店、車隊爭取到非常優秀的採購條件。我們堅持透明合理的利潤，不趁熱度胡亂漲價，用實在的價格、高品質的車況與無微不至的服務回饋給大家。」[cite: 6]
+                    </blockquote>
+
+                    <h3>3. 榮獲旅遊界奧斯卡「國際金旅獎」殊榮[cite: 6]</h3>
+                    <blockquote>
+                        「2024 年 0403 地震後太魯閣休園近一年，飯店總監聯繫卡卡後，卡卡親自走了一趟花蓮，被大自然驚人的修復力與土地的強韌深深打動，回來後立刻策劃帶大家重返花蓮的精緻路線。這套行程榮獲觀光署指導、有『旅遊業奧斯卡』之稱的【國際金旅獎】！這個獎項嚴格評選行程內容、定價公道性與旅客滿意度，這份肯定讓我們更堅定要為大家端出真正有靈魂的在地行程。」[cite: 6]
+                    </blockquote>
+
+                    <!-- 六、休息站與景點操作 -->
+                    <h2>六、休息站操作與景點上下車貼心服務[cite: 6]</h2>
+                    <ul>
+                        <li><strong>停靠節奏</strong>：平均 1 至 1.5 小時停靠一次。除回程未包晚餐需留時間讓客人買食物外，其餘操作皆為上完洗手間即發車。[cite: 6]</li>
+                        <li><strong>下車前安全廣播</strong>：[cite: 6]
+                            <blockquote>
+                                「各位大哥大姐，我們抵達休息站囉！下車前請記好我們遊覽車的車號與車身顏色；如果忘記也沒關係，卡卡會穿著制服站在車頭前，看到我在哪裡，車子就在哪裡！遊覽車階梯在下雨天邊緣金屬較滑，下車請踩穩扶手；走過車頭時請特別留意兩側的大型後照鏡高度，小心不要撞到頭。遊覽車完全停穩、車門打開後，大家再站起來下車喔！」[cite: 6]
+                            </blockquote>
+                        </li>
+                        <li><strong>景點「5:5 導覽法則」</strong>：一小時的時間，前半小時帶著客人走訪核心拍照點，後半小時保留給客人自由逛街。[cite: 6]</li>
+                        <li><strong>覆誦式宣達集合時間</strong>：[cite: 6]
+                            <blockquote>
+                                「我們這站預計停留到下午三點半，三點半遊覽車發車。請問各位家人，我們等等幾點車上集合？（引導全車齊聲回應：三點半！）太棒了，大家默契非常好！」[cite: 6]
+                            </blockquote>
+                        </li>
+                    </ul>
+
+                    <!-- 七、購物政策 -->
+                    <h2>七、購物政策與誠信承諾[cite: 6]</h2>
+                    <blockquote>
+                        「卡卡在這邊跟大家鄭重承諾：何時旅遊的團絕對不進封閉式強迫購物的場所，車上也絕對不賣任何商品。如果有經過觀光工廠，純粹是讓大家認識在地產業。大家完全依照自己的喜好與需求決定，想買就買、不想買漫步看展覽也非常好，絕不會有任何消費壓力。」[cite: 6]
+                    </blockquote>
+
+                    <!-- 八、餐飲操作 -->
+                    <h2>八、餐飲操作與關懷政策[cite: 6]</h2>
+                    <div class="overflow-x-auto">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>用餐人數（不含領隊司機）[cite: 6]</th>
+                                    <th>開桌與加量標準[cite: 6]</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>08 - 10 人</td><td>開立一桌[cite: 6]</td></tr>
+                                <tr><td>11 人</td><td>開立一桌 ＋ 加一位份量[cite: 6]</td></tr>
+                                <tr><td>12 人</td><td>開立一桌 ＋ 加二位份量[cite: 6]</td></tr>
+                                <tr><td>13 - 15 人</td><td>開立一桌半[cite: 6]</td></tr>
+                                <tr><td>16 - 20 人</td><td>開立二桌[cite: 6]</td></tr>
+                                <tr><td>21 人</td><td>開立二桌 ＋ 加一位份量[cite: 6]</td></tr>
+                                <tr><td>22 人</td><td>開立二桌 ＋ 加二位份量[cite: 6]</td></tr>
+                                <tr><td>23 - 25 人</td><td>開立二桌半[cite: 6]</td></tr>
+                                <tr><td>26 - 30 人</td><td>開立三桌[cite: 6]</td></tr>
+                                <tr><td>31 人</td><td>開立三桌 ＋ 加一位份量[cite: 6]</td></tr>
+                                <tr><td>32 人</td><td>開立三桌 ＋ 加二位份量[cite: 6]</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>合菜落實關心政策</h3>
+                    <ul>
+                        <li><strong>第三道菜</strong>：全桌出到第三道菜、出菜順暢後，領隊方可前去用餐。</li>
+                        <li><strong>第七道菜</strong>：領隊用餐完畢，回到各桌巡視關心飯菜狀況與份量。</li>
+                        <li><strong>上水果時</strong>：領隊二度逐桌關懷，預告下一站抵達時間，提醒帶齊隨身包包並前往洗手間。[cite: 6]</li>
+                    </ul>
+
+                    <!-- 九、飯店操作 -->
+                    <h2>九、飯店操作服務[cite: 6]</h2>
+                    <ul>
+                        <li><strong>入住前確認房號</strong>：領隊辦理入住前需主動核對房號分配，檢查同行親友是否被拆散。[cite: 6]</li>
+                        <li><strong>三分鐘進房小檢查話術</strong>：[cite: 6]
+                            <blockquote>
+                                「等等進房間後，請大家先做三分鐘的設備小檢查：打開水龍頭測試熱水與水壓、沖一下馬桶看排水是否順暢、洗手台排水孔順不順、電視開關測試、冷氣運轉是否正常。如果有任何小狀況，請立刻在 LINE 群組跟我說，我馬上請飯店工程人員處理或協助換房。」[cite: 6]
+                            </blockquote>
+                        </li>
+                        <li><strong>駐點守護時間</strong>：進房後推 2 小時（若有用晚餐則是餐後推 1 小時）才可離開飯店。[cite: 6]</li>
+                        <li><strong>素食早餐細膩確認</strong>：主動向飯店確認素食獨立套餐或素食專區標示，主動向素食團員說明。[cite: 6]</li>
+                    </ul>
+
+                    <!-- 十、謝車詞與小費 -->
+                    <h2>十、謝車詞、匿名意見回饋與收小費情感昇華[cite: 6]</h2>
+                    <blockquote>
+                        「這幾天下來，看見大家臉上放鬆的笑容，就是我們整個團隊最大的成就感。這些美麗的景點我們領隊可能走過幾十次，但對很多大哥大姐來說，卻是今年好不容易盼到的一次假期。卡卡由衷感謝這幾天大家對我的包容與照顧，更要感謝我們勞苦功高、默默掌舵守護大家行車安全的司機大哥。我們大家一起把最熱烈的掌聲送給辛苦的司機大哥！」[cite: 6]
+                    </blockquote>
+                    <p class="text-xs text-slate-600">收取服務小費每位團員每天 100 元（兩歲以下幼童免收）。群組發布【線上旅客意見調查表】與【何時出團抽獎社團】。[cite: 6]</p>
+
+                    <!-- 十一、旅客權益守則 -->
+                    <h2>十一、旅客權益、報名規範與行前守則指南[cite: 6]</h2>
+                    <ul>
+                        <li><strong>定價與小孩收費</strong>：2 至 12 歲不佔床費用包含車資、餐食、門票與行政規費（不含小費每日 100 元）；2 歲以下嬰兒收作業費 300 元。[cite: 6]</li>
+                        <li><strong>車位劃位原則</strong>：全車座位均採公開線上自選機制，現場嚴禁私下大風吹換位。70 歲以上長輩需有家人陪同。[cite: 6]</li>
+                        <li><strong>獨立保險責任</strong>：[cite: 6]
+                            <ul class="mt-1">
+                                <li><strong>公司履約保證險</strong>：獨立投保總額新台幣 <strong>9,600 萬元</strong>。[cite: 6]</li>
+                                <li><strong>團體責任險</strong>：每人 <strong>250 萬元意外身故</strong> ＋ <strong>20 萬元意外醫療</strong>。[cite: 6]</li>
+                            </ul>
+                        </li>
+                        <li><strong>不可抗力停班停課標準</strong>：遇天災，出發地或目的地地方政府宣布停班停課，該團一律由公司主動取消並全額退費。[cite: 6]</li>
+                    </ul>
+
+                    <!-- 十二、十大同好旅遊系列 -->
+                    <h2>十二、何時旅遊「同好旅遊」十大系列帶團心法[cite: 6]</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs mt-3">
+                        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                            <strong class="text-sky-900 block font-bold mb-1">1. 美食尋味 ｜ Flavor Quest[cite: 6]</strong>
+                            <p class="text-slate-600">懂得「說菜」，介紹主廚理念與在地風土，嚴格落實「熱菜上桌」原則。[cite: 6]</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                            <strong class="text-sky-900 block font-bold mb-1">2. 緩慢時光 ｜ Slow Hours[cite: 6]</strong>
+                            <p class="text-slate-600">不趕路、只感受。放寬節奏，車上多留白，盡量早進飯店享受設施。[cite: 6]</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                            <strong class="text-sky-900 block font-bold mb-1">3. 花系列 ｜ In Bloom[cite: 6]</strong>
+                            <p class="text-slate-600">掌握季節花期與光線角度，主動告知最佳取景角並協助拍照。[cite: 6]</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                            <strong class="text-sky-900 block font-bold mb-1">4. 親子企劃 ｜ Family Discovery[cite: 6]</strong>
+                            <p class="text-slate-600">蹲下身子與孩子互動，兼顧大人放鬆與孩子放電，多拍全家福合照。[cite: 6]</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                            <strong class="text-sky-900 block font-bold mb-1">5. 寵物旅遊 ｜ Paws on Tour（旺旅趣）[cite: 6]</strong>
+                            <p class="text-slate-600">貫徹「慢慢來，顧好毛寶貝就好」，休息站不設上車時間，落實冷熱濕紙巾與安全帶規範。[cite: 6]</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                            <strong class="text-sky-900 block font-bold mb-1">6. 一人旅行 ｜ Solo & Free[cite: 6]</strong>
+                            <p class="text-slate-600">拿捏好「陪伴而不打擾」的分寸，給予個人空間，隨時主動幫一人旅客拍照。[cite: 6]</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                            <strong class="text-sky-900 block font-bold mb-1">7. 不准客訴 ｜ Zero Complaints[cite: 6]</strong>
+                            <p class="text-slate-600">前置作業交代清楚，現場落實「說到做到」，凡事多走一步、多問一句。[cite: 6]</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                            <strong class="text-sky-900 block font-bold mb-1">8. 探索者 ｜ The Explorers[cite: 6]</strong>
+                            <p class="text-slate-600">萬全安全宣導與裝備檢查，隨身攜帶急救包，兼顧探索自由與安全界線。[cite: 6]</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                            <strong class="text-sky-900 block font-bold mb-1">9. 旅拍拾光 ｜ Framed Moments[cite: 6]</strong>
+                            <p class="text-slate-600">掌握黃金光影時刻，協助尋找優質視角與引導自然站姿，及時整理歸檔照片。[cite: 6]</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                            <strong class="text-sky-900 block font-bold mb-1">10. 運動美學 ｜ Game On[cite: 6]</strong>
+                            <p class="text-slate-600">車上帶動熱血節奏，嚴密掌握賽事入場動線、散場接駁與水分體能調節。[cite: 6]</p>
+                        </div>
+                    </div>
+
+                    <!-- 十三、NAS 操作說明 -->
+                    <h2>十三、活動照片上傳 NAS 操作說明[cite: 6]</h2>
+                    <ul>
+                        <li>手機下載安裝「DS file」App。[cite: 6]</li>
+                        <li>登入資訊：IP <code>60.251.127.252</code> ｜ 帳號 <code>F001</code> ｜ 密碼 <code>11111</code>[cite: 6]</li>
+                        <li>資料夾命名標準格式：<code>出發日期＋團名＋天數＋領隊全名</code>（範例：<code>20261005花蓮晶英振興三日-楊凱翔</code>）[cite: 6]</li>
+                    </ul>
+
+                    <!-- 十四、回團行政與通報 -->
+                    <h2>十四、領隊人員回團相關須知[cite: 6]</h2>
+                    <ul>
+                        <li><strong>住宿寄鋪</strong>：以<strong>平日 1200 元／間、假日 1600 元／間</strong>為補助上限，超出部分自行吸收。[cite: 6]</li>
+                        <li><strong>報帳時限</strong>：所有報帳憑證與單據需於行程結束後 <strong>3 天內</strong>完成回團。[cite: 6]</li>
+                    </ul>
+
+                    <h3>團上旅客意外受傷通報格式[cite: 6]</h3>
+                    <div class="p-4 bg-amber-50 border border-amber-300 rounded-lg font-mono text-xs text-amber-950 leading-relaxed my-3">
+                        <strong>【團上受傷客人回報】</strong><br>
+                        出團團號：<br>
+                        團體名稱：（填寫完整）<br>
+                        業務姓名+電話：<br>
+                        受傷客人+電話：<br>
+                        陪同友人+電話：<br>
+                        受傷時間+地點：<br>
+                        處理方式：（請依時間序回報，過程詳述並持續追蹤至客人返回團上）[cite: 6]
+                    </div>
+
+                    <div class="text-right text-xs text-slate-400 border-t border-slate-200 pt-3 mt-8">
+                        何時旅遊內部培訓教材．版權所有．嚴禁外流[cite: 6]
+                    </div>
+                </div>
+
             </div>
 
         </div>
@@ -1295,9 +1231,7 @@
                 <!-- 十大同好主題勾選區 -->
                 <div>
                     <label class="block font-bold text-slate-700 mb-1.5">已考核通過之同好主題旅遊標籤：</label>
-                    <div id="modalThemesCheckboxes" class="grid grid-cols-2 sm:grid-cols-3 gap-2 p-3 bg-slate-50 border border-slate-200 rounded-xl">
-                        <!-- 動態產生勾選項目 -->
-                    </div>
+                    <div id="modalThemesCheckboxes" class="grid grid-cols-2 sm:grid-cols-3 gap-2 p-3 bg-slate-50 border border-slate-200 rounded-xl"></div>
                 </div>
 
                 <!-- 業務/客指定出團明細 -->
@@ -1306,7 +1240,7 @@
                         <label class="block font-bold text-slate-700">業務 / 客指定出團明細清單：</label>
                         <span class="text-[11px] text-slate-400">格式：日期 | 團名 | 團號 | 指定人</span>
                     </div>
-                    <textarea id="modalDesignatedDetails" rows="3" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-1 focus:ring-emerald-500 focus:outline-none font-mono text-[11px]" placeholder="每行一筆，例如：&#10;2026/10/05 | 花蓮晶英慢遊三日 | HZ261005A | 業務指定(TamTam)&#10;2026/11/12 | 阿里山緩慢高山茶席二日 | HZ261112B | 客戶整團指定(福委會)"></textarea>
+                    <textarea id="modalDesignatedDetails" rows="3" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-1 focus:ring-emerald-500 focus:outline-none font-mono text-[11px]" placeholder="每行一筆，例如：&#10;2026/11/09 | 家庭旅遊台南二日 | STWHWA2A270109A | 客戶窗口楊花花"></textarea>
                 </div>
 
                 <div>
@@ -1338,9 +1272,9 @@
     <!-- JavaScript 權限驗證、Google 試算表串接與分頁控制 -->
     <script>
         // ==============================================================
-        // 1. Google 試算表 API 部署網址
+        // 1. Google 試算表 API 部署網址（已更新為最新部署網址）
         // ==============================================================
-        const GOOGLE_SHEET_API_URL = "https://script.google.com/macros/s/AKfycbzMmjv3575Q-XoqYfoy60F9x-98cPRfUXvUrm17kPhWqndnLBzGA4rh4ZweI9RUOpAmeg/exec";
+        const GOOGLE_SHEET_API_URL = "https://script.google.com/macros/s/AKfycbzeJPcJO3wbUhKDc9j8uk8Wt5gTsyFejk0GkefJgvDg0S0aa_SUzw7GKamRh3nyts3PkQ/exec";
 
         // ==============================================================
         // 2. 管理者後台密碼
@@ -1356,7 +1290,7 @@
         ];
 
         // ==============================================================
-        // 4. 預設資料庫（結構已升級標籤、指定明細、考核時程）
+        // 4. 預設資料庫（試算表連線前之備用資料）
         // ==============================================================
         let LEADER_DATABASE = [
             {
@@ -1424,13 +1358,11 @@
             }
         ];
 
-        // 頁面載入時嘗試自 Google 試算表拉取最新資料
         window.addEventListener('DOMContentLoaded', () => {
             initModalCheckboxes();
             fetchLeaderDataFromGoogle(false);
         });
 
-        // 初始化彈窗主題核取方塊
         function initModalCheckboxes() {
             const container = document.getElementById('modalThemesCheckboxes');
             container.innerHTML = '';
@@ -1445,14 +1377,12 @@
             });
         }
 
-        // 自 Google 試算表同步資料
         async function fetchLeaderDataFromGoogle(showNotice = false) {
             try {
                 const res = await fetch(GOOGLE_SHEET_API_URL);
                 const data = await res.json();
                 if (Array.isArray(data) && data.length > 0) {
                     LEADER_DATABASE = data.map(item => {
-                        // 解析可能是字串的 JSON 格式
                         let tags = [];
                         let details = [];
                         try {
@@ -1487,16 +1417,13 @@
             }
         }
 
-        // 儲存至 Google 試算表
         async function saveLeaderToGoogle(e) {
             e.preventDefault();
             const btn = document.getElementById('btnModalSubmit');
             btn.disabled = true;
             btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> 寫入中...`;
 
-            // 抓取勾選的標籤
             const checkedThemes = Array.from(document.querySelectorAll('input[name="themeTag"]:checked')).map(cb => cb.value);
-            // 抓取指定團明細
             const detailsRaw = document.getElementById('modalDesignatedDetails').value.trim();
             const detailsArr = detailsRaw ? detailsRaw.split('\n').map(s => s.trim()).filter(Boolean) : [];
 
@@ -1514,7 +1441,6 @@
                 statusNote: document.getElementById('modalStatusNote').value.trim()
             };
 
-            // 本地即時更新
             const localObj = {
                 ...leaderPayload,
                 themeTags: checkedThemes,
@@ -1527,7 +1453,6 @@
                 LEADER_DATABASE.unshift(localObj);
             }
 
-            // 發送至 Google Apps Script
             try {
                 await fetch(GOOGLE_SHEET_API_URL, {
                     method: "POST",
@@ -1543,15 +1468,13 @@
             btn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> 儲存至 Google 試算表`;
             closeAddLeaderModal();
             buildAdminDashboard();
-            alert(`領隊「${localObj.name}」已成功儲存至資料庫！`);
+            alert(`領隊「${localObj.name}」已成功儲存至試算表！`);
         }
 
-        // 開啟 Modal
         function openAddLeaderModal(existingLeader = null) {
             const modal = document.getElementById('addLeaderModal');
             const title = document.getElementById('modalTitle');
             
-            // 重設 Checkboxes
             document.querySelectorAll('input[name="themeTag"]').forEach(cb => cb.checked = false);
 
             if (existingLeader) {
@@ -1565,13 +1488,11 @@
                 document.getElementById('modalNextAssessmentDate').value = existingLeader.nextAssessmentDate || '';
                 document.getElementById('modalStatusNote').value = existingLeader.statusNote;
 
-                // 勾選標籤
                 const tags = existingLeader.themeTags || [];
                 document.querySelectorAll('input[name="themeTag"]').forEach(cb => {
                     if (tags.includes(cb.value)) cb.checked = true;
                 });
 
-                // 指定明細
                 const details = existingLeader.designatedDetails || [];
                 document.getElementById('modalDesignatedDetails').value = Array.isArray(details) ? details.join('\n') : details;
             } else {
@@ -1586,15 +1507,12 @@
             document.getElementById('addLeaderModal').style.display = 'none';
         }
 
-        // 計算距離下一級差距
         function getRequirementsDiff(currentLevel, themeCount, designatedCount) {
             let nextLevel = "";
             let reqThemes = 0;
             let reqDesignated = 0;
 
             if (currentLevel === "C") {
-                nextLevel = "B";
-                // C 升 B 著重每月 5 團配合
                 return {
                     nextLevel: "B",
                     themesText: "C 升 B 無主題硬性門檻",
@@ -1626,93 +1544,31 @@
             };
         }
 
-        // ==========================================
-        // 分頁切換 (levels / sop / dashboard)
-        // ==========================================
         function switchMainTab(tab) {
             const levelsTab = document.getElementById('tabContentLevels');
-            const sopTab = document.getElementById('tabContentSOP');
             const dashTab = document.getElementById('tabContentDashboard');
 
             const btnLevels = document.getElementById('navTabLevels');
-            const btnSOP = document.getElementById('navTabSOP');
             const btnDash = document.getElementById('navTabDashboard');
 
-            [btnLevels, btnSOP, btnDash].forEach(btn => {
-                btn.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 text-slate-300 hover:text-white";
+            [btnLevels, btnDash].forEach(btn => {
+                btn.className = "px-4 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 text-slate-300 hover:text-white";
             });
 
             levelsTab.classList.add('hidden');
-            sopTab.classList.add('hidden');
             dashTab.classList.add('hidden');
 
             if (tab === 'levels') {
                 levelsTab.classList.remove('hidden');
-                btnLevels.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 bg-sky-600 text-white shadow";
-            } else if (tab === 'sop') {
-                sopTab.classList.remove('hidden');
-                btnSOP.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 bg-sky-600 text-white shadow";
-                renderSopState();
+                btnLevels.className = "px-4 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 bg-sky-600 text-white shadow";
             } else if (tab === 'dashboard') {
                 dashTab.classList.remove('hidden');
-                btnDash.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 bg-sky-600 text-white shadow";
+                btnDash.className = "px-4 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 bg-sky-600 text-white shadow";
                 renderDashboardState();
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // ==========================================
-        // SOP 手冊認證邏輯
-        // ==========================================
-        function isSopAuthenticated() {
-            return sessionStorage.getItem('horaz_sop_auth') === 'true';
-        }
-
-        function renderSopState() {
-            const authGate = document.getElementById('sopAuthGate');
-            const protectedContent = document.getElementById('sopProtectedContent');
-            const displayAuthId = document.getElementById('displayAuthId');
-
-            if (isSopAuthenticated()) {
-                authGate.classList.add('hidden');
-                protectedContent.classList.remove('hidden');
-                const savedId = sessionStorage.getItem('horaz_sop_id') || 'Verified Leader';
-                displayAuthId.textContent = savedId.length >= 8 ? savedId.substring(0, 3) + '****' + savedId.substring(7) : savedId;
-            } else {
-                authGate.classList.remove('hidden');
-                protectedContent.classList.add('hidden');
-            }
-        }
-
-        function handleIdAuth(e) {
-            e.preventDefault();
-            const inputField = document.getElementById('inputIdNumber');
-            const errorMsg = document.getElementById('authErrorMsg');
-            const inputVal = inputField.value.trim().toUpperCase();
-
-            const isMatch = LEADER_DATABASE.some(l => l.idNumber.toUpperCase() === inputVal);
-
-            if (isMatch) {
-                errorMsg.classList.add('hidden');
-                sessionStorage.setItem('horaz_sop_auth', 'true');
-                sessionStorage.setItem('horaz_sop_id', inputVal);
-                inputField.value = '';
-                renderSopState();
-            } else {
-                errorMsg.classList.remove('hidden');
-                inputField.classList.add('border-rose-500', 'bg-rose-50');
-            }
-        }
-
-        function logoutSOP() {
-            sessionStorage.removeItem('horaz_sop_auth');
-            sessionStorage.removeItem('horaz_sop_id');
-            renderSopState();
-        }
-
-        // ==========================================
-        // 職等與升級現況儀表板 (Dashboard) 邏輯
-        // ==========================================
         function handleDashboardAuth(e) {
             e.preventDefault();
             const inputField = document.getElementById('inputDashQuery');
@@ -1774,8 +1630,8 @@
                 const leader = LEADER_DATABASE.find(l => l.idNumber.toUpperCase() === leaderId);
                 
                 roleBadge.className = "px-2.5 py-1 rounded-md text-xs font-bold bg-sky-100 text-sky-800 border border-sky-300";
-                roleBadge.textContent = "領隊個人檔案";
-                welcomeText.textContent = `您好，${leader.name}！以下為您目前在何時旅遊的考核數據、專長標籤與時程紀錄。`;
+                roleBadge.textContent = "領隊個人專案檔案";
+                welcomeText.textContent = `您好，${leader.name}！以下為您目前在何時旅遊的考核數據、專長標籤、時程與標準作業手冊。`;
                 buildLeaderView(leader);
             }
         }
@@ -1799,7 +1655,6 @@
             filterAdminTable();
         }
 
-        // 管理者名冊繪製（全新欄位對齊：專長標籤+缺數、指定明細+缺數、考核時程）
         function filterAdminTable() {
             const query = (document.getElementById('adminSearchInput').value || '').trim().toUpperCase();
             const levelFilter = document.getElementById('adminLevelFilter').value;
@@ -1826,15 +1681,12 @@
                 else if (l.currentLevel === 'A') badgeColor = "bg-sky-100 text-sky-800 border border-sky-300 font-bold";
                 else if (l.currentLevel === 'B') badgeColor = "bg-slate-100 text-slate-800 font-semibold";
 
-                // 計算下一級差距
                 const diff = getRequirementsDiff(l.currentLevel, l.themeCount || 0, l.designatedCount || 0);
 
-                // 產生主題標籤 HTML
                 const tags = Array.isArray(l.themeTags) ? l.themeTags : [];
                 let tagsHtml = tags.map(tag => `<span class="px-1.5 py-0.5 bg-sky-50 text-sky-700 border border-sky-200 rounded text-[10px] inline-block mr-1 mb-1 font-medium">${tag}</span>`).join('');
                 if (!tagsHtml) tagsHtml = `<span class="text-slate-400 text-[11px]">尚未標記專長</span>`;
 
-                // 產生指定出團明細 HTML
                 const details = Array.isArray(l.designatedDetails) ? l.designatedDetails : [];
                 let detailsHtml = '';
                 if (details.length > 0) {
@@ -1850,8 +1702,6 @@
                     <td class="p-3.5 font-mono text-slate-500 whitespace-nowrap">${l.idNumber.substring(0, 3)}****${l.idNumber.substring(7)}</td>
                     <td class="p-3.5 whitespace-nowrap"><span class="px-2 py-0.5 rounded text-[11px] ${badgeColor}">${l.currentLevel} 級</span></td>
                     <td class="p-3.5 text-slate-600 whitespace-nowrap">${l.stability}</td>
-                    
-                    <!-- 考核主題專長 & 標籤 & 距離下一級 -->
                     <td class="p-3.5">
                         <div class="font-bold text-slate-800 mb-1 flex items-center justify-between">
                             <span>已通過 ${l.themeCount || 0} 種</span>
@@ -1859,8 +1709,6 @@
                         </div>
                         <div>${tagsHtml}</div>
                     </td>
-
-                    <!-- 業務/客指定明細 & 距離下一級 -->
                     <td class="p-3.5">
                         <div class="font-bold text-slate-800 mb-1 flex items-center justify-between">
                             <span>已累積 ${l.designatedCount || 0} 團</span>
@@ -1868,13 +1716,10 @@
                         </div>
                         ${detailsHtml}
                     </td>
-
-                    <!-- 考核時程 (通過日期 + 預計下一階段考核) -->
                     <td class="p-3.5 whitespace-nowrap">
                         <div class="text-[11px] text-slate-500">通過：<strong class="text-slate-800 font-mono">${l.passedDate || '無紀錄'}</strong></div>
                         <div class="text-[11px] text-sky-700 mt-1">下一階段：<strong class="font-mono">${l.nextAssessmentDate || '待安排'}</strong></div>
                     </td>
-
                     <td class="p-3.5 text-[11px] text-slate-500 max-w-[150px] truncate" title="${l.statusNote}">${l.statusNote}</td>
                     <td class="p-3.5 text-center whitespace-nowrap">
                         <button onclick='editLeaderById("${l.idNumber}")' class="px-2 py-1 text-sky-600 hover:text-sky-800 font-semibold rounded hover:bg-sky-50 transition">
@@ -1891,7 +1736,6 @@
             if (leader) openAddLeaderModal(leader);
         }
 
-        // 建立個人領隊狀態卡（同步展示標籤與指定明細）
         function buildLeaderView(l) {
             document.getElementById('leaderCardName').textContent = l.name;
             document.getElementById('leaderCardMaskedId').textContent = `身分證號：${l.idNumber.substring(0, 3)}****${l.idNumber.substring(7)}`;
@@ -1918,10 +1762,8 @@
             document.getElementById('leaderCardNextDate').textContent = l.nextAssessmentDate || '待線控排定';
             document.getElementById('leaderMetricStability').textContent = l.stability;
 
-            // 計算差距
             const diff = getRequirementsDiff(l.currentLevel, l.themeCount || 0, l.designatedCount || 0);
             
-            // 填寫主題標籤
             const themeBadge = document.getElementById('leaderThemesDiffBadge');
             themeBadge.textContent = diff.themesText;
             themeBadge.className = `text-xs font-bold ${diff.themesText.includes('✓') ? 'text-emerald-600' : 'text-amber-600'}`;
@@ -1940,7 +1782,6 @@
                 tagsContainer.innerHTML = `<span class="text-xs text-slate-400">目前尚無標記通過主題</span>`;
             }
 
-            // 填寫指定明細
             const designatedBadge = document.getElementById('leaderDesignatedDiffBadge');
             designatedBadge.textContent = diff.designatedText;
             designatedBadge.className = `text-xs font-bold ${diff.designatedText.includes('✓') ? 'text-emerald-600' : 'text-amber-600'}`;
