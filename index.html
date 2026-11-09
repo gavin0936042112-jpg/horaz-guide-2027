@@ -364,7 +364,7 @@
                     <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col relative transform hover:-translate-y-1 transition duration-200">
                         <div class="p-6 flex-1 flex flex-col">
                             <div class="flex items-center gap-3 mb-3">
-                                <span class="w-10 h-10 rounded-xl bg-slate-400 text-white font-black text-lg flex items-center justify-center shadow-sm">C</span>
+                                <span class="w-10 h-10 rounded-xl bg-slate-400 text-white font-black text-lg flex items-center justify-center shadow-md">C</span>
                                 <div>
                                     <h4 class="font-bold text-lg text-slate-900">外調夥伴</h4>
                                     <p class="text-xs text-slate-400">特約儲備 • 新進與外部支援</p>
@@ -1122,21 +1122,21 @@
                     </div>
                 </div>
 
-                <!-- 名冊表格 -->
+                <!-- 名冊表格（全新升級改版版面） -->
                 <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
                     <div class="overflow-x-auto">
                         <table class="w-full text-left border-collapse text-xs">
                             <thead>
                                 <tr class="bg-slate-100 text-slate-700 border-b border-slate-200 font-bold">
-                                    <th class="p-3.5">姓名</th>
-                                    <th class="p-3.5">身分證字號</th>
-                                    <th class="p-3.5">目前職級</th>
-                                    <th class="p-3.5">出團穩定度 (半年)</th>
-                                    <th class="p-3.5">主題專長</th>
-                                    <th class="p-3.5">業務/客指定</th>
-                                    <th class="p-3.5">升級進度</th>
-                                    <th class="p-3.5">備註狀態</th>
-                                    <th class="p-3.5 text-center">操作</th>
+                                    <th class="p-3.5 whitespace-nowrap">姓名</th>
+                                    <th class="p-3.5 whitespace-nowrap">身分證字號</th>
+                                    <th class="p-3.5 whitespace-nowrap">目前職級</th>
+                                    <th class="p-3.5 whitespace-nowrap">出團穩定度 (半年)</th>
+                                    <th class="p-3.5 min-w-[200px]">考核主題專長 & 差距</th>
+                                    <th class="p-3.5 min-w-[230px]">業務/客指定明細 & 差距</th>
+                                    <th class="p-3.5 min-w-[150px]">考核時程</th>
+                                    <th class="p-3.5 min-w-[140px]">備註狀態</th>
+                                    <th class="p-3.5 text-center whitespace-nowrap">操作</th>
                                 </tr>
                             </thead>
                             <tbody id="adminTableBody" class="divide-y divide-slate-100 text-slate-700">
@@ -1170,28 +1170,46 @@
                     <!-- 個人各項考核進度指標 -->
                     <div class="p-6 sm:p-8 space-y-6">
                         
-                        <div>
-                            <div class="flex justify-between items-center mb-1.5">
-                                <span class="text-xs font-bold text-slate-700">下一階段職等晉升綜合完成度</span>
-                                <span class="text-xs font-black text-sky-600" id="leaderProgressText">80%</span>
+                        <!-- 考核時程區塊 -->
+                        <div class="grid grid-cols-2 gap-3 p-3.5 bg-slate-100/80 rounded-xl border border-slate-200">
+                            <div>
+                                <span class="text-[11px] text-slate-500 block font-medium">當前職級通過日期</span>
+                                <span class="text-sm font-bold text-slate-800" id="leaderCardPassedDate">--</span>
                             </div>
-                            <div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden">
-                                <div id="leaderProgressBar" class="bg-sky-500 h-3 rounded-full transition-all duration-500" style="width: 80%"></div>
+                            <div>
+                                <span class="text-[11px] text-slate-500 block font-medium">預計下一階段考核</span>
+                                <span class="text-sm font-bold text-sky-700" id="leaderCardNextDate">--</span>
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <!-- 考核三大指標明細 -->
+                        <div class="space-y-4">
+                            <!-- 出團穩定度 -->
                             <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
-                                <span class="text-[11px] text-slate-500 block mb-1">半年出團無重大客訴</span>
+                                <span class="text-xs text-slate-500 font-bold block mb-1">半年出團無重大客訴</span>
                                 <span class="text-sm font-bold text-slate-800" id="leaderMetricStability">符合標準 (合格)</span>
                             </div>
+
+                            <!-- 主題專長 & 標籤 -->
                             <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
-                                <span class="text-[11px] text-slate-500 block mb-1">同好主題旅遊專長</span>
-                                <span class="text-sm font-bold text-slate-800" id="leaderMetricThemes">4 種專長</span>
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-xs text-slate-500 font-bold">已通過之同好主題專長</span>
+                                    <span class="text-xs font-bold" id="leaderThemesDiffBadge"></span>
+                                </div>
+                                <div id="leaderThemesTagsContainer" class="flex flex-wrap gap-1.5 mb-1">
+                                    <!-- 標籤 -->
+                                </div>
                             </div>
+
+                            <!-- 業務/客指定明細 -->
                             <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
-                                <span class="text-[11px] text-slate-500 block mb-1">業務或客人全團指定</span>
-                                <span class="text-sm font-bold text-slate-800" id="leaderMetricDesignated">已達 8 團</span>
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-xs text-slate-500 font-bold">業務或全團客人指定出團</span>
+                                    <span class="text-xs font-bold" id="leaderDesignatedDiffBadge"></span>
+                                </div>
+                                <div id="leaderDesignatedListContainer" class="space-y-1.5 text-xs text-slate-700">
+                                    <!-- 明細 -->
+                                </div>
                             </div>
                         </div>
 
@@ -1220,10 +1238,10 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- 新增 / 編輯領隊彈窗 (Modal - 修正遮罩防覆蓋) -->
+    <!-- 新增 / 編輯領隊彈窗 (Modal) -->
     <!-- ========================================== -->
-    <div id="addLeaderModal" style="display: none;" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full border border-slate-200 overflow-hidden">
+    <div id="addLeaderModal" style="display: none;" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-xl w-full border border-slate-200 overflow-hidden my-8">
             <div class="p-5 bg-slate-900 text-white flex justify-between items-center">
                 <h4 class="font-bold text-base flex items-center gap-2">
                     <i class="fa-solid fa-user-pen text-emerald-400"></i>
@@ -1234,7 +1252,7 @@
                 </button>
             </div>
             
-            <form id="leaderForm" onsubmit="saveLeaderToGoogle(event)" class="p-6 space-y-4 text-xs">
+            <form id="leaderForm" onsubmit="saveLeaderToGoogle(event)" class="p-6 space-y-4 text-xs max-h-[80vh] overflow-y-auto">
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="block font-bold text-slate-700 mb-1">領隊姓名 *</label>
@@ -1262,24 +1280,38 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-3 gap-3">
+                <!-- 考核時程 -->
+                <div class="grid grid-cols-2 gap-3 bg-slate-50 p-3 rounded-xl border border-slate-200">
                     <div>
-                        <label class="block font-bold text-slate-700 mb-1">主題專長數</label>
-                        <input type="number" id="modalThemeCount" value="0" min="0" max="10" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-1 focus:ring-emerald-500 focus:outline-none">
+                        <label class="block font-bold text-slate-700 mb-1">本級通過日期</label>
+                        <input type="date" id="modalPassedDate" class="w-full px-3 py-1.5 border border-slate-300 rounded-lg focus:ring-1 focus:ring-emerald-500 focus:outline-none">
                     </div>
                     <div>
-                        <label class="block font-bold text-slate-700 mb-1">半年指定團數</label>
-                        <input type="number" id="modalDesignatedCount" value="0" min="0" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-1 focus:ring-emerald-500 focus:outline-none">
-                    </div>
-                    <div>
-                        <label class="block font-bold text-slate-700 mb-1">晉升進度 %</label>
-                        <input type="number" id="modalProgressPercent" value="0" min="0" max="100" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-1 focus:ring-emerald-500 focus:outline-none">
+                        <label class="block font-bold text-slate-700 mb-1">預計下一階段考核</label>
+                        <input type="date" id="modalNextAssessmentDate" class="w-full px-3 py-1.5 border border-slate-300 rounded-lg focus:ring-1 focus:ring-emerald-500 focus:outline-none">
                     </div>
                 </div>
 
+                <!-- 十大同好主題勾選區 -->
                 <div>
-                    <label class="block font-bold text-slate-700 mb-1">備註 / 考核現況紀錄</label>
-                    <textarea id="modalStatusNote" rows="2" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-1 focus:ring-emerald-500 focus:outline-none" placeholder="例如：主題專長差 1 種即可提報 A 級..."></textarea>
+                    <label class="block font-bold text-slate-700 mb-1.5">已考核通過之同好主題旅遊標籤：</label>
+                    <div id="modalThemesCheckboxes" class="grid grid-cols-2 sm:grid-cols-3 gap-2 p-3 bg-slate-50 border border-slate-200 rounded-xl">
+                        <!-- 動態產生勾選項目 -->
+                    </div>
+                </div>
+
+                <!-- 業務/客指定出團明細 -->
+                <div>
+                    <div class="flex justify-between items-center mb-1">
+                        <label class="block font-bold text-slate-700">業務 / 客指定出團明細清單：</label>
+                        <span class="text-[11px] text-slate-400">格式：日期 | 團名 | 團號 | 指定人</span>
+                    </div>
+                    <textarea id="modalDesignatedDetails" rows="3" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-1 focus:ring-emerald-500 focus:outline-none font-mono text-[11px]" placeholder="每行一筆，例如：&#10;2026/10/05 | 花蓮晶英慢遊三日 | HZ261005A | 業務指定(TamTam)&#10;2026/11/12 | 阿里山緩慢高山茶席二日 | HZ261112B | 客戶整團指定(福委會)"></textarea>
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">備註 / 考核現況紀錄說明</label>
+                    <textarea id="modalStatusNote" rows="2" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-1 focus:ring-emerald-500 focus:outline-none" placeholder="例如：主題專長已達標，等待下期指定團數審核..."></textarea>
                 </div>
 
                 <div class="pt-3 border-t border-slate-100 flex justify-end gap-2">
@@ -1306,7 +1338,7 @@
     <!-- JavaScript 權限驗證、Google 試算表串接與分頁控制 -->
     <script>
         // ==============================================================
-        // 1. Google 試算表 API 部署網址（已填入您的專屬 Apps Script URL）
+        // 1. Google 試算表 API 部署網址
         // ==============================================================
         const GOOGLE_SHEET_API_URL = "https://script.google.com/macros/s/AKfycbzMmjv3575Q-XoqYfoy60F9x-98cPRfUXvUrm17kPhWqndnLBzGA4rh4ZweI9RUOpAmeg/exec";
 
@@ -1316,7 +1348,15 @@
         const ADMIN_PASSWORD = "HORAZ2027";
 
         // ==============================================================
-        // 3. 預設資料庫（試算表連線前之備份）
+        // 3. 何時旅遊十大同好主題系列定義
+        // ==============================================================
+        const ALL_THEMES = [
+            "美食尋味", "緩慢時光", "花系列", "親子企劃", "寵物旅遊",
+            "一人旅行", "不准客訴", "探索者", "旅拍拾光", "運動美學"
+        ];
+
+        // ==============================================================
+        // 4. 預設資料庫（結構已升級標籤、指定明細、考核時程）
         // ==============================================================
         let LEADER_DATABASE = [
             {
@@ -1325,8 +1365,15 @@
                 currentLevel: "S",
                 stability: "出團滿半年合格無疏失",
                 themeCount: 10,
+                themeTags: ["美食尋味", "緩慢時光", "花系列", "親子企劃", "寵物旅遊", "一人旅行", "不准客訴", "探索者", "旅拍拾光", "運動美學"],
                 designatedCount: 16,
-                progressPercent: 100,
+                designatedDetails: [
+                    "2026/08/01 | 桃園全能毛孩夏日跑水節 | HZ260801 | 業務指定(旺旅趣)",
+                    "2026/09/20 | 花蓮太魯閣回到山里的家三日 | HZ260920 | 全團指定(金旅獎專案)",
+                    "2026/10/15 | 阿里山英迪格緩慢茶席二日 | HZ261015 | 業務指定(Slow Hours)"
+                ],
+                passedDate: "2026-10-01",
+                nextAssessmentDate: "2027-04-01",
                 statusNote: "具備品牌宣傳大使資格，各項考核全數達標"
             },
             {
@@ -1335,8 +1382,14 @@
                 currentLevel: "A",
                 stability: "出團滿半年合格",
                 themeCount: 5,
-                designatedCount: 8,
-                progressPercent: 80,
+                themeTags: ["美食尋味", "緩慢時光", "花系列", "旅拍拾光", "一人旅行"],
+                designatedCount: 4,
+                designatedDetails: [
+                    "2026/09/10 | 宜蘭山林步道漫遊二日 | HZ260910 | 業務指定(台北門市)",
+                    "2026/10/22 | 苗栗泰安溫泉放鬆之旅 | HZ261022 | 客戶整團指定"
+                ],
+                passedDate: "2026-06-15",
+                nextAssessmentDate: "2026-12-15",
                 statusNote: "主題專長差 1 種、指定差 2 團即可提報 S 級"
             },
             {
@@ -1344,10 +1397,15 @@
                 idNumber: "F128904567",
                 currentLevel: "B",
                 stability: "每月出團平均 5 團以上",
-                themeCount: 3,
-                designatedCount: 4,
-                progressPercent: 75,
-                statusNote: "指定團數達 3 團即可提報升階 A 級"
+                themeCount: 2,
+                themeTags: ["美食尋味", "不准客訴"],
+                designatedCount: 2,
+                designatedDetails: [
+                    "2026/10/02 | 司馬庫斯神木探秘二日 | HZ261002 | 業務指定"
+                ],
+                passedDate: "2026-08-01",
+                nextAssessmentDate: "2027-02-01",
+                statusNote: "主題專長差 1 種、指定差 1 團即可提報 A 級"
             },
             {
                 name: "林志豪",
@@ -1355,16 +1413,37 @@
                 currentLevel: "C",
                 stability: "新進第 2 個月穩定出團中",
                 themeCount: 1,
+                themeTags: ["美食尋味"],
                 designatedCount: 1,
-                progressPercent: 40,
+                designatedDetails: [
+                    "2026/10/18 | 太平山一日健走 | HZ261018 | 業務指定"
+                ],
+                passedDate: "2026-09-01",
+                nextAssessmentDate: "2026-12-01",
                 statusNote: "持續維持每月配合達 5 團即可申請升階 B 級"
             }
         ];
 
         // 頁面載入時嘗試自 Google 試算表拉取最新資料
         window.addEventListener('DOMContentLoaded', () => {
+            initModalCheckboxes();
             fetchLeaderDataFromGoogle(false);
         });
+
+        // 初始化彈窗主題核取方塊
+        function initModalCheckboxes() {
+            const container = document.getElementById('modalThemesCheckboxes');
+            container.innerHTML = '';
+            ALL_THEMES.forEach(theme => {
+                const label = document.createElement('label');
+                label.className = "flex items-center gap-1.5 cursor-pointer text-slate-700 hover:text-sky-700";
+                label.innerHTML = `
+                    <input type="checkbox" name="themeTag" value="${theme}" class="rounded border-slate-300 text-sky-600 focus:ring-sky-500">
+                    <span class="text-[11px] font-medium">${theme}</span>
+                `;
+                container.appendChild(label);
+            });
+        }
 
         // 自 Google 試算表同步資料
         async function fetchLeaderDataFromGoogle(showNotice = false) {
@@ -1372,7 +1451,31 @@
                 const res = await fetch(GOOGLE_SHEET_API_URL);
                 const data = await res.json();
                 if (Array.isArray(data) && data.length > 0) {
-                    LEADER_DATABASE = data;
+                    LEADER_DATABASE = data.map(item => {
+                        // 解析可能是字串的 JSON 格式
+                        let tags = [];
+                        let details = [];
+                        try {
+                            tags = Array.isArray(item.themeTags) ? item.themeTags : (typeof item.themeTags === 'string' && item.themeTags ? JSON.parse(item.themeTags) : []);
+                        } catch(e) {
+                            tags = (item.themeTags || '').split(',').map(s => s.trim()).filter(Boolean);
+                        }
+                        try {
+                            details = Array.isArray(item.designatedDetails) ? item.designatedDetails : (typeof item.designatedDetails === 'string' && item.designatedDetails ? JSON.parse(item.designatedDetails) : []);
+                        } catch(e) {
+                            details = (item.designatedDetails || '').split('\n').map(s => s.trim()).filter(Boolean);
+                        }
+
+                        return {
+                            ...item,
+                            themeTags: tags,
+                            themeCount: tags.length || Number(item.themeCount) || 0,
+                            designatedDetails: details,
+                            designatedCount: details.length || Number(item.designatedCount) || 0,
+                            passedDate: item.passedDate || "",
+                            nextAssessmentDate: item.nextAssessmentDate || ""
+                        };
+                    });
                     if (showNotice) alert("已成功自 Google 試算表同步最新領隊名冊！");
                     if (sessionStorage.getItem('horaz_dash_role') === 'ADMIN') {
                         buildAdminDashboard();
@@ -1380,34 +1483,48 @@
                 }
             } catch (err) {
                 console.error("無法同步 Google 試算表:", err);
-                if (showNotice) alert("連線 Google 試算表失敗，請確認權限是否設為「所有人」。");
+                if (showNotice) alert("連線 Google 試算表失敗，請確認網路與權限。");
             }
         }
 
-        // 儲存或更新至 Google 試算表
+        // 儲存至 Google 試算表
         async function saveLeaderToGoogle(e) {
             e.preventDefault();
             const btn = document.getElementById('btnModalSubmit');
             btn.disabled = true;
             btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> 寫入中...`;
 
+            // 抓取勾選的標籤
+            const checkedThemes = Array.from(document.querySelectorAll('input[name="themeTag"]:checked')).map(cb => cb.value);
+            // 抓取指定團明細
+            const detailsRaw = document.getElementById('modalDesignatedDetails').value.trim();
+            const detailsArr = detailsRaw ? detailsRaw.split('\n').map(s => s.trim()).filter(Boolean) : [];
+
             const leaderPayload = {
                 name: document.getElementById('modalName').value.trim(),
                 idNumber: document.getElementById('modalIdNumber').value.trim().toUpperCase(),
                 currentLevel: document.getElementById('modalLevel').value,
                 stability: document.getElementById('modalStability').value.trim(),
-                themeCount: Number(document.getElementById('modalThemeCount').value) || 0,
-                designatedCount: Number(document.getElementById('modalDesignatedCount').value) || 0,
-                progressPercent: Number(document.getElementById('modalProgressPercent').value) || 0,
+                themeCount: checkedThemes.length,
+                themeTags: JSON.stringify(checkedThemes),
+                designatedCount: detailsArr.length,
+                designatedDetails: JSON.stringify(detailsArr),
+                passedDate: document.getElementById('modalPassedDate').value,
+                nextAssessmentDate: document.getElementById('modalNextAssessmentDate').value,
                 statusNote: document.getElementById('modalStatusNote').value.trim()
             };
 
             // 本地即時更新
+            const localObj = {
+                ...leaderPayload,
+                themeTags: checkedThemes,
+                designatedDetails: detailsArr
+            };
             const existingIndex = LEADER_DATABASE.findIndex(l => l.idNumber.toUpperCase() === leaderPayload.idNumber);
             if (existingIndex >= 0) {
-                LEADER_DATABASE[existingIndex] = leaderPayload;
+                LEADER_DATABASE[existingIndex] = localObj;
             } else {
-                LEADER_DATABASE.unshift(leaderPayload);
+                LEADER_DATABASE.unshift(localObj);
             }
 
             // 發送至 Google Apps Script
@@ -1426,13 +1543,17 @@
             btn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> 儲存至 Google 試算表`;
             closeAddLeaderModal();
             buildAdminDashboard();
-            alert(`領隊「${leaderPayload.name}」已成功儲存至試算表！`);
+            alert(`領隊「${localObj.name}」已成功儲存至資料庫！`);
         }
 
         // 開啟 Modal
         function openAddLeaderModal(existingLeader = null) {
             const modal = document.getElementById('addLeaderModal');
             const title = document.getElementById('modalTitle');
+            
+            // 重設 Checkboxes
+            document.querySelectorAll('input[name="themeTag"]').forEach(cb => cb.checked = false);
+
             if (existingLeader) {
                 title.textContent = `編輯領隊：${existingLeader.name}`;
                 document.getElementById('modalName').value = existingLeader.name;
@@ -1440,10 +1561,19 @@
                 document.getElementById('modalIdNumber').readOnly = true;
                 document.getElementById('modalLevel').value = existingLeader.currentLevel;
                 document.getElementById('modalStability').value = existingLeader.stability;
-                document.getElementById('modalThemeCount').value = existingLeader.themeCount;
-                document.getElementById('modalDesignatedCount').value = existingLeader.designatedCount;
-                document.getElementById('modalProgressPercent').value = existingLeader.progressPercent;
+                document.getElementById('modalPassedDate').value = existingLeader.passedDate || '';
+                document.getElementById('modalNextAssessmentDate').value = existingLeader.nextAssessmentDate || '';
                 document.getElementById('modalStatusNote').value = existingLeader.statusNote;
+
+                // 勾選標籤
+                const tags = existingLeader.themeTags || [];
+                document.querySelectorAll('input[name="themeTag"]').forEach(cb => {
+                    if (tags.includes(cb.value)) cb.checked = true;
+                });
+
+                // 指定明細
+                const details = existingLeader.designatedDetails || [];
+                document.getElementById('modalDesignatedDetails').value = Array.isArray(details) ? details.join('\n') : details;
             } else {
                 title.textContent = `新增領隊資料`;
                 document.getElementById('leaderForm').reset();
@@ -1452,9 +1582,48 @@
             modal.style.display = 'flex';
         }
 
-        // 關閉 Modal
         function closeAddLeaderModal() {
             document.getElementById('addLeaderModal').style.display = 'none';
+        }
+
+        // 計算距離下一級差距
+        function getRequirementsDiff(currentLevel, themeCount, designatedCount) {
+            let nextLevel = "";
+            let reqThemes = 0;
+            let reqDesignated = 0;
+
+            if (currentLevel === "C") {
+                nextLevel = "B";
+                // C 升 B 著重每月 5 團配合
+                return {
+                    nextLevel: "B",
+                    themesText: "C 升 B 無主題硬性門檻",
+                    designatedText: "每月配合出團達 5 團即可提報"
+                };
+            } else if (currentLevel === "B") {
+                nextLevel = "A";
+                reqThemes = 3;
+                reqDesignated = 3;
+            } else if (currentLevel === "A") {
+                nextLevel = "S";
+                reqThemes = 6;
+                reqDesignated = 6;
+            } else if (currentLevel === "S") {
+                return {
+                    nextLevel: "最高級別",
+                    themesText: "已具頂級專長資格",
+                    designatedText: "已達最高考核標準"
+                };
+            }
+
+            const diffThemes = Math.max(0, reqThemes - themeCount);
+            const diffDesignated = Math.max(0, reqDesignated - designatedCount);
+
+            return {
+                nextLevel,
+                themesText: diffThemes === 0 ? "✓ 專長門檻已達標" : `距 ${nextLevel} 級還缺 ${diffThemes} 種`,
+                designatedText: diffDesignated === 0 ? "✓ 指定門檻已達標" : `距 ${nextLevel} 級還缺 ${diffDesignated} 團`
+            };
         }
 
         // ==========================================
@@ -1596,7 +1765,7 @@
                 leaderView.classList.add('hidden');
                 roleBadge.className = "px-2.5 py-1 rounded-md text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300";
                 roleBadge.textContent = "管理者模式 (全體名冊)";
-                welcomeText.textContent = "歡迎進入國內領隊職級管理總台，可在此直接新增、修改領隊資料並自動同步至試算表。";
+                welcomeText.textContent = "歡迎進入國內領隊職級管理總台，可掌握全體領隊之主題標籤、指定明細與考核時程。";
                 buildAdminDashboard();
             } else if (role === 'LEADER') {
                 adminView.classList.add('hidden');
@@ -1606,7 +1775,7 @@
                 
                 roleBadge.className = "px-2.5 py-1 rounded-md text-xs font-bold bg-sky-100 text-sky-800 border border-sky-300";
                 roleBadge.textContent = "領隊個人檔案";
-                welcomeText.textContent = `您好，${leader.name}！以下為您目前在何時旅遊的考核數據與職等紀錄。`;
+                welcomeText.textContent = `您好，${leader.name}！以下為您目前在何時旅遊的考核數據、專長標籤與時程紀錄。`;
                 buildLeaderView(leader);
             }
         }
@@ -1617,7 +1786,6 @@
             renderDashboardState();
         }
 
-        // 建立管理者總覽
         function buildAdminDashboard() {
             const counts = { S: 0, A: 0, B: 0, C: 0 };
             LEADER_DATABASE.forEach(l => {
@@ -1631,7 +1799,7 @@
             filterAdminTable();
         }
 
-        // 管理者名冊篩選與繪製
+        // 管理者名冊繪製（全新欄位對齊：專長標籤+缺數、指定明細+缺數、考核時程）
         function filterAdminTable() {
             const query = (document.getElementById('adminSearchInput').value || '').trim().toUpperCase();
             const levelFilter = document.getElementById('adminLevelFilter').value;
@@ -1651,30 +1819,64 @@
 
             filtered.forEach(l => {
                 const tr = document.createElement('tr');
-                tr.className = "hover:bg-slate-50 transition";
+                tr.className = "hover:bg-slate-50 transition border-b border-slate-100";
 
                 let badgeColor = "bg-slate-200 text-slate-700";
                 if (l.currentLevel === 'S') badgeColor = "bg-amber-100 text-amber-800 border border-amber-300 font-bold";
                 else if (l.currentLevel === 'A') badgeColor = "bg-sky-100 text-sky-800 border border-sky-300 font-bold";
                 else if (l.currentLevel === 'B') badgeColor = "bg-slate-100 text-slate-800 font-semibold";
 
-                tr.innerHTML = `
-                    <td class="p-3.5 font-bold text-slate-900">${l.name}</td>
-                    <td class="p-3.5 font-mono text-slate-500">${l.idNumber.substring(0, 3)}****${l.idNumber.substring(7)}</td>
-                    <td class="p-3.5"><span class="px-2 py-0.5 rounded text-[11px] ${badgeColor}">${l.currentLevel} 級</span></td>
-                    <td class="p-3.5">${l.stability}</td>
-                    <td class="p-3.5 font-semibold text-slate-800">${l.themeCount} 種</td>
-                    <td class="p-3.5 font-semibold text-sky-700">${l.designatedCount} 團</td>
-                    <td class="p-3.5">
-                        <div class="flex items-center gap-2">
-                            <div class="w-16 bg-slate-200 rounded-full h-2 overflow-hidden">
-                                <div class="bg-sky-500 h-2 rounded-full" style="width: ${l.progressPercent}%"></div>
-                            </div>
-                            <span class="text-[10px] text-slate-500 font-mono">${l.progressPercent}%</span>
+                // 計算下一級差距
+                const diff = getRequirementsDiff(l.currentLevel, l.themeCount || 0, l.designatedCount || 0);
+
+                // 產生主題標籤 HTML
+                const tags = Array.isArray(l.themeTags) ? l.themeTags : [];
+                let tagsHtml = tags.map(tag => `<span class="px-1.5 py-0.5 bg-sky-50 text-sky-700 border border-sky-200 rounded text-[10px] inline-block mr-1 mb-1 font-medium">${tag}</span>`).join('');
+                if (!tagsHtml) tagsHtml = `<span class="text-slate-400 text-[11px]">尚未標記專長</span>`;
+
+                // 產生指定出團明細 HTML
+                const details = Array.isArray(l.designatedDetails) ? l.designatedDetails : [];
+                let detailsHtml = '';
+                if (details.length > 0) {
+                    detailsHtml = `
+                        <div class="space-y-1 mt-1 text-[11px] text-slate-600 bg-slate-50 p-1.5 rounded border border-slate-200">
+                            ${details.map(d => `<div class="truncate max-w-xs" title="${d}">• ${d}</div>`).join('')}
                         </div>
+                    `;
+                }
+
+                tr.innerHTML = `
+                    <td class="p-3.5 font-bold text-slate-900 whitespace-nowrap">${l.name}</td>
+                    <td class="p-3.5 font-mono text-slate-500 whitespace-nowrap">${l.idNumber.substring(0, 3)}****${l.idNumber.substring(7)}</td>
+                    <td class="p-3.5 whitespace-nowrap"><span class="px-2 py-0.5 rounded text-[11px] ${badgeColor}">${l.currentLevel} 級</span></td>
+                    <td class="p-3.5 text-slate-600 whitespace-nowrap">${l.stability}</td>
+                    
+                    <!-- 考核主題專長 & 標籤 & 距離下一級 -->
+                    <td class="p-3.5">
+                        <div class="font-bold text-slate-800 mb-1 flex items-center justify-between">
+                            <span>已通過 ${l.themeCount || 0} 種</span>
+                            <span class="text-[10px] font-bold ${diff.themesText.includes('✓') ? 'text-emerald-600' : 'text-amber-600'}">${diff.themesText}</span>
+                        </div>
+                        <div>${tagsHtml}</div>
                     </td>
-                    <td class="p-3.5 text-[11px] text-slate-500 max-w-xs truncate" title="${l.statusNote}">${l.statusNote}</td>
-                    <td class="p-3.5 text-center">
+
+                    <!-- 業務/客指定明細 & 距離下一級 -->
+                    <td class="p-3.5">
+                        <div class="font-bold text-slate-800 mb-1 flex items-center justify-between">
+                            <span>已累積 ${l.designatedCount || 0} 團</span>
+                            <span class="text-[10px] font-bold ${diff.designatedText.includes('✓') ? 'text-emerald-600' : 'text-amber-600'}">${diff.designatedText}</span>
+                        </div>
+                        ${detailsHtml}
+                    </td>
+
+                    <!-- 考核時程 (通過日期 + 預計下一階段考核) -->
+                    <td class="p-3.5 whitespace-nowrap">
+                        <div class="text-[11px] text-slate-500">通過：<strong class="text-slate-800 font-mono">${l.passedDate || '無紀錄'}</strong></div>
+                        <div class="text-[11px] text-sky-700 mt-1">下一階段：<strong class="font-mono">${l.nextAssessmentDate || '待安排'}</strong></div>
+                    </td>
+
+                    <td class="p-3.5 text-[11px] text-slate-500 max-w-[150px] truncate" title="${l.statusNote}">${l.statusNote}</td>
+                    <td class="p-3.5 text-center whitespace-nowrap">
                         <button onclick='editLeaderById("${l.idNumber}")' class="px-2 py-1 text-sky-600 hover:text-sky-800 font-semibold rounded hover:bg-sky-50 transition">
                             <i class="fa-solid fa-pen-to-square"></i> 編輯
                         </button>
@@ -1689,7 +1891,7 @@
             if (leader) openAddLeaderModal(leader);
         }
 
-        // 建立個人領隊狀態卡
+        // 建立個人領隊狀態卡（同步展示標籤與指定明細）
         function buildLeaderView(l) {
             document.getElementById('leaderCardName').textContent = l.name;
             document.getElementById('leaderCardMaskedId').textContent = `身分證號：${l.idNumber.substring(0, 3)}****${l.idNumber.substring(7)}`;
@@ -1712,12 +1914,50 @@
                 fee.textContent = "NT$ 2,800 / 日";
             }
 
-            document.getElementById('leaderProgressText').textContent = `${l.progressPercent}%`;
-            document.getElementById('leaderProgressBar').style.width = `${l.progressPercent}%`;
-
+            document.getElementById('leaderCardPassedDate').textContent = l.passedDate || '無紀錄';
+            document.getElementById('leaderCardNextDate').textContent = l.nextAssessmentDate || '待線控排定';
             document.getElementById('leaderMetricStability').textContent = l.stability;
-            document.getElementById('leaderMetricThemes').textContent = `${l.themeCount} 種同好專長`;
-            document.getElementById('leaderMetricDesignated').textContent = `半年已累積 ${l.designatedCount} 團`;
+
+            // 計算差距
+            const diff = getRequirementsDiff(l.currentLevel, l.themeCount || 0, l.designatedCount || 0);
+            
+            // 填寫主題標籤
+            const themeBadge = document.getElementById('leaderThemesDiffBadge');
+            themeBadge.textContent = diff.themesText;
+            themeBadge.className = `text-xs font-bold ${diff.themesText.includes('✓') ? 'text-emerald-600' : 'text-amber-600'}`;
+
+            const tagsContainer = document.getElementById('leaderThemesTagsContainer');
+            tagsContainer.innerHTML = '';
+            const tags = Array.isArray(l.themeTags) ? l.themeTags : [];
+            if (tags.length > 0) {
+                tags.forEach(tag => {
+                    const span = document.createElement('span');
+                    span.className = "px-2 py-1 bg-sky-100 text-sky-800 rounded-md text-xs font-semibold";
+                    span.textContent = tag;
+                    tagsContainer.appendChild(span);
+                });
+            } else {
+                tagsContainer.innerHTML = `<span class="text-xs text-slate-400">目前尚無標記通過主題</span>`;
+            }
+
+            // 填寫指定明細
+            const designatedBadge = document.getElementById('leaderDesignatedDiffBadge');
+            designatedBadge.textContent = diff.designatedText;
+            designatedBadge.className = `text-xs font-bold ${diff.designatedText.includes('✓') ? 'text-emerald-600' : 'text-amber-600'}`;
+
+            const detailsContainer = document.getElementById('leaderDesignatedListContainer');
+            detailsContainer.innerHTML = '';
+            const details = Array.isArray(l.designatedDetails) ? l.designatedDetails : [];
+            if (details.length > 0) {
+                details.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = "p-2 bg-white rounded border border-slate-200 font-mono text-[11px] text-slate-700";
+                    div.textContent = item;
+                    detailsContainer.appendChild(div);
+                });
+            } else {
+                detailsContainer.innerHTML = `<div class="text-xs text-slate-400">尚無業務或客人全團指定出團紀錄</div>`;
+            }
 
             document.getElementById('leaderNotes').textContent = `考核備註：${l.statusNote}`;
 
