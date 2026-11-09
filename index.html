@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2027 何時旅遊 國內領隊全新分級制度與差旅福利實施辦法</title>
+    <title>2027 何時旅遊 國內領隊全新分級制度與帶團標準作業規範</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome CDN -->
@@ -35,6 +35,67 @@
         section {
             scroll-margin-top: 100px;
         }
+        .sop-content h2 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #0c4a6e;
+            background-color: #f1f5f9;
+            border-left: 5px solid #0284c7;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .sop-content h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-top: 1.25rem;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px dashed #cbd5e1;
+            padding-bottom: 0.25rem;
+        }
+        .sop-content blockquote {
+            background-color: #f8fafc;
+            border-left: 4px solid #475569;
+            padding: 0.75rem 1rem;
+            margin: 0.75rem 0;
+            border-radius: 0 0.375rem 0.375rem 0;
+            font-size: 0.875rem;
+            color: #334155;
+            line-height: 1.6;
+        }
+        .sop-content ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin: 0.5rem 0;
+        }
+        .sop-content ol {
+            list-style-type: decimal;
+            padding-left: 1.5rem;
+            margin: 0.5rem 0;
+        }
+        .sop-content li {
+            margin-bottom: 0.35rem;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+        .sop-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.875rem;
+        }
+        .sop-content th, .sop-content td {
+            border: 1px solid #cbd5e1;
+            padding: 0.5rem 0.75rem;
+            text-align: left;
+        }
+        .sop-content th {
+            background-color: #f1f5f9;
+            font-weight: 700;
+            color: #1e293b;
+        }
         @media print {
             .no-print {
                 display: none !important;
@@ -43,9 +104,6 @@
                 background: white !important;
                 color: black !important;
                 padding-top: 0 !important;
-            }
-            .page-break {
-                page-break-before: always;
             }
         }
     </style>
@@ -59,498 +117,1007 @@
                 <span class="bg-amber-500 text-slate-950 font-black px-2.5 py-1 rounded text-sm tracking-wider uppercase">2027 正式版</span>
                 <h1 class="text-lg font-bold tracking-tight text-white flex items-center gap-2">
                     <span>何時旅遊</span>
-                    <span class="text-xs text-slate-400 font-normal hidden sm:inline">| 國內線領隊分級制度</span>
+                    <span class="text-xs text-slate-400 font-normal hidden sm:inline">| 國內線領隊管理中台</span>
                 </h1>
             </div>
-            <nav class="hidden md:flex space-x-6 text-sm font-medium">
-                <a href="#levels" class="text-slate-300 hover:text-amber-400 transition">SABC級標準</a>
-                <a href="#allowance" class="text-slate-300 hover:text-amber-400 transition">額外津貼說明</a>
-                <a href="#benefits" class="text-slate-300 hover:text-amber-400 transition">專屬福利</a>
-                <a href="#penalties" class="text-slate-300 hover:text-amber-400 transition">相關規範</a>
-            </nav>
+
+            <!-- 主分頁切換按鈕 -->
+            <div class="flex items-center bg-slate-800 p-1 rounded-xl border border-slate-700">
+                <button id="navTabLevels" onclick="switchMainTab('levels')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 bg-sky-600 text-white shadow">
+                    <i class="fa-solid fa-award"></i>
+                    <span>領隊分級制度</span>
+                </button>
+                <button id="navTabSOP" onclick="switchMainTab('sop')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 text-slate-300 hover:text-white">
+                    <i class="fa-solid fa-lock text-amber-400"></i>
+                    <span>領隊標準作業規範</span>
+                </button>
+            </div>
         </div>
     </header>
 
-    <!-- 頂部 Hero 區塊 -->
-    <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-sky-950 text-white py-14 px-4 sm:px-6 lg:px-8 shadow-inner border-b border-slate-800">
-        <div class="max-w-7xl mx-auto text-center md:text-left md:flex md:items-center md:justify-between">
-            <div>
-                <p class="text-amber-400 text-sm font-semibold tracking-widest uppercase mb-2">Internal Operations & HR Regulation</p>
-                <h2 class="text-3xl sm:text-4xl font-black tracking-tight text-white mb-3">國內領隊職級架構與差旅福利給付辦法</h2>
-                <p class="text-slate-300 text-sm sm:text-base max-w-2xl leading-relaxed">
-                    本制度自 2027 年度起正式實施。透過階梯式日費、專屬職能津貼、主題認證及品牌理念共鳴，打造業界最具凝聚力與尊榮感的核心領隊團隊。
-                </p>
-            </div>
-            <div class="mt-8 md:mt-0 flex flex-wrap gap-3 justify-center md:justify-end">
-                <div class="bg-slate-800/80 border border-slate-700 rounded-lg p-3 text-center min-w-[110px]">
-                    <div class="text-xs text-slate-400">最高日費</div>
-                    <div class="text-xl font-bold text-amber-400">NT$ 4,000</div>
+    <!-- ========================================== -->
+    <!-- 分頁一：領隊分級與福利制度 (公開) -->
+    <!-- ========================================== -->
+    <div id="tabContentLevels" class="block">
+        <!-- 頂部 Hero 區塊 -->
+        <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-sky-950 text-white py-14 px-4 sm:px-6 lg:px-8 shadow-inner border-b border-slate-800">
+            <div class="max-w-7xl mx-auto text-center md:text-left md:flex md:items-center md:justify-between">
+                <div>
+                    <p class="text-amber-400 text-sm font-semibold tracking-widest uppercase mb-2">Internal Operations & HR Regulation</p>
+                    <h2 class="text-3xl sm:text-4xl font-black tracking-tight text-white mb-3">國內領隊職級架構與差旅福利給付辦法</h2>
+                    <p class="text-slate-300 text-sm sm:text-base max-w-2xl leading-relaxed">
+                        本制度自 2027 年度起正式實施。透過階梯式日費、專屬職能津貼、主題認證及品牌理念共鳴，打造業界最具凝聚力與尊榮感的核心領隊團隊。
+                    </p>
                 </div>
-                <div class="bg-slate-800/80 border border-slate-700 rounded-lg p-3 text-center min-w-[110px]">
-                    <div class="text-xs text-slate-400">SA級專業職能維持津貼</div>
-                    <div class="text-xl font-bold text-sky-400">NT$ 2,700</div>
-                </div>
-                <div class="bg-slate-800/80 border border-slate-700 rounded-lg p-3 text-center min-w-[110px]">
-                    <div class="text-xs text-slate-400">SA級團體意外+醫療保障</div>
-                    <div class="text-xl font-bold text-emerald-400">NT$ 1,000</div>
+                <div class="mt-8 md:mt-0 flex flex-wrap gap-3 justify-center md:justify-end">
+                    <div class="bg-slate-800/80 border border-slate-700 rounded-lg p-3 text-center min-w-[110px]">
+                        <div class="text-xs text-slate-400">領隊費最高薪酬</div>
+                        <div class="text-xl font-bold text-amber-400">NT$ 4,000</div>
+                    </div>
+                    <div class="bg-slate-800/80 border border-slate-700 rounded-lg p-3 text-center min-w-[110px]">
+                        <div class="text-xs text-slate-400">SA級專業職能維持津貼</div>
+                        <div class="text-xl font-bold text-sky-400">NT$ 2,700</div>
+                    </div>
+                    <div class="bg-slate-800/80 border border-slate-700 rounded-lg p-3 text-center min-w-[110px]">
+                        <div class="text-xs text-slate-400">SA級團體意外+醫療保障</div>
+                        <div class="text-xl font-bold text-emerald-400">NT$ 1,000</div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- 主體內容 -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
+        <!-- 主體內容 -->
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
 
-        <!-- 第一條：四級職級標準 -->
-        <section id="levels">
-            <div class="border-b border-slate-200 pb-4 mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
-                <div>
-                    <span class="text-sky-600 font-bold text-xs tracking-wider uppercase">Article 01</span>
+            <!-- 第一條：四級職級標準 -->
+            <section id="levelsSection">
+                <div class="border-b border-slate-200 pb-4 mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+                    <div>
+                        <span class="text-sky-600 font-bold text-xs tracking-wider uppercase">Article 01</span>
+                        <h3 class="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
+                            <i class="fa-solid fa-layer-group text-sky-600"></i> 四級領隊職級與晉升審核標準
+                        </h3>
+                    </div>
+                    <p class="text-sm text-slate-500">審核維度：出團穩定度、同好主題深度、業務指定次數與品牌認同</p>
+                </div>
+
+                <!-- 卡片 Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+
+                    <!-- S 級卡片 -->
+                    <div class="bg-white rounded-2xl border-2 border-amber-400 shadow-xl overflow-hidden flex flex-col relative transform hover:-translate-y-1 transition duration-200">
+                        <div class="absolute top-0 right-0 bg-gradient-to-l from-amber-500 to-amber-400 text-slate-950 font-bold text-[11px] px-3 py-1 rounded-bl-lg shadow">
+                            <i class="fa-solid fa-crown mr-1"></i>頂級夥伴
+                        </div>
+                        <div class="p-6 bg-gradient-to-b from-amber-50/60 to-transparent flex-1 flex flex-col">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="w-10 h-10 rounded-xl bg-amber-500 text-white font-black text-lg flex items-center justify-center shadow-md">S</span>
+                                <div>
+                                    <h4 class="font-bold text-lg text-slate-900">高級簽約領隊</h4>
+                                    <p class="text-xs text-amber-700 font-medium">品牌形象大使 • 客製專屬指定</p>
+                                </div>
+                            </div>
+
+                            <div class="my-4 py-3 border-y border-amber-200 flex items-baseline justify-between">
+                                <span class="text-xs text-slate-500 font-medium">每日帶團費</span>
+                                <div>
+                                    <span class="text-2xl font-black text-amber-600">NT$ 4,000</span>
+                                    <span class="text-xs text-slate-400">/ 日</span>
+                                </div>
+                            </div>
+
+                            <div class="space-y-3 text-xs text-slate-600 flex-1">
+                                <p class="font-bold text-slate-800 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-circle-check text-amber-500"></i> 晉升條件（由 A 級晉升）：
+                                </p>
+                                <ul class="space-y-2 pl-4 list-disc marker:text-amber-500 leading-relaxed">
+                                    <li>出團滿半年且無個人作業疏失或具體事證客訴成立。</li>
+                                    <li>通過內部出團專案考核。</li>
+                                    <li>具備可帶 <strong class="text-slate-900 underline decoration-amber-400">6 種（含）以上</strong>同好主題旅遊之專業能力。</li>
+                                    <li>半年內整團客人或業務指定出團達 <strong class="text-slate-900">10 團</strong>。</li>
+                                </ul>
+                                <div class="p-2.5 bg-amber-100/70 rounded-lg text-amber-900 font-medium text-[11px] leading-relaxed mt-2 border border-amber-200">
+                                    <i class="fa-solid fa-bullhorn mr-1 text-amber-700"></i>能在行程中主動、真誠地分享何時旅遊核心理念與品牌溫度。
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- S級 升級版放大顯眼福利區塊 -->
+                        <div class="p-4 bg-gradient-to-br from-amber-100 via-amber-50 to-orange-50 border-t-2 border-amber-300">
+                            <div class="flex items-center gap-1.5 text-xs font-black text-amber-950 uppercase tracking-wide mb-2.5">
+                                <i class="fa-solid fa-crown text-amber-600 text-sm"></i>
+                                <span>S 級頂級專屬福利禮遇</span>
+                            </div>
+                            <ul class="space-y-2 text-sm font-semibold text-amber-950">
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-circle-check text-amber-600 mt-1 text-xs"></i>
+                                    <span>完整享有 A 級全部津貼與保險福利</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-hotel text-amber-600 mt-1 text-xs"></i>
+                                    <span>生日當月：<strong class="text-amber-900 underline decoration-amber-400">全額補助五星住宿乙晚</strong></span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-plane-departure text-amber-600 mt-1 text-xs"></i>
+                                    <span>年度員旅：<strong class="text-amber-900 underline decoration-amber-400">全額補助何時國內員旅</strong></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- A 級卡片 -->
+                    <div class="bg-white rounded-2xl border-2 border-sky-300 shadow-md overflow-hidden flex flex-col relative transform hover:-translate-y-1 transition duration-200">
+                        <div class="absolute top-0 right-0 bg-sky-100 text-sky-800 font-semibold text-[11px] px-2.5 py-0.5 rounded-bl-lg">
+                            核心主力
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="w-10 h-10 rounded-xl bg-sky-600 text-white font-black text-lg flex items-center justify-center shadow-md">A</span>
+                                <div>
+                                    <h4 class="font-bold text-lg text-slate-900">簽約領隊</h4>
+                                    <p class="text-xs text-sky-700 font-medium">資深主力代表 • 高口碑控場</p>
+                                </div>
+                            </div>
+
+                            <div class="my-4 py-3 border-y border-slate-100 flex items-baseline justify-between">
+                                <span class="text-xs text-slate-500 font-medium">每日帶團費</span>
+                                <div>
+                                    <span class="text-2xl font-black text-sky-600">NT$ 3,500</span>
+                                    <span class="text-xs text-slate-400">/ 日</span>
+                                </div>
+                            </div>
+
+                            <div class="space-y-3 text-xs text-slate-600 flex-1">
+                                <p class="font-bold text-slate-800 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-circle-check text-sky-500"></i> 晉升條件（由 B 級晉升）：
+                                </p>
+                                <ul class="space-y-2 pl-4 list-disc marker:text-sky-500 leading-relaxed">
+                                    <li>出團滿半年且無個人作業疏失或具體客訴成案。</li>
+                                    <li>具備可帶 <strong class="text-slate-900 underline decoration-sky-400">3 種（含）以上</strong>同好主題旅遊之能力。</li>
+                                    <li>半年內整團客人或業務指定出團達 <strong class="text-slate-900">5 團</strong>。</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- A級 升級版放大顯眼福利區塊 -->
+                        <div class="p-4 bg-gradient-to-br from-sky-100 via-sky-50 to-blue-50 border-t-2 border-sky-300">
+                            <div class="flex items-center gap-1.5 text-xs font-black text-sky-950 uppercase tracking-wide mb-2.5">
+                                <i class="fa-solid fa-shield-halved text-sky-600 text-sm"></i>
+                                <span>A 級核心專屬福利</span>
+                            </div>
+                            <ul class="space-y-2 text-sm font-semibold text-sky-950">
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-coins text-sky-600 mt-1 text-xs"></i>
+                                    <span>專業職能維持津貼：<strong class="text-sky-700 font-black">NT$ 2,700 / 月</strong></span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-user-shield text-sky-600 mt-1 text-xs"></i>
+                                    <span>團體意外 100 萬 + 醫療 2 萬保障</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-utensils text-sky-600 mt-1 text-xs"></i>
+                                    <span>每半年免費享有定期餐敘聯誼</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-train text-sky-600 mt-1 text-xs"></i>
+                                    <span>交通補助升級：<strong class="text-sky-800">高鐵標準車廂對號座</strong></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- B 級卡片 -->
+                    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col relative transform hover:-translate-y-1 transition duration-200">
+                        <div class="p-6 flex-1 flex flex-col">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="w-10 h-10 rounded-xl bg-slate-700 text-white font-black text-lg flex items-center justify-center shadow-sm">B</span>
+                                <div>
+                                    <h4 class="font-bold text-lg text-slate-900">長期配合外調夥伴</h4>
+                                    <p class="text-xs text-slate-500">成熟穩定 • 各線常態即戰力</p>
+                                </div>
+                            </div>
+
+                            <div class="my-4 py-3 border-y border-slate-100 flex items-baseline justify-between">
+                                <span class="text-xs text-slate-500 font-medium">每日帶團費</span>
+                                <div>
+                                    <span class="text-2xl font-black text-slate-800">NT$ 3,000</span>
+                                    <span class="text-xs text-slate-400">/ 日</span>
+                                </div>
+                            </div>
+
+                            <div class="space-y-3 text-xs text-slate-600 flex-1">
+                                <p class="font-bold text-slate-800 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-circle-check text-slate-500"></i> 晉升條件（由 C 級晉升）：
+                                </p>
+                                <ul class="space-y-2 pl-4 list-disc marker:text-slate-400 leading-relaxed">
+                                    <li>C 級領隊每月可配合排定檔期達 <strong class="text-slate-900">5 團</strong>。</li>
+                                    <li>無因個人作業疏失或遭客人具體打槍客訴。</li>
+                                    <li>具備良好溝通與各項常規行程帶領手感。</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- B級 升級版放大顯眼福利區塊 -->
+                        <div class="p-4 bg-slate-100/90 border-t-2 border-slate-300">
+                            <div class="flex items-center gap-1.5 text-xs font-black text-slate-800 uppercase tracking-wide mb-2.5">
+                                <i class="fa-solid fa-bus text-slate-600 text-sm"></i>
+                                <span>出差差旅規範</span>
+                            </div>
+                            <ul class="space-y-2 text-sm font-semibold text-slate-800">
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-train text-slate-600 mt-1 text-xs"></i>
+                                    <span>交通補助：<strong class="text-slate-900">台鐵對號列車為主</strong></span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-bowl-food text-slate-600 mt-1 text-xs"></i>
+                                    <span>行程未供餐享標準誤餐津貼</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- C 級卡片 -->
+                    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col relative transform hover:-translate-y-1 transition duration-200">
+                        <div class="p-6 flex-1 flex flex-col">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="w-10 h-10 rounded-xl bg-slate-400 text-white font-black text-lg flex items-center justify-center shadow-sm">C</span>
+                                <div>
+                                    <h4 class="font-bold text-lg text-slate-900">外調夥伴</h4>
+                                    <p class="text-xs text-slate-400">特約儲備 • 新進與外部支援</p>
+                                </div>
+                            </div>
+
+                            <div class="my-4 py-3 border-y border-slate-100 flex items-baseline justify-between">
+                                <span class="text-xs text-slate-500 font-medium">每日帶團費</span>
+                                <div>
+                                    <span class="text-2xl font-black text-slate-700">NT$ 2,800</span>
+                                    <span class="text-xs text-slate-400">/ 日</span>
+                                </div>
+                            </div>
+
+                            <div class="space-y-3 text-xs text-slate-600 flex-1">
+                                <p class="font-bold text-slate-800 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-info-circle text-slate-400"></i> 資格與任務定位：
+                                </p>
+                                <ul class="space-y-2 pl-4 list-disc marker:text-slate-300 leading-relaxed">
+                                    <li>依既定標準作業規範（SOP）平穩完成出團任務與各項行政回傳。</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- C級 升級版放大顯眼福利區塊 -->
+                        <div class="p-4 bg-slate-100/90 border-t-2 border-slate-300">
+                            <div class="flex items-center gap-1.5 text-xs font-black text-slate-800 uppercase tracking-wide mb-2.5">
+                                <i class="fa-solid fa-bus text-slate-600 text-sm"></i>
+                                <span>出差差旅規範</span>
+                            </div>
+                            <ul class="space-y-2 text-sm font-semibold text-slate-800">
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-train text-slate-600 mt-1 text-xs"></i>
+                                    <span>交通補助：<strong class="text-slate-900">台鐵對號列車為主</strong></span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-bowl-food text-slate-600 mt-1 text-xs"></i>
+                                    <span>行程未供餐享標準誤餐津貼</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- 第二條：差旅補助與影音製作費 -->
+            <section id="allowanceSection">
+                <div class="border-b border-slate-200 pb-4 mb-8">
+                    <span class="text-sky-600 font-bold text-xs tracking-wider uppercase">Article 02</span>
                     <h3 class="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
-                        <i class="fa-solid fa-layer-group text-sky-600"></i> 四級領隊職級與晉升審核標準
+                        <i class="fa-solid fa-receipt text-sky-600"></i> 差旅補貼與回團影音製作費規範
                     </h3>
                 </div>
-                <p class="text-sm text-slate-500">審核維度：出團穩定度、同好主題深度、業務指定次數與品牌認同</p>
-            </div>
 
-            <!-- 卡片 Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-                <!-- S 級卡片 -->
-                <div class="bg-white rounded-2xl border-2 border-amber-400 shadow-xl overflow-hidden flex flex-col relative transform hover:-translate-y-1 transition duration-200">
-                    <div class="absolute top-0 right-0 bg-gradient-to-l from-amber-500 to-amber-400 text-slate-950 font-bold text-[11px] px-3 py-1 rounded-bl-lg shadow">
-                        <i class="fa-solid fa-crown mr-1"></i>頂級夥伴
-                    </div>
-                    <div class="p-6 bg-gradient-to-b from-amber-50/60 to-transparent flex-1 flex flex-col">
-                        <div class="flex items-center gap-3 mb-3">
-                            <span class="w-10 h-10 rounded-xl bg-amber-500 text-white font-black text-lg flex items-center justify-center shadow-md">S</span>
-                            <div>
-                                <h4 class="font-bold text-lg text-slate-900">高級簽約領隊</h4>
-                                <p class="text-xs text-amber-700 font-medium">品牌形象大使 • 客製專屬指定</p>
-                            </div>
+                    <!-- 誤餐費 -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center mb-4 text-lg">
+                            <i class="fa-solid fa-utensils"></i>
                         </div>
-
-                        <div class="my-4 py-3 border-y border-amber-200 flex items-baseline justify-between">
-                            <span class="text-xs text-slate-500 font-medium">每日帶團費</span>
-                            <div>
-                                <span class="text-2xl font-black text-amber-600">NT$ 4,000</span>
-                                <span class="text-xs text-slate-400">/ 日</span>
+                        <h4 class="font-bold text-base text-slate-900 mb-1">誤餐津貼標準</h4>
+                        <p class="text-xs text-slate-500 mb-4">行程未涵蓋領隊自費用餐時核實報支</p>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex justify-between items-center p-2.5 bg-slate-50 rounded-lg">
+                                <span class="text-slate-600 font-medium">早餐誤餐費</span>
+                                <span class="font-bold text-slate-900">NT$ 150 <span class="text-xs text-slate-400">/ 餐</span></span>
                             </div>
-                        </div>
-
-                        <div class="space-y-3 text-xs text-slate-600 flex-1">
-                            <p class="font-bold text-slate-800 flex items-center gap-1.5">
-                                <i class="fa-solid fa-circle-check text-amber-500"></i> 晉升條件（由 A 級晉升）：
-                            </p>
-                            <ul class="space-y-2 pl-4 list-disc marker:text-amber-500 leading-relaxed">
-                                <li>出團滿半年且無個人作業疏失或具體事證客訴成立。</li>
-                                <li>通過內部出團專案考核。</li>
-                                <li>具備可帶 <strong class="text-slate-900 underline decoration-amber-400">6 種（含）以上</strong>同好主題旅遊之專業能力。</li>
-                                <li>半年內整團客人或業務指定出團達 <strong class="text-slate-900">10 團</strong>。</li>
-                            </ul>
-                            <div class="p-2.5 bg-amber-100/70 rounded-lg text-amber-900 font-medium text-[11px] leading-relaxed mt-2 border border-amber-200">
-                                <i class="fa-solid fa-bullhorn mr-1 text-amber-700"></i>能在行程中主動、真誠地分享何時旅遊核心理念與品牌溫度。
+                            <div class="flex justify-between items-center p-2.5 bg-slate-50 rounded-lg">
+                                <span class="text-slate-600 font-medium">午餐 / 晚餐誤餐費</span>
+                                <span class="font-bold text-slate-900">NT$ 200 <span class="text-xs text-slate-400">/ 餐</span></span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- S級 升級版放大顯眼福利區塊 -->
-                    <div class="p-4 bg-gradient-to-br from-amber-100 via-amber-50 to-orange-50 border-t-2 border-amber-300">
-                        <div class="flex items-center gap-1.5 text-xs font-black text-amber-950 uppercase tracking-wide mb-2.5">
-                            <i class="fa-solid fa-crown text-amber-600 text-sm"></i>
-                            <span>S 級頂級專屬福利禮遇</span>
+                    <!-- 跨縣市交通費 -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4 text-lg">
+                            <i class="fa-solid fa-train-subway"></i>
                         </div>
-                        <ul class="space-y-2 text-sm font-semibold text-amber-950">
-                            <li class="flex items-start gap-2">
-                                <i class="fa-solid fa-circle-check text-amber-600 mt-1 text-xs"></i>
-                                <span>完整享有 A 級全部津貼與保險福利</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fa-solid fa-hotel text-amber-600 mt-1 text-xs"></i>
-                                <span>生日當月：<strong class="text-amber-900 underline decoration-amber-400">全額補助五星住宿乙晚</strong></span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fa-solid fa-plane-departure text-amber-600 mt-1 text-xs"></i>
-                                <span>年度員旅：<strong class="text-amber-900 underline decoration-amber-400">全額補助何時國內員旅</strong></span>
-                            </li>
-                        </ul>
+                        <h4 class="font-bold text-base text-slate-900 mb-1">跨縣市調度交通補助</h4>
+                        <p class="text-xs text-slate-500 mb-4">起訖以「領隊申報之居住縣市」為主（憑票核銷）</p>
+                        <div class="space-y-3 text-xs">
+                            <div class="p-3 bg-amber-50/60 rounded-lg border border-amber-200/60">
+                                <div class="font-bold text-amber-900 mb-1 flex items-center gap-1.5">
+                                    <span class="px-1.5 py-0.5 bg-amber-500 text-white rounded text-[10px]">S 級</span>
+                                    <span class="px-1.5 py-0.5 bg-sky-600 text-white rounded text-[10px]">A 級</span>
+                                    <span>高鐵標準車廂來回車資</span>
+                                </div>
+                                <p class="text-slate-600">調度至非居住地集合時，補助台灣高鐵標準車廂全額。</p>
+                            </div>
+                            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                                <div class="font-bold text-slate-800 mb-1 flex items-center gap-1.5">
+                                    <span class="px-1.5 py-0.5 bg-slate-600 text-white rounded text-[10px]">B 級</span>
+                                    <span class="px-1.5 py-0.5 bg-slate-400 text-white rounded text-[10px]">C 級</span>
+                                    <span>台鐵對號列車來回車資</span>
+                                </div>
+                                <p class="text-slate-600">補助台鐵對號座（自強號）全額來回車資。</p>
+                            </div>
+                        </div>
                     </div>
-                </div>
 
-                <!-- A 級卡片 -->
-                <div class="bg-white rounded-2xl border-2 border-sky-300 shadow-md overflow-hidden flex flex-col relative transform hover:-translate-y-1 transition duration-200">
-                    <div class="absolute top-0 right-0 bg-sky-100 text-sky-800 font-semibold text-[11px] px-2.5 py-0.5 rounded-bl-lg">
-                        核心主力
-                    </div>
-                    <div class="p-6 flex-1 flex flex-col">
-                        <div class="flex items-center gap-3 mb-3">
-                            <span class="w-10 h-10 rounded-xl bg-sky-600 text-white font-black text-lg flex items-center justify-center shadow-md">A</span>
-                            <div>
-                                <h4 class="font-bold text-lg text-slate-900">簽約領隊</h4>
-                                <p class="text-xs text-sky-700 font-medium">資深主力代表 • 高口碑控場</p>
+                    <!-- 影音製作費 -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4 text-lg">
+                            <i class="fa-solid fa-video"></i>
+                        </div>
+                        <h4 class="font-bold text-base text-slate-900 mb-1">回團影片製作費</h4>
+                        <p class="text-xs text-slate-500 mb-4">產出優質行銷影音，強化社群分享與品牌記憶</p>
+                        
+                        <div class="space-y-2 mb-4 text-xs">
+                            <div class="flex justify-between items-center p-2 bg-emerald-50/60 rounded border border-emerald-100">
+                                <span class="text-emerald-900 font-medium">一日遊行程回傳</span>
+                                <span class="font-bold text-emerald-700">NT$ 300 / 團</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 bg-emerald-50/60 rounded border border-emerald-100">
+                                <span class="text-emerald-900 font-medium">二日（含）以上行程</span>
+                                <span class="font-bold text-emerald-700">NT$ 500 / 團</span>
                             </div>
                         </div>
 
-                        <div class="my-4 py-3 border-y border-slate-100 flex items-baseline justify-between">
-                            <span class="text-xs text-slate-500 font-medium">每日帶團費</span>
-                            <div>
-                                <span class="text-2xl font-black text-sky-600">NT$ 3,500</span>
-                                <span class="text-xs text-slate-400">/ 日</span>
+                        <div class="p-3 bg-slate-50 rounded-lg text-[11px] text-slate-600 space-y-1.5 border border-slate-200">
+                            <div class="font-bold text-slate-800 flex items-center gap-1">
+                                <i class="fa-solid fa-list-check text-emerald-600"></i> 驗收規範：
                             </div>
-                        </div>
-
-                        <div class="space-y-3 text-xs text-slate-600 flex-1">
-                            <p class="font-bold text-slate-800 flex items-center gap-1.5">
-                                <i class="fa-solid fa-circle-check text-sky-500"></i> 晉升條件（由 B 級晉升）：
-                            </p>
-                            <ul class="space-y-2 pl-4 list-disc marker:text-sky-500 leading-relaxed">
-                                <li>出團滿半年且無個人作業疏失或具體客訴成案。</li>
-                                <li>具備可帶 <strong class="text-slate-900 underline decoration-sky-400">3 種（含）以上</strong>同好主題旅遊之能力。</li>
-                                <li>半年內整團客人或業務指定出團達 <strong class="text-slate-900">5 團</strong>。</li>
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li>短影音長度須<strong>超過 90 秒</strong>。</li>
+                                <li>影片片頭與片尾均需置入<strong>何時旅遊 LOGO</strong>。</li>
+                                <li>側拍活動精選清晰照片達 <strong>35 張以上</strong>。</li>
                             </ul>
                         </div>
                     </div>
 
-                    <!-- A級 升級版放大顯眼福利區塊 -->
-                    <div class="p-4 bg-gradient-to-br from-sky-100 via-sky-50 to-blue-50 border-t-2 border-sky-300">
-                        <div class="flex items-center gap-1.5 text-xs font-black text-sky-950 uppercase tracking-wide mb-2.5">
-                            <i class="fa-solid fa-shield-halved text-sky-600 text-sm"></i>
-                            <span>A 級核心專屬福利</span>
-                        </div>
-                        <ul class="space-y-2 text-sm font-semibold text-sky-950">
-                            <li class="flex items-start gap-2">
-                                <i class="fa-solid fa-coins text-sky-600 mt-1 text-xs"></i>
-                                <span>專業職能維持津貼：<strong class="text-sky-700 font-black">NT$ 2,700 / 月</strong></span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fa-solid fa-user-shield text-sky-600 mt-1 text-xs"></i>
-                                <span>團體意外 100 萬 + 醫療 2 萬保障</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fa-solid fa-utensils text-sky-600 mt-1 text-xs"></i>
-                                <span>每半年免費享有定期餐敘聯誼</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fa-solid fa-train text-sky-600 mt-1 text-xs"></i>
-                                <span>交通補助升級：<strong class="text-sky-800">高鐵標準車廂對號座</strong></span>
-                            </li>
-                        </ul>
-                    </div>
+                </div>
+            </section>
+
+            <!-- 第三條：福利與保障 -->
+            <section id="benefitsSection">
+                <div class="border-b border-slate-200 pb-4 mb-8">
+                    <span class="text-sky-600 font-bold text-xs tracking-wider uppercase">Article 03</span>
+                    <h3 class="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
+                        <i class="fa-solid fa-award text-sky-600"></i> 等級專屬福利與簽約禮遇
+                    </h3>
                 </div>
 
-                <!-- B 級卡片 -->
-                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col relative transform hover:-translate-y-1 transition duration-200">
-                    <div class="p-6 flex-1 flex flex-col">
-                        <div class="flex items-center gap-3 mb-3">
-                            <span class="w-10 h-10 rounded-xl bg-slate-700 text-white font-black text-lg flex items-center justify-center shadow-sm">B</span>
-                            <div>
-                                <h4 class="font-bold text-lg text-slate-900">長期配合外調夥伴</h4>
-                                <p class="text-xs text-slate-500">成熟穩定 • 各線常態即戰力</p>
-                            </div>
-                        </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
-                        <div class="my-4 py-3 border-y border-slate-100 flex items-baseline justify-between">
-                            <span class="text-xs text-slate-500 font-medium">每日帶團費</span>
-                            <div>
-                                <span class="text-2xl font-black text-slate-800">NT$ 3,000</span>
-                                <span class="text-xs text-slate-400">/ 日</span>
+                    <!-- SA 級專屬福利 -->
+                    <div class="bg-gradient-to-br from-sky-900 to-slate-900 text-white rounded-2xl p-6 shadow-md flex flex-col justify-between">
+                        <div>
+                            <div class="inline-flex items-center gap-2 px-3 py-1 bg-sky-500/20 text-sky-300 rounded-full text-xs font-semibold mb-4 border border-sky-400/30">
+                                <i class="fa-solid fa-star text-amber-400"></i> S級 與 A級 核心簽約夥伴享有
                             </div>
-                        </div>
-
-                        <div class="space-y-3 text-xs text-slate-600 flex-1">
-                            <p class="font-bold text-slate-800 flex items-center gap-1.5">
-                                <i class="fa-solid fa-circle-check text-slate-500"></i> 晉升條件（由 C 級晉升）：
-                            </p>
-                            <ul class="space-y-2 pl-4 list-disc marker:text-slate-400 leading-relaxed">
-                                <li>C 級領隊每月可配合排定檔期達 <strong class="text-slate-900">5 團</strong>。</li>
-                                <li>無因個人作業疏失或遭客人具體打槍客訴。</li>
-                                <li>具備良好溝通與各項常規行程帶領手感。</li>
+                            <h4 class="text-xl font-bold mb-4">專業職能維持與安心保障</h4>
+                            <ul class="space-y-4 text-sm text-slate-200">
+                                <li class="flex items-start gap-3">
+                                    <div class="w-7 h-7 rounded-lg bg-sky-800 text-sky-300 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <i class="fa-solid fa-hand-holding-dollar text-xs"></i>
+                                    </div>
+                                    <div>
+                                        <strong class="text-white block">專業職能維持津貼</strong>
+                                        <span>每月定額補助 <strong class="text-amber-400">NT$ 2,700 元</strong>，穩定淡季收益與職能維護。</span>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <div class="w-7 h-7 rounded-lg bg-sky-800 text-sky-300 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <i class="fa-solid fa-shield-virus text-xs"></i>
+                                    </div>
+                                    <div>
+                                        <strong class="text-white block">公司全額負擔團體意外+醫療保險保障</strong>
+                                        <span>享有投保意外100萬+醫療2萬之團體意外保險保障，帶團安全無後顧之憂。</span>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <div class="w-7 h-7 rounded-lg bg-sky-800 text-sky-300 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <i class="fa-solid fa-champagne-glasses text-xs"></i>
+                                    </div>
+                                    <div>
+                                        <strong class="text-white block">每半年定期餐敘聯誼</strong>
+                                        <span>每半年免費獲邀參與公司主力領隊之交流餐會。</span>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
                     </div>
 
-                    <!-- B級 升級版放大顯眼福利區塊 -->
-                    <div class="p-4 bg-slate-100/90 border-t-2 border-slate-300">
-                        <div class="flex items-center gap-1.5 text-xs font-black text-slate-800 uppercase tracking-wide mb-2.5">
-                            <i class="fa-solid fa-bus text-slate-600 text-sm"></i>
-                            <span>出差差旅規範</span>
-                        </div>
-                        <ul class="space-y-2 text-sm font-semibold text-slate-800">
-                            <li class="flex items-start gap-2">
-                                <i class="fa-solid fa-train text-slate-600 mt-1 text-xs"></i>
-                                <span>交通補助：<strong class="text-slate-900">台鐵對號列車為主</strong></span>
-                                             </div>
-                </div>
-
-                <!-- C 級卡片 -->
-                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col relative transform hover:-translate-y-1 transition duration-200">
-                    <div class="p-6 flex-1 flex flex-col">
-                        <div class="flex items-center gap-3 mb-3">
-                            <span class="w-10 h-10 rounded-xl bg-slate-400 text-white font-black text-lg flex items-center justify-center shadow-sm">C</span>
-                            <div>
-                                <h4 class="font-bold text-lg text-slate-900">外調夥伴</h4>
-                                <p class="text-xs text-slate-400">特約儲備 • 新進與外部支援</p>
+                    <!-- S 級頂級獨享禮遇 -->
+                    <div class="bg-gradient-to-br from-amber-950 via-slate-900 to-slate-900 text-white rounded-2xl p-6 shadow-md border border-amber-500/30 flex flex-col justify-between">
+                        <div>
+                            <div class="inline-flex items-center gap-2 px-3 py-1 bg-amber-500/20 text-amber-300 rounded-full text-xs font-semibold mb-4 border border-amber-400/30">
+                                <i class="fa-solid fa-crown text-amber-400"></i> S 級 首席領隊專屬特權
                             </div>
-                        </div>
-
-                        <div class="my-4 py-3 border-y border-slate-100 flex items-baseline justify-between">
-                            <span class="text-xs text-slate-500 font-medium">每日帶團費</span>
-                            <div>
-                                <span class="text-2xl font-black text-slate-700">NT$ 2,800</span>
-                                <span class="text-xs text-slate-400">/ 日</span>
-                            </div>
-                        </div>
-
-                        <div class="space-y-3 text-xs text-slate-600 flex-1">
-                            <p class="font-bold text-slate-800 flex items-center gap-1.5">
-                                <i class="fa-solid fa-info-circle text-slate-400"></i> 資格與任務定位：
-                            </p>
-                            <ul class="space-y-2 pl-4 list-disc marker:text-slate-300 leading-relaxed">
-                                <li>依既定標準作業規範（SOP）平穩完成出團任務與各項行政回傳。</li>
+                            <h4 class="text-xl font-bold mb-4">尊榮禮遇與年度共享福利</h4>
+                            <ul class="space-y-4 text-sm text-slate-200">
+                                <li class="flex items-start gap-3">
+                                    <div class="w-7 h-7 rounded-lg bg-amber-900/60 text-amber-300 flex items-center justify-center flex-shrink-0 mt-0.5 border border-amber-500/30">
+                                        <i class="fa-solid fa-hotel text-xs"></i>
+                                    </div>
+                                    <div>
+                                        <strong class="text-amber-300 block">國內五星級飯店生日住宿券</strong>
+                                        <span>生日當月份享有全額免費「國內精選五星級飯店一泊一食住宿券乙晚」，慰勞整年度辛勞。</span>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <div class="w-7 h-7 rounded-lg bg-amber-900/60 text-amber-300 flex items-center justify-center flex-shrink-0 mt-0.5 border border-amber-500/30">
+                                        <i class="fa-solid fa-plane-departure text-xs"></i>
+                                    </div>
+                                    <div>
+                                        <strong class="text-amber-300 block">何時旅遊國內員工旅遊福利</strong>
+                                        <span>同享內部正式員工年度優質國內員旅全額免費參與資格，共創夥伴回憶。</span>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
                     </div>
 
-                    <!-- C級 升級版放大顯眼福利區塊 -->
-                    <div class="p-4 bg-slate-100/90 border-t-2 border-slate-300">
-                        <div class="flex items-center gap-1.5 text-xs font-black text-slate-800 uppercase tracking-wide mb-2.5">
-                            <i class="fa-solid fa-bus text-slate-600 text-sm"></i>
-                            <span>出差差旅規範</span>
-                        </div>
-                        <ul class="space-y-2 text-sm font-semibold text-slate-800">
-                            <li class="flex items-start gap-2">
-                                <i class="fa-solid fa-train text-slate-600 mt-1 text-xs"></i>
-                                <span>交通補助：<strong class="text-slate-900">台鐵對號列車為主</strong></span>
-                                               </div>
+                </div>
+            </section>
+
+            <!-- 第四條：違規與退場機制 -->
+            <section id="penaltiesSection">
+                <div class="border-b border-slate-200 pb-4 mb-8">
+                    <span class="text-rose-600 font-bold text-xs tracking-wider uppercase">Article 04</span>
+                    <h3 class="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
+                        <i class="fa-solid fa-triangle-exclamation text-rose-600"></i> 作業疏失、客訴懲處與降級規範
+                    </h3>
                 </div>
 
-            </div>
-        </section>
+                <div class="bg-rose-50/50 border border-rose-200 rounded-2xl p-6">
+                    <p class="text-sm text-slate-700 leading-relaxed mb-6 font-medium">
+                        若領隊於出團期間發生個人作業疏失、違反承攬服務常規，或遭旅客提出明確事證客訴成立者，經查核屬實後依下列規範嚴格處置：
+                    </p>
 
-        <!-- 第二條：差旅補助與影音製作費 -->
-        <section id="allowance">
-            <div class="border-b border-slate-200 pb-4 mb-8">
-                <span class="text-sky-600 font-bold text-xs tracking-wider uppercase">Article 02</span>
-                <h3 class="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
-                    <i class="fa-solid fa-receipt text-sky-600"></i> 差旅補貼與回團影音製作費規範
-                </h3>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-                <!-- 誤餐費 -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                    <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center mb-4 text-lg">
-                        <i class="fa-solid fa-utensils"></i>
-                    </div>
-                    <h4 class="font-bold text-base text-slate-900 mb-1">誤餐津貼標準</h4>
-                    <p class="text-xs text-slate-500 mb-4">行程未涵蓋領隊自費用餐時核實報支</p>
-                    <div class="space-y-3 text-sm">
-                        <div class="flex justify-between items-center p-2.5 bg-slate-50 rounded-lg">
-                            <span class="text-slate-600 font-medium">早餐誤餐費</span>
-                            <span class="font-bold text-slate-900">NT$ 150 <span class="text-xs text-slate-400">/ 餐</span></span>
-                        </div>
-                        <div class="flex justify-between items-center p-2.5 bg-slate-50 rounded-lg">
-                            <span class="text-slate-600 font-medium">午餐 / 晚餐誤餐費</span>
-                            <span class="font-bold text-slate-900">NT$ 200 <span class="text-xs text-slate-400">/ 餐</span></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 跨縣市交通費 -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                    <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4 text-lg">
-                        <i class="fa-solid fa-train-subway"></i>
-                    </div>
-                    <h4 class="font-bold text-base text-slate-900 mb-1">跨縣市調度交通補助</h4>
-                    <p class="text-xs text-slate-500 mb-4">起訖以「領隊申報之居住縣市」為主（憑票核銷）</p>
-                    <div class="space-y-3 text-xs">
-                        <div class="p-3 bg-amber-50/60 rounded-lg border border-amber-200/60">
-                            <div class="font-bold text-amber-900 mb-1 flex items-center gap-1.5">
-                                <span class="px-1.5 py-0.5 bg-amber-500 text-white rounded text-[10px]">S 級</span>
-                                <span class="px-1.5 py-0.5 bg-sky-600 text-white rounded text-[10px]">A 級</span>
-                                <span>高鐵標準車廂來回車資</span>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-white p-5 rounded-xl border border-rose-200 shadow-sm">
+                            <div class="flex items-center gap-2 text-amber-700 font-bold mb-2">
+                                <i class="fa-solid fa-clock-rotate-left"></i>
+                                <span>初犯或情節輕微者</span>
                             </div>
-                            <p class="text-slate-600">調度至非居住地集合時，補助台灣高鐵標準車廂全額。</p>
+                            <ul class="text-xs text-slate-600 space-y-2 leading-relaxed list-disc pl-4">
+                                <li>由主管進行正式內部輔導約談，並列入專案觀察名單。</li>
+                                <li><strong class="text-rose-700">該期晉升審查資格一律遞延 3 個月</strong>。</li>
+                            </ul>
                         </div>
-                        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
-                            <div class="font-bold text-slate-800 mb-1 flex items-center gap-1.5">
-                                <span class="px-1.5 py-0.5 bg-slate-600 text-white rounded text-[10px]">B 級</span>
-                                <span class="px-1.5 py-0.5 bg-slate-400 text-white rounded text-[10px]">C 級</span>
-                                <span>台鐵對號列車來回車資</span>
+
+                        <div class="bg-white p-5 rounded-xl border border-rose-300 shadow-sm">
+                            <div class="flex items-center gap-2 text-rose-700 font-bold mb-2">
+                                <i class="fa-solid fa-ban"></i>
+                                <span>情節嚴重或多次累犯者</span>
                             </div>
-                            <p class="text-slate-600">補助台鐵對號座（自強號）全額來回車資。</p>
+                            <ul class="text-xs text-slate-600 space-y-2 leading-relaxed list-disc pl-4">
+                                <li>視情節輕重由主管會議裁定<strong class="text-rose-700">調降職級一級</strong>處分。</li>
+                                <li>調降後之領隊帶團日費、各項津貼補助均全面依新級別標準核發。</li>
+                                <li>情節重大損及公司商譽或造成損失者，予以<strong class="text-rose-700">暫停派團處分</strong>並追究合約賠償責任。</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
+            </section>
 
-                <!-- 影音製作費 -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                    <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4 text-lg">
-                        <i class="fa-solid fa-video"></i>
-                    </div>
-                    <h4 class="font-bold text-base text-slate-900 mb-1">回團影片製作費</h4>
-                    <p class="text-xs text-slate-500 mb-4">產出優質行銷影音，強化社群分享與品牌記憶</p>
-                    
-                    <div class="space-y-2 mb-4 text-xs">
-                        <div class="flex justify-between items-center p-2 bg-emerald-50/60 rounded border border-emerald-100">
-                            <span class="text-emerald-900 font-medium">一日遊行程回傳</span>
-                            <span class="font-bold text-emerald-700">NT$ 300 / 團</span>
-                        </div>
-                        <div class="flex justify-between items-center p-2 bg-emerald-50/60 rounded border border-emerald-100">
-                            <span class="text-emerald-900 font-medium">二日（含）以上行程</span>
-                            <span class="font-bold text-emerald-700">NT$ 500 / 團</span>
-                        </div>
-                    </div>
+        </main>
+    </div>
 
-                    <div class="p-3 bg-slate-50 rounded-lg text-[11px] text-slate-600 space-y-1.5 border border-slate-200">
-                        <div class="font-bold text-slate-800 flex items-center gap-1">
-                            <i class="fa-solid fa-list-check text-emerald-600"></i> 驗收規範：
-                        </div>
-                        <ul class="list-disc pl-4 space-y-1">
-                            <li>短影音長度須<strong>超過 90 秒</strong>。</li>
-                            <li>影片片頭與片尾均需置入<strong>何時旅遊 LOGO</strong>。</li>
-                            <li>側拍活動精選清晰照片達 <strong>35 張以上</strong>。</li>
+    <!-- ========================================== -->
+    <!-- 分頁二：領隊標準作業規範 (需身分證驗證) -->
+    <!-- ========================================== -->
+    <div id="tabContentSOP" class="hidden">
+
+        <!-- 驗證彈窗 / 鎖定視窗 (未登入時顯示) -->
+        <div id="sopAuthGate" class="max-w-md mx-auto my-20 p-8 bg-white rounded-2xl shadow-xl border border-slate-200 text-center">
+            <div class="w-16 h-16 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl shadow-inner">
+                <i class="fa-solid fa-id-card-clip"></i>
+            </div>
+            <h3 class="text-xl font-black text-slate-900 mb-2">何時旅遊 內部帶團手冊</h3>
+            <p class="text-xs text-slate-500 mb-6">此手冊含重要營運 SOP 與通報機密，僅供授權領隊查閱，請輸入身分證字號解鎖。</p>
+            
+            <form onsubmit="handleIdAuth(event)" class="space-y-4">
+                <div>
+                    <input type="password" id="inputIdNumber" placeholder="請輸入身分證字號（如：A123456789）" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-center text-sm font-mono tracking-widest uppercase focus:outline-none focus:ring-2 focus:ring-sky-500 transition" required>
+                </div>
+                <div id="authErrorMsg" class="text-rose-600 text-xs font-semibold hidden flex items-center justify-center gap-1">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <span>身分證字號驗證未通過，非授權名單或輸入有誤</span>
+                </div>
+                <button type="submit" class="w-full py-3 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl text-sm transition shadow-md flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-key"></i> 驗證身分並解鎖手冊
+                </button>
+            </form>
+            <p class="text-[11px] text-slate-400 mt-6">如您為現職合作領隊且無法登入，請洽詢產品部主管卡卡建立白名單。</p>
+        </div>
+
+        <!-- 授權通過後顯示的完整手冊內容 -->
+        <div id="sopProtectedContent" class="hidden max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            
+            <!-- 授權狀態條 -->
+            <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5 mb-8 flex items-center justify-between text-xs text-emerald-900 shadow-sm no-print">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-circle-check text-emerald-600 text-sm"></i>
+                    <span>身分授權已確認：<strong id="displayAuthId" class="font-mono"></strong>（已解鎖內部帶團手冊）</span>
+                </div>
+                <button onclick="logoutSOP()" class="text-slate-500 hover:text-rose-600 text-[11px] underline">
+                    重新登出鎖定
+                </button>
+            </div>
+
+            <div class="bg-white rounded-2xl p-6 sm:p-10 shadow-md border border-slate-200 sop-content">
+                
+                <div class="border-b-2 border-slate-900 pb-4 mb-6 text-center">
+                    <h1 class="text-2xl sm:text-3xl font-black text-slate-900 mb-2">何時旅遊 x 國內旅遊 內部帶團手冊</h1>
+                    <div class="text-base text-slate-600 font-bold mb-2">領隊帶團 SOP 與完整話術指南</div>
+                    <span class="bg-sky-700 text-white text-xs font-semibold px-3 py-1 rounded">卡卡製作版本：v2.0 (2026.10.27)</span>
+                </div>
+
+                <!-- 核心精神 -->
+                <div class="bg-sky-50 border border-sky-200 border-l-4 border-l-sky-600 p-4 rounded-lg my-6">
+                    <div class="font-bold text-sky-900 text-sm mb-2">★ 核心精神</div>
+                    <div class="text-slate-800 text-sm font-semibold mb-2">「帶著熱忱出發，用專業說好土地的故事；在每個細膩的款待時刻裡，好好感受旅行。」</div>
+                    <div class="text-xs text-slate-700 space-y-1.5 leading-relaxed">
+                        <p>• <strong>服務熱忱</strong>：服務不是制式的 SOP，是把客人的每件小事，都當成自己的重要大事，用真誠去打動人心。</p>
+                        <p>• <strong>專業分享</strong>：我們不背誦生硬的歷史年份，透過生動立體的故事，把在地的風土、人情與生活感，說進旅人的心坎裡。</p>
+                        <p>• <strong>款待時刻</strong>：從遞上一杯剛泡好的熱茶、一個剛好合心意的引導，到安頓好每個細微感受，讓每位團員深刻體會被真心相待的美好。</p>
+                    </div>
+                    <hr class="border-dashed border-sky-300 my-3">
+                    <div class="font-bold text-sky-900 text-sm mb-1">★ 全程帶團最高核心原則</div>
+                    <div class="text-slate-800 text-sm font-semibold">「出門就是放鬆，把時間留給自己，好好感受旅程。」</div>
+                    <div class="text-xs text-slate-600 mt-1">
+                        旅遊是一件極度放鬆的事情，放下所有生活裡的焦慮。將繁瑣的行李上下、路況調度交給專業團隊打理，讓大家全力享受同行相聚的美好時光。
+                    </div>
+                </div>
+
+                <!-- 一、出發前準備 -->
+                <h2>一、出發前準備（核對與前置作業）</h2>
+                <h3>1. 前置作業排程</h3>
+                <ul>
+                    <li><strong>出團前 7 天確認前置</strong>：主動聯繫 OP，確認交團時間（統一出發前 3 個工作天）、確認團包內容與寄送資訊、報到點是否需要安排寄鋪。</li>
+                    <li><strong>出團前 3 天發布行前提醒</strong>：出發 3 天前於群組發布完整注意事項清單，發布內容包含：自我介紹、集合時間與地點、遊覽車車號、每日天氣提醒、建議個人攜帶物品、行程飯店特別說明（如泳池開放與泳具攜帶）。</li>
+                </ul>
+
+                <h3>2. 客群提問與上下車點嚴謹規範</h3>
+                <ul>
+                    <li><strong>群組問題回覆</strong>：旅客在群組發問旅遊相關問題，記得主動協助回覆；若該問題當下無法立即解決，請回覆客人：「確認後第一時間回覆給您。」</li>
+                    <li><strong>報名、座位與上車點異動</strong>：客人若提出報名、選座位、改上車點需求，請引導客人直接聯繫業務窗口，讓業務修改系統以確保資訊同步。</li>
+                    <li><strong>上下車點嚴禁私下答應</strong>：不論在群組或出團期間，客人要求修改、增加上下車點，切勿自行答應，請統一聯繫業務窗口。上車點皆為固定站點，不能因為順路就修改，此舉對其他準時依約前往的客人不公平，且一旦破例後續難以管理。</li>
+                </ul>
+
+                <h3>3. 交團資料齊全度核對</h3>
+                <ul>
+                    <li><strong>線上領隊作業回報系統連結</strong>：
+                        <ul>
+                            <li>確認領隊日報檢查表是否與行前資料相符。</li>
+                            <li>確認預支團支金額是否與實領款項相符。</li>
+                            <li>確認分房表是否與座位報表席次相符。</li>
+                            <li><em>註：線上系統內座位報表之完整個資解密密碼為當團出發日期（例如：20261005）。</em></li>
                         </ul>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- 第三條：福利與保障 -->
-        <section id="benefits">
-            <div class="border-b border-slate-200 pb-4 mb-8">
-                <span class="text-sky-600 font-bold text-xs tracking-wider uppercase">Article 03</span>
-                <h3 class="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
-                    <i class="fa-solid fa-award text-sky-600"></i> 等級專屬福利與簽約禮遇
-                </h3>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
-                <!-- SA 級專屬福利 -->
-                <div class="bg-gradient-to-br from-sky-900 to-slate-900 text-white rounded-2xl p-6 shadow-md flex flex-col justify-between">
-                    <div>
-                        <div class="inline-flex items-center gap-2 px-3 py-1 bg-sky-500/20 text-sky-300 rounded-full text-xs font-semibold mb-4 border border-sky-400/30">
-                            <i class="fa-solid fa-star text-amber-400"></i> S級 與 A級 核心簽約夥伴享有
-                        </div>
-                        <h4 class="text-xl font-bold mb-4">專業職能維持與安心保障</h4>
-                        <ul class="space-y-4 text-sm text-slate-200">
-                            <li class="flex items-start gap-3">
-                                <div class="w-7 h-7 rounded-lg bg-sky-800 text-sky-300 flex items-center justify-center flex-shrink-0 mt-0.5">
-                                    <i class="fa-solid fa-hand-holding-dollar text-xs"></i>
-                                </div>
-                                <div>
-                                    <strong class="text-white block">專業職能維持津貼</strong>
-                                    <span>每月定額補助 <strong class="text-amber-400">NT$ 2,700 元</strong>，穩定淡季收益與職能維護。</span>
-                                </div>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <div class="w-7 h-7 rounded-lg bg-sky-800 text-sky-300 flex items-center justify-center flex-shrink-0 mt-0.5">
-                                    <i class="fa-solid fa-shield-virus text-xs"></i>
-                                </div>
-                                <div>
-                                    <strong class="text-white block">公司全額負擔團體意外+醫療保險保障</strong>
-                                    <span>享有投保意外100萬+醫療2萬之團體意外保險保障，帶團安全無後顧之憂。</span>
-                                </div>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <div class="w-7 h-7 rounded-lg bg-sky-800 text-sky-300 flex items-center justify-center flex-shrink-0 mt-0.5">
-                                    <i class="fa-solid fa-champagne-glasses text-xs"></i>
-                                </div>
-                                <div>
-                                    <strong class="text-white block">每半年定期餐敘聯誼</strong>
-                                    <span>每半年免費獲邀參與公司主力領隊之交流餐會。</span>
-                                </div>
-                            </li>
+                    </li>
+                    <li><strong>NAS 資料夾連結</strong>：
+                        <ul>
+                            <li>逐一核對派車報到單、車籍資料、客戶行前資料、操作書、分房表、飯店房號表、保險保單、車條、相關供應商預訂憑證與電子車票。</li>
+                            <li>車況規格確認：務必確認操作書上遊覽車指定車齡在 5 年內，並核對車籍資料座位數（車籍座位數已包含司機大哥與領隊）。</li>
+                            <li>保險保單查核：確認出團日期與人數相符，若有加保旅平險亦同步檢查。</li>
+                            <li>行前資料核實：確認集合地點正確性（特殊集合點先以 Google 地圖確認街景與動線），並確認站與站之間的行車距離與預估時間。</li>
                         </ul>
-                    </div>
-                </div>
+                    </li>
+                </ul>
 
-                <!-- S 級頂級獨享禮遇 -->
-                <div class="bg-gradient-to-br from-amber-950 via-slate-900 to-slate-900 text-white rounded-2xl p-6 shadow-md border border-amber-500/30 flex flex-col justify-between">
-                    <div>
-                        <div class="inline-flex items-center gap-2 px-3 py-1 bg-amber-500/20 text-amber-300 rounded-full text-xs font-semibold mb-4 border border-amber-400/30">
-                            <i class="fa-solid fa-crown text-amber-400"></i> S 級 首席領隊專屬特權
-                        </div>
-                        <h4 class="text-xl font-bold mb-4">尊榮禮遇與年度共享福利</h4>
-                        <ul class="space-y-4 text-sm text-slate-200">
-                            <li class="flex items-start gap-3">
-                                <div class="w-7 h-7 rounded-lg bg-amber-900/60 text-amber-300 flex items-center justify-center flex-shrink-0 mt-0.5 border border-amber-500/30">
-                                    <i class="fa-solid fa-hotel text-xs"></i>
-                                </div>
-                                <div>
-                                    <strong class="text-amber-300 block">國內五星級飯店生日住宿券</strong>
-                                    <span>生日當月份享有全額免費「國內精選五星級飯店一泊一食住宿券乙晚」，慰勞整年度辛勞。</span>
-                                </div>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <div class="w-7 h-7 rounded-lg bg-amber-900/60 text-amber-300 flex items-center justify-center flex-shrink-0 mt-0.5 border border-amber-500/30">
-                                    <i class="fa-solid fa-plane-departure text-xs"></i>
-                                </div>
-                                <div>
-                                    <strong class="text-amber-300 block">何時旅遊國內員工旅遊福利</strong>
-                                    <span>同享內部正式員工年度優質國內員旅全額免費參與資格，共創夥伴回憶。</span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                <h3>4. 團包物資清點</h3>
+                <ul>
+                    <li><strong>必備物件</strong>：團包袋子、領隊旗桿、何時制服與工裝背心、醫藥包、紅茶與綠茶茶包、專用茶壺、純水濕紙巾 1 包。</li>
+                    <li><strong>專案物資</strong>：合照布條、客人名牌、實體手冊、各團輔銷物（依各團型配置提供）。</li>
+                </ul>
 
-            </div>
-        </section>
+                <h3>5. 供應商團確與行前聯繫</h3>
+                <ul>
+                    <li><strong>供應商團確</strong>：依操作書逐一聯繫車行、餐廳、景點、活動、飯店與寄鋪，出團前全數確認完畢，掌握現場接應細節。</li>
+                    <li><strong>司機大哥行前聯繫</strong>：出發前一天確實電話聯繫司機大哥，提醒集合時間、地點，並請車上備妥足量礦泉水、茶壺與熱水桶。若司機未接電話，切勿只傳簡訊，請回報團控由車行通知。</li>
+                    <li><strong>特殊團型與功課準備</strong>：初次帶領的路線，出團前請務必與線控主管卡卡聯繫；若為特別包團，與卡卡討論後務必再聯繫當團業務，了解客戶背景與窗口特性。</li>
+                </ul>
 
-        <!-- 第四條：違規與退場機制 -->
-        <section id="penalties">
-            <div class="border-b border-slate-200 pb-4 mb-8">
-                <span class="text-rose-600 font-bold text-xs tracking-wider uppercase">Article 04</span>
-                <h3 class="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
-                    <i class="fa-solid fa-triangle-exclamation text-rose-600"></i> 作業疏失、客訴懲處與降級規範
-                </h3>
-            </div>
+                <h3>6. 「款待時刻」慶生驚喜 SOP</h3>
+                <ul>
+                    <li><strong>當月壽星</strong>：贈送精緻小蛋糕一份（金額以 300 元內為原則），由領隊於旅遊途中合適地點購買；若沿途無適合蛋糕店，可調整為在地伴手禮，並同樣安排全車齊唱生日快樂歌分享。</li>
+                    <li><strong>多位壽星（4 人以上）</strong>：由當團 OP 事先向專門店家訂購大蛋糕，慶生需安排溫馨慶祝環節並錄影，提供線控主管卡卡與公司行銷使用。</li>
+                </ul>
 
-            <div class="bg-rose-50/50 border border-rose-200 rounded-2xl p-6">
-                <p class="text-sm text-slate-700 leading-relaxed mb-6 font-medium">
-                    若領隊於出團期間發生個人作業疏失、違反承攬服務常規，或遭旅客提出明確事證客訴成立者，經查核屬實後依下列規範嚴格處置：
+                <h3>7. 氣候因素與雨天備案執行標準</h3>
+                <ul>
+                    <li><strong>出團判定標準</strong>：團體是否取消，一律以地方政府發布之「停止上班上課」公告為準。若出發地與旅遊地皆未發布停班停課，該團一律正常出團。</li>
+                    <li><strong>雨天備案執行</strong>：正常出團若遇現場降雨，領隊務必與線控卡卡共同討論調整行程，轉為執行雨天備案。</li>
+                    <li><strong>停班停課應變流程</strong>：即使地方政府宣布停班停課，領隊切勿自行向旅客發布取消訊息；請立即將線控卡卡加入聯絡社群（LINE 群組），由卡卡親自發布官方取消公告。</li>
+                </ul>
+
+                <!-- 二、領隊出團專業規範 -->
+                <h2>二、領隊出團專業規範</h2>
+                <ol>
+                    <li><strong>制服穿著標準</strong>：上身穿著公司品牌 POLO 衫或工裝背心（著背心拉鍊請拉齊至胸口），穿著黑色或深色合身牛仔褲，嚴禁穿著運動褲、休閒棉褲或拖鞋。（備註：若當天有玩水活動，當天可彈性穿著短褲）。</li>
+                    <li><strong>禁菸紀律</strong>：出團期間嚴禁在客人面前抽菸。抽菸習慣屬個人行為，請於休息空檔尋找隱密處，嚴禁剛下團就在客人下車處點菸，違者直接停團處分。</li>
+                    <li><strong>敬酒應對紀律</strong>：出團期間客人主動邀酒，請直接以「公司規定上班中不可飲酒」回絕；若客人熱情勸酒，請以茶代酒回敬。上班期間若有飲酒行為直接停團處分。</li>
+                    <li><strong>品牌代表身分</strong>：出團期間不論是簽約領隊或外調領隊皆代表何時旅遊，客人詢問時一律以「何時旅遊簽約領隊」答覆。</li>
+                    <li><strong>主動拍照留念</strong>：旅遊景點我們可能來過很多次，但對很多客人來說是珍貴的第一次。主動幫客人留下美好照片，大幅提升整趟旅遊溫度，對領隊回團製作影片亦有莫大助益。</li>
+                    <li><strong>長輩關心與同理心</strong>：團體多有年紀較大的長輩，請主動關心攙扶上下階梯，不厭其煩叮嚀集合時間與洗手間方位，當成自己家人細心照護。</li>
+                </ol>
+
+                <!-- 三、接隊作業服務 -->
+                <h2>三、接隊作業服務（SOP 與標準話術）</h2>
+                <h3>1. 司機聯繫與提早抵達</h3>
+                <ul>
+                    <li>集合時間前 1 小時主動致電司機大哥，確保準時抵達報到點。</li>
+                    <li>領隊請於集合時間前 10 分鐘抵達現場，定位擺放好車條，拍攝遊覽車車頭與車牌照片提供至客人群組。</li>
+                    <li>上車基於禮貌可先詢問司機：「大哥早安，今天氣溫較高，方便借冰箱放濕紙巾嗎？」（若冬天則不需要放）。</li>
+                </ul>
+
+                <h3>2. 精準點名與未到通報</h3>
+                <ul>
+                    <li>點名時務必清楚對應每位團員，嚴禁一人前來表示同伴都到就全數勾選。</li>
+                    <li>集合時間已到若有團員未到，主動致電聯繫確認路況與抵達時間；若未接聽，立即聯繫該位客人的業務窗口雙向聯繫。集合逾時現場最長等候 10 分鐘，通聯記錄務必截圖保存以避免爭議。</li>
+                    <li>發車前再次點名確認人數。領隊請親自走入走道由前往後逐座確認，避免夾帶未報名孩童或遺漏人數。</li>
+                </ul>
+
+                <h3>3. 沿途多站接隊動線管理</h3>
+                <ul>
+                    <li>開車後立即於群組發送下一站預計抵達時間（警語備註：實際抵達時間以路況為主）。</li>
+                    <li>若有多站接隊，每一站開車後親自送礦泉水到客人座位旁，簡短問候致意，說明車上豐富的互動等最後一站接齊後正式展開，並提醒行車期間繫妥安全帶。</li>
+                </ul>
+
+                <h3>4. 客訴案例調整：上車地點不符之現場應對</h3>
+                <p class="text-xs text-slate-600">當發現客人實際上車地點與報名資料不同時，避免在車上公開宣達，以免影響其他客人觀感與團體氛圍。領隊請於走道旁半蹲私下溝通：</p>
+                <blockquote>
+                    「大哥／大姐早安，這邊跟您核對一下資料，發現您原先登記的上車點在上一站，請問之前有先跟我們業務專員告知變更嗎？有跟業務說過的話就完全沒問題，我等等幫您在系統上標註好；如果是今天臨時改來這裡，因為車輛調度與保險名冊需要同步，下次出發前請記得提前跟業務說一聲，這樣我們才能為您做最好的準備喔！」
+                </blockquote>
+                <p class="text-xs text-slate-600">若客人已通知業務，領隊立即私訊回報線控；若客人未事先通知，以私下柔和提醒化解，維持全車和諧。</p>
+
+                <!-- 四、車上作業服務 -->
+                <h2>四、車上作業服務（互動話術與設備宣導）</h2>
+                <h3>1. 麥克風音量測試</h3>
+                <blockquote>
+                    「各位大哥、大姐早安！有聽到我的聲音嗎？後排的大哥大姐聽得清楚嗎？音量如果覺得太大聲或聽不清楚，隨時跟我打個招呼，我會馬上為大家調整到最舒服的音量喔！」
+                </blockquote>
+
+                <h3>2. 行車安全逃生設備宣導</h3>
+                <blockquote>
+                    「出門放鬆玩，安全最優先。在此向大家報告我們這台車的安全防護設備：全車共有 4 個安全門、3 個車窗擊破器、2 個滅火器，以及 1 個車頂逃生門。擊破器位於兩側車窗旁，若遇緊急狀況，取下後敲擊車窗四個角落即可推開逃生。大家坐好後，也請隨手幫我把安全帶繫上，讓我們一路平平安安。」
+                </blockquote>
+
+                <h3>3. 領隊自我介紹與長官致詞安排</h3>
+                <ul>
+                    <li><strong>自我介紹重點</strong>：領隊需站在樓上走道前方與客人眼神交流，明確告知自己的稱呼（如：有問題隨時跟卡卡說），讓團員快速記住名字，建立信任感。</li>
+                    <li><strong>長官致詞安排</strong>：若為企業包團或特別專案團，領隊於自我介紹結束後，依清晨事先與主辦窗口確認好的名單，主動遞麥克風邀請主辦長官向全車致詞勉勵。</li>
+                </ul>
+
+                <h3>4. 車隊介紹、空調調整與車室清潔宣導</h3>
+                <blockquote>
+                    「今天為我們掌舵的是最專業沉穩的司機大哥，大家給司機大哥一個熱情掌聲！我們使用的是五年內全新的歐規豪華大巴，每台車都是正規公司車，車況穩定、保養嚴謹。車上每個座位都有專屬的空調出風口，冷氣如果覺得太強，請不要將風口全部關閉，可以將風口轉向吹向窗戶玻璃，這樣既能保持車內空氣流通，也不會直接吹到頭部。每個座位前方都有為大家準備清潔袋，抵達飯店前與回程時我會為大家集中收垃圾，隨時保持我們乾淨舒爽的車室空間。」
+                </blockquote>
+
+                <h3>5. 礦泉水供應與傳統倒茶服務承諾</h3>
+                <blockquote>
+                    「車上的礦泉水我們準備得非常充足，是無限量為大家供應的，喝完了隨時跟我拿。另外，何時旅遊雖然是充滿朝氣的新品牌，但我們產品團隊的主管是遊覽車基層出身，非常珍惜早期遊覽車那份充滿人情味的倒茶文化。在旅途行車平穩的時段，卡卡會帶著剛泡好的熱茶，走到大家的座位旁為大家斟上一杯暖茶，讓大家在車上品茗、看風景，享受最道地的款待溫度。」
+                </blockquote>
+
+                <h3>6. 下層行李托運承諾</h3>
+                <blockquote>
+                    「大家出門就是來放鬆的，下層行李廂的大件行李，抵達飯店時以及回程下車時，我們都會在車下一一為大家卸下來排好。大家在車上只要牽好身邊的家人、收好隨身貴重物品，慢慢走下車就好，剩下所有粗重的體力活交給卡卡來服務，讓大家出門玩得優雅又輕鬆！」
+                </blockquote>
+
+                <h3>7. 車上娛樂活動規範</h3>
+                <ul>
+                    <li><strong>散客系列團</strong>：為維護全車舒適安靜的乘車品質與休息空間，行車期間僅安排影片播映或輕音樂，恕不開放卡拉 OK 點唱服務。</li>
+                    <li><strong>獨立包團</strong>：依窗口需求彈性開放卡拉 OK 歡唱，請旅客透過 LINE 群組點歌，領隊唱名引導；中午 12:30 至 13:30 用餐完畢後的行車時段應暫停唱歌，保留安靜休息時間。</li>
+                </ul>
+
+                <!-- 五、品牌核心故事 -->
+                <h2>五、品牌核心故事與文化傳遞（車上深度分享）</h2>
+                <h3>1. 創立初心與深度客製行程開發</h3>
+                <blockquote>
+                    「常常有朋友問我，何時旅遊是一家什麼樣的旅行社？我們的故事是在 2019 年開始的，當時正值觀光業最艱難的時刻，我們主管卡卡帶著團隊開發國內的深度客製行程，以細膩的照顧和扎實的好口碑一步步站穩腳步。我們總公司在苗栗，核心團隊都是在台北大型旅行社歷練十多年的專業好手。我們從苗栗出發，陸續在後龍、竹南、桃園、台北開立了五家分店，接下來更會擴展到新竹與彰化。」
+                </blockquote>
+
+                <h3>2. 供應鏈實力與透明定價哲學</h3>
+                <blockquote>
+                    「現在何時旅遊每個月出團高達 1500 到 2000 人次，每個月有將近 70 團大客車在全台灣各地奔馳。正是因為有這麼龐大的出團量，我們能跟全台灣優質飯店、車隊爭取到非常優秀的採購條件。我們堅持透明合理的利潤，不趁熱度胡亂漲價，用實在的價格、高品質的車況與無微不至的服務回饋給大家。」
+                </blockquote>
+
+                <h3>3. 榮獲旅遊界奧斯卡「國際金旅獎」殊榮</h3>
+                <blockquote>
+                    「2024 年 0403 地震後太魯閣休園近一年，飯店總監聯繫卡卡後，卡卡親自走了一趟花蓮，被大自然驚人的修復力與土地的強韌深深打動，回來後立刻策劃帶大家重返花蓮的精緻路線。這套行程榮獲觀光署指導、有『旅遊業奧斯卡』之稱的【國際金旅獎】！這個獎項嚴格評選行程內容、定價公道性與旅客滿意度，這份肯定讓我們更堅定要為大家端出真正有靈魂的在地行程。」
+                </blockquote>
+
+                <!-- 六、休息站與景點操作 -->
+                <h2>六、休息站操作與景點上下車貼心服務</h2>
+                <ul>
+                    <li><strong>停靠節奏</strong>：平均 1 至 1.5 小時停靠一次。除回程未包晚餐需留時間讓客人買食物外，其餘操作皆為上完洗手間即發車。</li>
+                    <li><strong>下車前安全廣播</strong>：
+                        <blockquote>
+                            「各位大哥大姐，我們抵達休息站囉！下車前請記好我們遊覽車的車號與車身顏色；如果忘記也沒關係，卡卡會穿著制服站在車頭前，看到我在哪裡，車子就在哪裡！遊覽車階梯在下雨天邊緣金屬較滑，下車請踩穩扶手；走過車頭時請特別留意兩側的大型後照鏡高度，小心不要撞到頭。遊覽車完全停穩、車門打開後，大家再站起來下車喔！」
+                        </blockquote>
+                    </li>
+                    <li><strong>景點「5:5 導覽法則」</strong>：一小時的時間，前半小時帶著客人走訪核心拍照點，後半小時保留給客人自由逛街。</li>
+                    <li><strong>覆誦式宣達集合時間</strong>：
+                        <blockquote>
+                            「我們這站預計停留到下午三點半，三點半遊覽車發車。請問各位家人，我們等等幾點車上集合？（引導全車齊聲回應：三點半！）太棒了，大家默契非常好！」
+                        </blockquote>
+                    </li>
+                </ul>
+
+                <!-- 七、購物政策 -->
+                <h2>七、購物政策與誠信承諾</h2>
+                <blockquote>
+                    「卡卡在這邊跟大家鄭重承諾：何時旅遊的團絕對不進封閉式強迫購物的場所，車上也絕對不賣任何商品。如果有經過觀光工廠，純粹是讓大家認識在地產業。大家完全依照自己的喜好與需求決定，想買就買、不想買漫步看展覽也非常好，絕不會有任何消費壓力。」
+                </blockquote>
+                <p class="text-xs text-slate-600 mt-2">
+                    車上嚴禁客人或司機推銷商品；觀光工廠佣金全額繳回公司，茶水費現場歸司機大哥。
                 </p>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-white p-5 rounded-xl border border-rose-200 shadow-sm">
-                        <div class="flex items-center gap-2 text-amber-700 font-bold mb-2">
-                            <i class="fa-solid fa-clock-rotate-left"></i>
-                            <span>初犯或情節輕微者</span>
-                        </div>
-                        <ul class="text-xs text-slate-600 space-y-2 leading-relaxed list-disc pl-4">
-                            <li>由主管進行正式內部輔導約談，並列入專案觀察名單。</li>
-                            <li><strong class="text-rose-700">該期晉升審查資格一律遞延 3 個月</strong>。</li>
-                        </ul>
-                    </div>
+                <!-- 八、餐飲操作 -->
+                <h2>八、餐飲操作與「三三水」關懷政策</h2>
+                <div class="overflow-x-auto">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>用餐人數（不含領隊司機）</th>
+                                <th>開桌與加量標準</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>08 - 10 人</td><td>開立一桌</td></tr>
+                            <tr><td>11 人</td><td>開立一桌 ＋ 加一位份量</td></tr>
+                            <tr><td>12 人</td><td>開立一桌 ＋ 加二位份量</td></tr>
+                            <tr><td>13 - 15 人</td><td>開立一桌半</td></tr>
+                            <tr><td>16 - 20 人</td><td>開立二桌</td></tr>
+                            <tr><td>21 人</td><td>開立二桌 ＋ 加一位份量</td></tr>
+                            <tr><td>22 人</td><td>開立二桌 ＋ 加二位份量</td></tr>
+                            <tr><td>23 - 25 人</td><td>開立二桌半</td></tr>
+                            <tr><td>26 - 30 人</td><td>開立三桌</td></tr>
+                            <tr><td>31 人</td><td>開立三桌 ＋ 加一位份量</td></tr>
+                            <tr><td>32 人</td><td>開立三桌 ＋ 加二位份量</td></tr>
+                        </tbody>
+                    </table>
+                </div>
 
-                    <div class="bg-white p-5 rounded-xl border border-rose-300 shadow-sm">
-                        <div class="flex items-center gap-2 text-rose-700 font-bold mb-2">
-                            <i class="fa-solid fa-ban"></i>
-                            <span>情節嚴重或多次累犯者</span>
-                        </div>
-                        <ul class="text-xs text-slate-600 space-y-2 leading-relaxed list-disc pl-4">
-                            <li>視情節輕重由主管會議裁定<strong class="text-rose-700">調降職級一級</strong>處分。</li>
-                            <li>調降後之領隊帶團日費、各項津貼補助均全面依新級別標準核發。</li>
-                            <li>情節重大損及公司商譽或造成損失者，予以<strong class="text-rose-700">暫停派團處分</strong>並追究合約賠償責任。</li>
+                <h3>合菜落實「三三水」關心政策</h3>
+                <ul>
+                    <li><strong>第三道菜</strong>：全桌出到第三道菜、出菜順暢後，領隊方可前去用餐。</li>
+                    <li><strong>倒數第三道菜</strong>：領隊用餐完畢，回到各桌巡視關心飯菜狀況與份量。</li>
+                    <li><strong>上水果時</strong>：領隊二度逐桌關懷，預告下一站抵達時間，提醒帶齊隨身包包並前往洗手間。</li>
+                </ul>
+
+                <!-- 九、飯店操作 -->
+                <h2>九、飯店操作服務</h2>
+                <ul>
+                    <li><strong>入住前確認房號</strong>：領隊辦理入住前需主動核對房號分配，檢查同行親友是否被拆散。</li>
+                    <li><strong>三分鐘進房小檢查話術</strong>：
+                        <blockquote>
+                            「等等進房間後，請大家先做三分鐘的設備小檢查：打開水龍頭測試熱水與水壓、沖一下馬桶看排水是否順暢、洗手台排水孔順不順、電視開關測試、冷氣運轉是否正常。如果有任何小狀況，請立刻在 LINE 群組跟我說，我馬上請飯店工程人員處理或協助換房。」
+                        </blockquote>
+                    </li>
+                    <li><strong>駐點守護時間</strong>：進房後推 2 小時（若有用晚餐則是餐後推 1 小時）才可離開飯店。</li>
+                    <li><strong>素食早餐細膩確認</strong>：主動向飯店確認素食獨立套餐或素食專區標示，主動向素食團員說明。</li>
+                </ul>
+
+                <!-- 十、謝車詞與小費 -->
+                <h2>十、謝車詞、匿名意見回饋與收小費情感昇華</h2>
+                <blockquote>
+                    「這幾天下來，看見大家臉上放鬆的笑容，就是我們整個團隊最大的成就感。這些美麗的景點我們領隊可能走過幾十次，但對很多大哥大姐來說，卻是今年好不容易盼到的一次假期。卡卡由衷感謝這幾天大家對我的包容與照顧，更要感謝我們勞苦功高、默默掌舵守護大家行車安全的司機大哥。我們大家一起把最熱烈的掌聲送給辛苦的司機大哥！」
+                </blockquote>
+                <p class="text-xs text-slate-600">收取服務小費每位團員每天 100 元（兩歲以下幼童免收）。群組發布【線上旅客意見調查表】與【何時出團抽獎社團】。</p>
+
+                <!-- 十一、旅客權益守則 -->
+                <h2>十一、旅客權益、報名規範與行前守則指南</h2>
+                <ul>
+                    <li><strong>定價與小孩收費</strong>：2 至 12 歲不佔床費用包含車資、餐食、門票與行政規費（不含小費每日 100 元）；2 歲以下嬰兒收作業費 300 元。</li>
+                    <li><strong>車位劃位原則</strong>：全車座位均採公開線上自選機制，現場嚴禁私下大風吹換位。70 歲以上長輩需有家人陪同。</li>
+                    <li><strong>獨立保險責任</strong>：
+                        <ul class="mt-1">
+                            <li><strong>公司履約保證險</strong>：獨立投保總額新台幣 <strong>9,600 萬元</strong>。</li>
+                            <li><strong>團體責任險</strong>：每人 <strong>250 萬元意外身故</strong> ＋ <strong>20 萬元意外醫療</strong>。</li>
                         </ul>
+                    </li>
+                    <li><strong>不可抗力停班停課標準</strong>：遇天災，出發地或目的地地方政府宣布停班停課，該團一律由公司主動取消並全額退費。</li>
+                </ul>
+
+                <!-- 十二、十大同好旅遊系列 -->
+                <h2>十二、何時旅遊「同好旅遊」十大系列帶團心法</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs mt-3">
+                    <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                        <strong class="text-sky-900 block font-bold mb-1">1. 美食尋味 ｜ Flavor Quest</strong>
+                        <p class="text-slate-600">懂得「說菜」，介紹主廚理念與在地風土，嚴格落實「熱菜上桌」原則。</p>
+                    </div>
+                    <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                        <strong class="text-sky-900 block font-bold mb-1">2. 緩慢時光 ｜ Slow Hours</strong>
+                        <p class="text-slate-600">不趕路、只感受。放寬節奏，車上多留白，盡量早進飯店享受設施。</p>
+                    </div>
+                    <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                        <strong class="text-sky-900 block font-bold mb-1">3. 花系列 ｜ In Bloom</strong>
+                        <p class="text-slate-600">掌握季節花期與光線角度，主動告知最佳取景角並協助拍照。</p>
+                    </div>
+                    <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                        <strong class="text-sky-900 block font-bold mb-1">4. 親子企劃 ｜ Family Discovery</strong>
+                        <p class="text-slate-600">蹲下身子與孩子互動，兼顧大人放鬆與孩子放電，多拍全家福合照。</p>
+                    </div>
+                    <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                        <strong class="text-sky-900 block font-bold mb-1">5. 寵物旅遊 ｜ Paws on Tour（旺旅趣）</strong>
+                        <p class="text-slate-600">貫徹「慢慢來，顧好毛寶貝就好」，休息站不設上車時間，落實冷熱濕紙巾與安全帶規範。</p>
+                    </div>
+                    <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                        <strong class="text-sky-900 block font-bold mb-1">6. 一人旅行 ｜ Solo & Free</strong>
+                        <p class="text-slate-600">拿捏好「陪伴而不打擾」的分寸，給予個人空間，隨時主動幫一人旅客拍照。</p>
+                    </div>
+                    <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                        <strong class="text-sky-900 block font-bold mb-1">7. 不准客訴 ｜ Zero Complaints</strong>
+                        <p class="text-slate-600">前置作業交代清楚，現場落實「說到做到」，凡事多走一步、多問一句。</p>
+                    </div>
+                    <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                        <strong class="text-sky-900 block font-bold mb-1">8. 探索者 ｜ The Explorers</strong>
+                        <p class="text-slate-600">萬全安全宣導與裝備檢查，隨身攜帶急救包，兼顧探索自由與安全界線。</p>
+                    </div>
+                    <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                        <strong class="text-sky-900 block font-bold mb-1">9. 旅拍拾光 ｜ Framed Moments</strong>
+                        <p class="text-slate-600">掌握黃金光影時刻，協助尋找優質視角與引導自然站姿，及時整理歸檔照片。</p>
+                    </div>
+                    <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                        <strong class="text-sky-900 block font-bold mb-1">10. 運動美學 ｜ Game On</strong>
+                        <p class="text-slate-600">車上帶動熱血節奏，嚴密掌握賽事入場動線、散場接駁與水分體能調節。</p>
                     </div>
                 </div>
-            </div>
-        </section>
 
-    </main>
+                <!-- 十三、NAS 操作說明 -->
+                <h2>十三、活動照片上傳 NAS 操作說明</h2>
+                <ul>
+                    <li>手機下載安裝「DS file」App。</li>
+                    <li>登入資訊：IP <code>60.251.127.252</code> ｜ 帳號 <code>F001</code> ｜ 密碼 <code>11111</code></li>
+                    <li>資料夾命名標準格式：<code>出發日期＋團名＋天數＋領隊全名</code>（範例：<code>20261005花蓮晶英振興三日-楊凱翔</code>）</li>
+                </ul>
+
+                <!-- 十四、回團行政與通報 -->
+                <h2>十四、領隊人員回團相關須知</h2>
+                <ul>
+                    <li><strong>住宿寄鋪</strong>：以<strong>平日 1200 元／間、假日 1600 元／間</strong>為補助上限，超出部分自行吸收。</li>
+                    <li><strong>報帳時限</strong>：所有報帳憑證與單據需於行程結束後 <strong>3 天內</strong>完成回團。</li>
+                </ul>
+
+                <h3>團上旅客意外受傷通報格式</h3>
+                <div class="p-4 bg-amber-50 border border-amber-300 rounded-lg font-mono text-xs text-amber-950 leading-relaxed my-3">
+                    <strong>【團上受傷客人回報】</strong><br>
+                    出團團號：<br>
+                    團體名稱：（填寫完整）<br>
+                    業務姓名+電話：<br>
+                    受傷客人+電話：<br>
+                    陪同友人+電話：<br>
+                    受傷時間+地點：<br>
+                    處理方式：（請依時間序回報，過程詳述並持續追蹤至客人返回團上）
+                </div>
+
+                <div class="text-right text-xs text-slate-400 border-t border-slate-200 pt-3 mt-8">
+                    何時旅遊內部培訓教材．版權所有．嚴禁外流
+                </div>
+
+            </div>
+        </div>
+
+    </div>
 
     <!-- 頁尾 -->
-    <footer class="bg-slate-900 text-slate-400 py-10 mt-20 border-t border-slate-800 text-center text-xs">
+    <footer class="bg-slate-900 text-slate-400 py-10 mt-20 border-t border-slate-800 text-center text-xs no-print">
         <div class="max-w-7xl mx-auto px-4 space-y-2">
             <p class="font-semibold text-slate-300 tracking-wider">何時旅遊 HORAZ SERVICE CO., LTD. • 國內線產品部 </p>
-            <p class="text-slate-500">2027 Tour Leader Compensation & Tier Guidelines • Confidential Internal Document</p>
+            <p class="text-slate-500">2027 Tour Leader Compensation & Operational Guidelines • Confidential Internal Document</p>
         </div>
     </footer>
+
+    <!-- JavaScript 權限驗證與分頁切換控制 -->
+    <script>
+        // ==============================================================
+        // 領隊標準作業規範 - 授權身分證字號名單設定區
+        // (支援英文字母大小寫，系統會自動轉為大寫比對)
+        // ==============================================================
+        const AUTHORIZED_IDS = [
+            "F129783851",  // 測試範例 1
+            "A123456789",  // 測試範例 2
+            "F128904567"   // 依此類推直接在引號內填入身分證字號
+        ];
+
+        // 檢查瀏覽器 session 是否已認證
+        function isSopAuthenticated() {
+            return sessionStorage.getItem('horaz_sop_auth') === 'true';
+        }
+
+        // 分頁切換
+        function switchMainTab(tab) {
+            const levelsTab = document.getElementById('tabContentLevels');
+            const sopTab = document.getElementById('tabContentSOP');
+            const btnLevels = document.getElementById('navTabLevels');
+            const btnSOP = document.getElementById('navTabSOP');
+
+            if (tab === 'levels') {
+                levelsTab.classList.remove('hidden');
+                sopTab.classList.add('hidden');
+                btnLevels.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 bg-sky-600 text-white shadow";
+                btnSOP.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 text-slate-300 hover:text-white";
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else if (tab === 'sop') {
+                levelsTab.classList.add('hidden');
+                sopTab.classList.remove('hidden');
+                btnSOP.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 bg-sky-600 text-white shadow";
+                btnLevels.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 text-slate-300 hover:text-white";
+                renderSopState();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // 渲染 SOP 鎖定狀態
+        function renderSopState() {
+            const authGate = document.getElementById('sopAuthGate');
+            const protectedContent = document.getElementById('sopProtectedContent');
+            const displayAuthId = document.getElementById('displayAuthId');
+
+            if (isSopAuthenticated()) {
+                authGate.classList.add('hidden');
+                protectedContent.classList.remove('hidden');
+                const savedId = sessionStorage.getItem('horaz_sop_id') || 'Verified Leader';
+                // 遮罩中間 4 碼身分證號提升個資隱私安全
+                displayAuthId.textContent = savedId.length >= 8 ? savedId.substring(0, 3) + '****' + savedId.substring(7) : savedId;
+            } else {
+                authGate.classList.remove('hidden');
+                protectedContent.classList.add('hidden');
+            }
+        }
+
+        // 處理身分證認證提交
+        function handleIdAuth(e) {
+            e.preventDefault();
+            const inputField = document.getElementById('inputIdNumber');
+            const errorMsg = document.getElementById('authErrorMsg');
+            const inputVal = inputField.value.trim().toUpperCase();
+
+            // 比對白名單陣列
+            const isMatch = AUTHORIZED_IDS.map(id => id.trim().toUpperCase()).includes(inputVal);
+
+            if (isMatch) {
+                errorMsg.classList.add('hidden');
+                sessionStorage.setItem('horaz_sop_auth', 'true');
+                sessionStorage.setItem('horaz_sop_id', inputVal);
+                inputField.value = '';
+                renderSopState();
+            } else {
+                errorMsg.classList.remove('hidden');
+                inputField.classList.add('border-rose-500', 'bg-rose-50');
+            }
+        }
+
+        // 登出 SOP 檢視
+        function logoutSOP() {
+            sessionStorage.removeItem('horaz_sop_auth');
+            sessionStorage.removeItem('horaz_sop_id');
+            renderSopState();
+        }
+    </script>
 
 </body>
 </html>
