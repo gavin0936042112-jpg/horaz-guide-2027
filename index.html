@@ -111,7 +111,7 @@
 <body class="bg-slate-50 text-slate-800 font-sans antialiased pt-20">
 
     <!-- 頂部固定導航列 -->
-    <header class="fixed top-0 left-0 right-0 bg-slate-900/95 backdrop-blur-md text-white z-50 border-b border-slate-800 shadow-lg no-print">
+    <header class="fixed top-0 left-0 right-0 bg-slate-900/95 backdrop-blur-md text-white z-40 border-b border-slate-800 shadow-lg no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-3">
                 <span class="bg-amber-500 text-slate-950 font-black px-2.5 py-1 rounded text-sm tracking-wider uppercase">2027 正式版</span>
@@ -177,7 +177,7 @@
         <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
 
             <!-- 第一條：四級職級標準 -->
-            <section id="levelsSection">
+            <section id="levels">
                 <div class="border-b border-slate-200 pb-4 mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
                     <div>
                         <span class="text-sky-600 font-bold text-xs tracking-wider uppercase">Article 01</span>
@@ -408,7 +408,7 @@
             </section>
 
             <!-- 第二條：差旅補助與影音製作費 -->
-            <section id="allowanceSection">
+            <section id="allowance">
                 <div class="border-b border-slate-200 pb-4 mb-8">
                     <span class="text-sky-600 font-bold text-xs tracking-wider uppercase">Article 02</span>
                     <h3 class="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
@@ -499,7 +499,7 @@
             </section>
 
             <!-- 第三條：福利與保障 -->
-            <section id="benefitsSection">
+            <section id="benefits">
                 <div class="border-b border-slate-200 pb-4 mb-8">
                     <span class="text-sky-600 font-bold text-xs tracking-wider uppercase">Article 03</span>
                     <h3 class="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
@@ -582,7 +582,7 @@
             </section>
 
             <!-- 第四條：違規與退場機制 -->
-            <section id="penaltiesSection">
+            <section id="penalties">
                 <div class="border-b border-slate-200 pb-4 mb-8">
                     <span class="text-rose-600 font-bold text-xs tracking-wider uppercase">Article 04</span>
                     <h3 class="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
@@ -1220,16 +1220,16 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- 新增 / 編輯領隊彈窗 (Modal) -->
+    <!-- 新增 / 編輯領隊彈窗 (Modal - 修正遮罩防覆蓋) -->
     <!-- ========================================== -->
-    <div id="addLeaderModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div id="addLeaderModal" style="display: none;" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full border border-slate-200 overflow-hidden">
             <div class="p-5 bg-slate-900 text-white flex justify-between items-center">
                 <h4 class="font-bold text-base flex items-center gap-2">
                     <i class="fa-solid fa-user-pen text-emerald-400"></i>
                     <span id="modalTitle">新增 / 編輯領隊資料</span>
                 </h4>
-                <button onclick="closeAddLeaderModal()" class="text-slate-400 hover:text-white text-lg">
+                <button type="button" onclick="closeAddLeaderModal()" class="text-slate-400 hover:text-white text-lg">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
@@ -1306,9 +1306,9 @@
     <!-- JavaScript 權限驗證、Google 試算表串接與分頁控制 -->
     <script>
         // ==============================================================
-        // 1. Google 試算表 API 部署網址（請將此處置換為您部署的 Web 應用程式網址）
+        // 1. Google 試算表 API 部署網址（已填入您的專屬 Apps Script URL）
         // ==============================================================
-        const https://script.google.com/macros/s/AKfycbzMmjv3575Q-XoqYfoy60F9x-98cPRfUXvUrm17kPhWqndnLBzGA4rh4ZweI9RUOpAmeg/exec = "https://script.google.com/macros/s/AKfycbz_REPLACE_WITH_YOUR_DEPLOY_URL/exec";
+        const GOOGLE_SHEET_API_URL = "https://script.google.com/macros/s/AKfycbzMmjv3575Q-XoqYfoy60F9x-98cPRfUXvUrm17kPhWqndnLBzGA4rh4ZweI9RUOpAmeg/exec";
 
         // ==============================================================
         // 2. 管理者後台密碼
@@ -1316,7 +1316,7 @@
         const ADMIN_PASSWORD = "HORAZ2027";
 
         // ==============================================================
-        // 3. 本地預設緩衝資料庫（當 Google 試算表連線中或尚未設定 API 時自動墊檔）
+        // 3. 預設資料庫（試算表連線前之備份）
         // ==============================================================
         let LEADER_DATABASE = [
             {
@@ -1361,19 +1361,15 @@
             }
         ];
 
-        // 頁面載入時嘗試從 Google 試算表載入最新名單
+        // 頁面載入時嘗試自 Google 試算表拉取最新資料
         window.addEventListener('DOMContentLoaded', () => {
             fetchLeaderDataFromGoogle(false);
         });
 
-        // 從 Google 試算表取得即時領隊名冊
+        // 自 Google 試算表同步資料
         async function fetchLeaderDataFromGoogle(showNotice = false) {
-            if (!https://script.google.com/macros/s/AKfycbzMmjv3575Q-XoqYfoy60F9x-98cPRfUXvUrm17kPhWqndnLBzGA4rh4ZweI9RUOpAmeg/exec || https://script.google.com/macros/s/AKfycbzMmjv3575Q-XoqYfoy60F9x-98cPRfUXvUrm17kPhWqndnLBzGA4rh4ZweI9RUOpAmeg/exec.includes("REPLACE_WITH_YOUR_DEPLOY_URL")) {
-                if (showNotice) alert("尚未填入正確的 Google Apps Script 網址，目前使用預設名冊。");
-                return;
-            }
             try {
-                const res = await fetch(https://script.google.com/macros/s/AKfycbzMmjv3575Q-XoqYfoy60F9x-98cPRfUXvUrm17kPhWqndnLBzGA4rh4ZweI9RUOpAmeg/exec);
+                const res = await fetch(GOOGLE_SHEET_API_URL);
                 const data = await res.json();
                 if (Array.isArray(data) && data.length > 0) {
                     LEADER_DATABASE = data;
@@ -1384,7 +1380,7 @@
                 }
             } catch (err) {
                 console.error("無法同步 Google 試算表:", err);
-                if (showNotice) alert("同步失敗，請檢查 Apps Script 權限是否設為「所有人」。");
+                if (showNotice) alert("連線 Google 試算表失敗，請確認權限是否設為「所有人」。");
             }
         }
 
@@ -1393,7 +1389,7 @@
             e.preventDefault();
             const btn = document.getElementById('btnModalSubmit');
             btn.disabled = true;
-            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> 儲存寫入中...`;
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> 寫入中...`;
 
             const leaderPayload = {
                 name: document.getElementById('modalName').value.trim(),
@@ -1406,7 +1402,7 @@
                 statusNote: document.getElementById('modalStatusNote').value.trim()
             };
 
-            // 本地先即時更新確保流暢體驗
+            // 本地即時更新
             const existingIndex = LEADER_DATABASE.findIndex(l => l.idNumber.toUpperCase() === leaderPayload.idNumber);
             if (existingIndex >= 0) {
                 LEADER_DATABASE[existingIndex] = leaderPayload;
@@ -1414,28 +1410,26 @@
                 LEADER_DATABASE.unshift(leaderPayload);
             }
 
-            // 非同步寫入 Google 試算表
-            if (https://script.google.com/macros/s/AKfycbzMmjv3575Q-XoqYfoy60F9x-98cPRfUXvUrm17kPhWqndnLBzGA4rh4ZweI9RUOpAmeg/exec && !https://script.google.com/macros/s/AKfycbzMmjv3575Q-XoqYfoy60F9x-98cPRfUXvUrm17kPhWqndnLBzGA4rh4ZweI9RUOpAmeg/exec.includes("REPLACE_WITH_YOUR_DEPLOY_URL")) {
-                try {
-                    await fetch(https://script.google.com/macros/s/AKfycbzMmjv3575Q-XoqYfoy60F9x-98cPRfUXvUrm17kPhWqndnLBzGA4rh4ZweI9RUOpAmeg/exec, {
-                        method: "POST",
-                        mode: "no-cors",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(leaderPayload)
-                    });
-                } catch (err) {
-                    console.error("寫入 Google 試算表錯誤:", err);
-                }
+            // 發送至 Google Apps Script
+            try {
+                await fetch(GOOGLE_SHEET_API_URL, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(leaderPayload)
+                });
+            } catch (err) {
+                console.error("寫入 Google 試算表發生錯誤:", err);
             }
 
             btn.disabled = false;
             btn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> 儲存至 Google 試算表`;
             closeAddLeaderModal();
             buildAdminDashboard();
-            alert(`領隊「${leaderPayload.name}」資料已成功儲存！`);
+            alert(`領隊「${leaderPayload.name}」已成功儲存至試算表！`);
         }
 
-        // 開啟新增領隊 Modal
+        // 開啟 Modal
         function openAddLeaderModal(existingLeader = null) {
             const modal = document.getElementById('addLeaderModal');
             const title = document.getElementById('modalTitle');
@@ -1443,7 +1437,7 @@
                 title.textContent = `編輯領隊：${existingLeader.name}`;
                 document.getElementById('modalName').value = existingLeader.name;
                 document.getElementById('modalIdNumber').value = existingLeader.idNumber;
-                document.getElementById('modalIdNumber').readOnly = true; // 編輯時身分證為 key
+                document.getElementById('modalIdNumber').readOnly = true;
                 document.getElementById('modalLevel').value = existingLeader.currentLevel;
                 document.getElementById('modalStability').value = existingLeader.stability;
                 document.getElementById('modalThemeCount').value = existingLeader.themeCount;
@@ -1455,11 +1449,12 @@
                 document.getElementById('leaderForm').reset();
                 document.getElementById('modalIdNumber').readOnly = false;
             }
-            modal.classList.remove('hidden');
+            modal.style.display = 'flex';
         }
 
+        // 關閉 Modal
         function closeAddLeaderModal() {
-            document.getElementById('addLeaderModal').classList.add('hidden');
+            document.getElementById('addLeaderModal').style.display = 'none';
         }
 
         // ==========================================
@@ -1498,7 +1493,7 @@
         }
 
         // ==========================================
-        // SOP 手冊認證邏輯（自動比對最新名單）
+        // SOP 手冊認證邏輯
         // ==========================================
         function isSopAuthenticated() {
             return sessionStorage.getItem('horaz_sop_auth') === 'true';
@@ -1680,7 +1675,7 @@
                     </td>
                     <td class="p-3.5 text-[11px] text-slate-500 max-w-xs truncate" title="${l.statusNote}">${l.statusNote}</td>
                     <td class="p-3.5 text-center">
-                        <button onclick='editLeaderRow(${JSON.stringify(l)})' class="px-2 py-1 text-sky-600 hover:text-sky-800 font-semibold rounded hover:bg-sky-50 transition">
+                        <button onclick='editLeaderById("${l.idNumber}")' class="px-2 py-1 text-sky-600 hover:text-sky-800 font-semibold rounded hover:bg-sky-50 transition">
                             <i class="fa-solid fa-pen-to-square"></i> 編輯
                         </button>
                     </td>
@@ -1689,8 +1684,9 @@
             });
         }
 
-        function editLeaderRow(leader) {
-            openAddLeaderModal(leader);
+        function editLeaderById(idNumber) {
+            const leader = LEADER_DATABASE.find(l => l.idNumber === idNumber);
+            if (leader) openAddLeaderModal(leader);
         }
 
         // 建立個人領隊狀態卡
