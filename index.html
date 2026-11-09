@@ -628,7 +628,7 @@
             
             <form onsubmit="handleIdAuth(event)" class="space-y-4">
                 <div>
-                    <input type="password" id="inputIdNumber" placeholder="請輸入身分證字號（如：A123456789）" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-center text-sm font-mono tracking-widest uppercase focus:outline-none focus:ring-2 focus:ring-sky-500 transition" required>
+                    <input type="password" id="inputIdNumber" placeholder="請輸入身分證字號" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-center text-sm font-mono tracking-widest uppercase focus:outline-none focus:ring-2 focus:ring-sky-500 transition" required>
                 </div>
                 <div id="authErrorMsg" class="text-rose-600 text-xs font-semibold hidden flex items-center justify-center gap-1">
                     <i class="fa-solid fa-circle-exclamation"></i>
@@ -1026,8 +1026,8 @@
         // (支援英文字母大小寫，系統會自動轉為大寫比對)
         // ==============================================================
         const AUTHORIZED_IDS = [
-            "F129783851",  // 測試範例 1
-            "A123456789",  // 測試範例 2
+            "f123456789",  // 測試範例 1
+            "F123456789",  // 測試範例 2
             "F128904567"   // 依此類推直接在引號內填入身分證字號
         ];
 
