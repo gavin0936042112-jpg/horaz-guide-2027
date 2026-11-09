@@ -1051,7 +1051,7 @@
                     <i class="fa-solid fa-magnifying-glass"></i> 驗證身分並查詢進度
                 </button>
             </form>
-            <p class="text-[11px] text-slate-400 mt-6">預設管理員密碼：<code class="bg-slate-100 px-1.5 py-0.5 rounded text-slate-600 font-mono">HORAZ2027</code>（可於腳本內修改）</p>
+            <p class="text-[11px] text-slate-400 mt-6">預設管理員密碼：<code class="bg-slate-100 px-1.5 py-0.5 rounded text-slate-600 font-mono">HORAZ2027</code></p>
         </div>
 
         <!-- 查詢結果主容器 (驗證通過後顯示) -->
@@ -1092,21 +1092,33 @@
                     </div>
                 </div>
 
-                <!-- 搜尋與篩選 -->
+                <!-- 搜尋、篩選與新增領隊按鈕 -->
                 <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row gap-3 items-center justify-between">
-                    <div class="relative w-full sm:w-72">
-                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400 text-xs"></i>
-                        <input type="text" id="adminSearchInput" oninput="filterAdminTable()" placeholder="搜尋姓名或身分證..." class="w-full pl-8 pr-3 py-1.5 text-xs rounded-lg border border-slate-300 focus:outline-none focus:ring-1 focus:ring-sky-500">
+                    <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto items-center">
+                        <div class="relative w-full sm:w-64">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400 text-xs"></i>
+                            <input type="text" id="adminSearchInput" oninput="filterAdminTable()" placeholder="搜尋姓名或身分證..." class="w-full pl-8 pr-3 py-1.5 text-xs rounded-lg border border-slate-300 focus:outline-none focus:ring-1 focus:ring-sky-500">
+                        </div>
+                        <div class="flex items-center gap-2 w-full sm:w-auto">
+                            <select id="adminLevelFilter" onchange="filterAdminTable()" class="text-xs border border-slate-300 rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-1 focus:ring-sky-500">
+                                <option value="ALL">全部職等 (ALL)</option>
+                                <option value="S">S 級</option>
+                                <option value="A">A 級</option>
+                                <option value="B">B 級</option>
+                                <option value="C">C 級</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="flex items-center gap-2 w-full sm:w-auto">
-                        <label class="text-xs text-slate-500 font-medium">職等篩選：</label>
-                        <select id="adminLevelFilter" onchange="filterAdminTable()" class="text-xs border border-slate-300 rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-1 focus:ring-sky-500">
-                            <option value="ALL">全部職等 (ALL)</option>
-                            <option value="S">S 級</option>
-                            <option value="A">A 級</option>
-                            <option value="B">B 級</option>
-                            <option value="C">C 級</option>
-                        </select>
+
+                    <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+                        <button onclick="fetchLeaderDataFromGoogle(true)" class="px-3 py-1.5 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs font-semibold flex items-center gap-1.5 transition">
+                            <i class="fa-solid fa-rotate text-sky-600"></i>
+                            <span>同步試算表</span>
+                        </button>
+                        <button onclick="openAddLeaderModal()" class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 shadow transition">
+                            <i class="fa-solid fa-user-plus"></i>
+                            <span>新增 / 編輯領隊</span>
+                        </button>
                     </div>
                 </div>
 
@@ -1124,6 +1136,7 @@
                                     <th class="p-3.5">業務/客指定</th>
                                     <th class="p-3.5">升級進度</th>
                                     <th class="p-3.5">備註狀態</th>
+                                    <th class="p-3.5 text-center">操作</th>
                                 </tr>
                             </thead>
                             <tbody id="adminTableBody" class="divide-y divide-slate-100 text-slate-700">
@@ -1195,7 +1208,7 @@
 
                         <div class="p-3 bg-amber-50 rounded-xl border border-amber-200 text-xs text-amber-900 flex items-start gap-2">
                             <i class="fa-solid fa-circle-info text-amber-600 mt-0.5"></i>
-                            <div id="leaderNotes">備註：考核資料每月結算更新乙次，若對出團量或主題專長認證有疑問，請隨時聯繫國內線產品部主管卡卡。</div>
+                            <div id="leaderNotes">備註：考核資料每月結算更新乙次，若對出團量或主題專長認證有疑問，請隨時聯繫國內線產品部線控主管卡卡。</div>
                         </div>
 
                     </div>
@@ -1206,6 +1219,82 @@
 
     </div>
 
+    <!-- ========================================== -->
+    <!-- 新增 / 編輯領隊彈窗 (Modal) -->
+    <!-- ========================================== -->
+    <div id="addLeaderModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full border border-slate-200 overflow-hidden">
+            <div class="p-5 bg-slate-900 text-white flex justify-between items-center">
+                <h4 class="font-bold text-base flex items-center gap-2">
+                    <i class="fa-solid fa-user-pen text-emerald-400"></i>
+                    <span id="modalTitle">新增 / 編輯領隊資料</span>
+                </h4>
+                <button onclick="closeAddLeaderModal()" class="text-slate-400 hover:text-white text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            
+            <form id="leaderForm" onsubmit="saveLeaderToGoogle(event)" class="p-6 space-y-4 text-xs">
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">領隊姓名 *</label>
+                        <input type="text" id="modalName" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-1 focus:ring-emerald-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">身分證字號 *</label>
+                        <input type="text" id="modalIdNumber" required class="w-full px-3 py-2 border border-slate-300 rounded-lg uppercase font-mono focus:ring-1 focus:ring-emerald-500 focus:outline-none" placeholder="A123456789">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">目前職級 *</label>
+                        <select id="modalLevel" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-1 focus:ring-emerald-500 focus:outline-none">
+                            <option value="S">S 級 (每日 4000)</option>
+                            <option value="A">A 級 (每日 3500)</option>
+                            <option value="B">B 級 (每日 3000)</option>
+                            <option value="C" selected>C 級 (每日 2800)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">出團穩定度說明</label>
+                        <input type="text" id="modalStability" value="出團穩定無重大疏失" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-1 focus:ring-emerald-500 focus:outline-none">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-3">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">主題專長數</label>
+                        <input type="number" id="modalThemeCount" value="0" min="0" max="10" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-1 focus:ring-emerald-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">半年指定團數</label>
+                        <input type="number" id="modalDesignatedCount" value="0" min="0" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-1 focus:ring-emerald-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">晉升進度 %</label>
+                        <input type="number" id="modalProgressPercent" value="0" min="0" max="100" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-1 focus:ring-emerald-500 focus:outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">備註 / 考核現況紀錄</label>
+                    <textarea id="modalStatusNote" rows="2" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-1 focus:ring-emerald-500 focus:outline-none" placeholder="例如：主題專長差 1 種即可提報 A 級..."></textarea>
+                </div>
+
+                <div class="pt-3 border-t border-slate-100 flex justify-end gap-2">
+                    <button type="button" onclick="closeAddLeaderModal()" class="px-4 py-2 border border-slate-300 rounded-lg text-slate-600 hover:bg-slate-50 font-bold transition">
+                        取消
+                    </button>
+                    <button type="submit" id="btnModalSubmit" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-bold shadow transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <span>儲存至 Google 試算表</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- 頁尾 -->
     <footer class="bg-slate-900 text-slate-400 py-10 mt-20 border-t border-slate-800 text-center text-xs no-print">
         <div class="max-w-7xl mx-auto px-4 space-y-2">
@@ -1214,24 +1303,29 @@
         </div>
     </footer>
 
-    <!-- JavaScript 權限驗證與分頁切換控制 -->
+    <!-- JavaScript 權限驗證、Google 試算表串接與分頁控制 -->
     <script>
         // ==============================================================
-        // 1. 管理者密碼設定區
+        // 1. Google 試算表 API 部署網址（請將此處置換為您部署的 Web 應用程式網址）
         // ==============================================================
-        const ADMIN_PASSWORD = "HORAZ2027"; // 管理者解鎖全部名冊密碼
+        const https://script.google.com/macros/s/AKfycbzMmjv3575Q-XoqYfoy60F9x-98cPRfUXvUrm17kPhWqndnLBzGA4rh4ZweI9RUOpAmeg/exec = "https://script.google.com/macros/s/AKfycbz_REPLACE_WITH_YOUR_DEPLOY_URL/exec";
 
         // ==============================================================
-        // 2. 領隊考核與職等資料庫 (可隨時在此增刪領隊資料)
+        // 2. 管理者後台密碼
         // ==============================================================
-        const LEADER_DATABASE = [
+        const ADMIN_PASSWORD = "HORAZ2027";
+
+        // ==============================================================
+        // 3. 本地預設緩衝資料庫（當 Google 試算表連線中或尚未設定 API 時自動墊檔）
+        // ==============================================================
+        let LEADER_DATABASE = [
             {
                 name: "楊凱翔 (卡卡)",
                 idNumber: "F129783851",
                 currentLevel: "S",
                 stability: "出團滿半年合格無疏失",
-                themeCount: 10, // 可帶主題數
-                designatedCount: 16, // 指定團數
+                themeCount: 10,
+                designatedCount: 16,
                 progressPercent: 100,
                 statusNote: "具備品牌宣傳大使資格，各項考核全數達標"
             },
@@ -1253,7 +1347,7 @@
                 themeCount: 3,
                 designatedCount: 4,
                 progressPercent: 75,
-                statusNote: "指定團數達 5 團即可提報升階 A 級"
+                statusNote: "指定團數達 3 團即可提報升階 A 級"
             },
             {
                 name: "林志豪",
@@ -1267,15 +1361,110 @@
             }
         ];
 
-        // 提取白名單供 SOP 頁面快速共用
-        const AUTHORIZED_IDS = LEADER_DATABASE.map(l => l.idNumber.toUpperCase());
+        // 頁面載入時嘗試從 Google 試算表載入最新名單
+        window.addEventListener('DOMContentLoaded', () => {
+            fetchLeaderDataFromGoogle(false);
+        });
 
-        // 檢查瀏覽器 session 是否已認證 SOP
-        function isSopAuthenticated() {
-            return sessionStorage.getItem('horaz_sop_auth') === 'true';
+        // 從 Google 試算表取得即時領隊名冊
+        async function fetchLeaderDataFromGoogle(showNotice = false) {
+            if (!https://script.google.com/macros/s/AKfycbzMmjv3575Q-XoqYfoy60F9x-98cPRfUXvUrm17kPhWqndnLBzGA4rh4ZweI9RUOpAmeg/exec || https://script.google.com/macros/s/AKfycbzMmjv3575Q-XoqYfoy60F9x-98cPRfUXvUrm17kPhWqndnLBzGA4rh4ZweI9RUOpAmeg/exec.includes("REPLACE_WITH_YOUR_DEPLOY_URL")) {
+                if (showNotice) alert("尚未填入正確的 Google Apps Script 網址，目前使用預設名冊。");
+                return;
+            }
+            try {
+                const res = await fetch(https://script.google.com/macros/s/AKfycbzMmjv3575Q-XoqYfoy60F9x-98cPRfUXvUrm17kPhWqndnLBzGA4rh4ZweI9RUOpAmeg/exec);
+                const data = await res.json();
+                if (Array.isArray(data) && data.length > 0) {
+                    LEADER_DATABASE = data;
+                    if (showNotice) alert("已成功自 Google 試算表同步最新領隊名冊！");
+                    if (sessionStorage.getItem('horaz_dash_role') === 'ADMIN') {
+                        buildAdminDashboard();
+                    }
+                }
+            } catch (err) {
+                console.error("無法同步 Google 試算表:", err);
+                if (showNotice) alert("同步失敗，請檢查 Apps Script 權限是否設為「所有人」。");
+            }
         }
 
+        // 儲存或更新至 Google 試算表
+        async function saveLeaderToGoogle(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btnModalSubmit');
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> 儲存寫入中...`;
+
+            const leaderPayload = {
+                name: document.getElementById('modalName').value.trim(),
+                idNumber: document.getElementById('modalIdNumber').value.trim().toUpperCase(),
+                currentLevel: document.getElementById('modalLevel').value,
+                stability: document.getElementById('modalStability').value.trim(),
+                themeCount: Number(document.getElementById('modalThemeCount').value) || 0,
+                designatedCount: Number(document.getElementById('modalDesignatedCount').value) || 0,
+                progressPercent: Number(document.getElementById('modalProgressPercent').value) || 0,
+                statusNote: document.getElementById('modalStatusNote').value.trim()
+            };
+
+            // 本地先即時更新確保流暢體驗
+            const existingIndex = LEADER_DATABASE.findIndex(l => l.idNumber.toUpperCase() === leaderPayload.idNumber);
+            if (existingIndex >= 0) {
+                LEADER_DATABASE[existingIndex] = leaderPayload;
+            } else {
+                LEADER_DATABASE.unshift(leaderPayload);
+            }
+
+            // 非同步寫入 Google 試算表
+            if (https://script.google.com/macros/s/AKfycbzMmjv3575Q-XoqYfoy60F9x-98cPRfUXvUrm17kPhWqndnLBzGA4rh4ZweI9RUOpAmeg/exec && !https://script.google.com/macros/s/AKfycbzMmjv3575Q-XoqYfoy60F9x-98cPRfUXvUrm17kPhWqndnLBzGA4rh4ZweI9RUOpAmeg/exec.includes("REPLACE_WITH_YOUR_DEPLOY_URL")) {
+                try {
+                    await fetch(https://script.google.com/macros/s/AKfycbzMmjv3575Q-XoqYfoy60F9x-98cPRfUXvUrm17kPhWqndnLBzGA4rh4ZweI9RUOpAmeg/exec, {
+                        method: "POST",
+                        mode: "no-cors",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(leaderPayload)
+                    });
+                } catch (err) {
+                    console.error("寫入 Google 試算表錯誤:", err);
+                }
+            }
+
+            btn.disabled = false;
+            btn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> 儲存至 Google 試算表`;
+            closeAddLeaderModal();
+            buildAdminDashboard();
+            alert(`領隊「${leaderPayload.name}」資料已成功儲存！`);
+        }
+
+        // 開啟新增領隊 Modal
+        function openAddLeaderModal(existingLeader = null) {
+            const modal = document.getElementById('addLeaderModal');
+            const title = document.getElementById('modalTitle');
+            if (existingLeader) {
+                title.textContent = `編輯領隊：${existingLeader.name}`;
+                document.getElementById('modalName').value = existingLeader.name;
+                document.getElementById('modalIdNumber').value = existingLeader.idNumber;
+                document.getElementById('modalIdNumber').readOnly = true; // 編輯時身分證為 key
+                document.getElementById('modalLevel').value = existingLeader.currentLevel;
+                document.getElementById('modalStability').value = existingLeader.stability;
+                document.getElementById('modalThemeCount').value = existingLeader.themeCount;
+                document.getElementById('modalDesignatedCount').value = existingLeader.designatedCount;
+                document.getElementById('modalProgressPercent').value = existingLeader.progressPercent;
+                document.getElementById('modalStatusNote').value = existingLeader.statusNote;
+            } else {
+                title.textContent = `新增領隊資料`;
+                document.getElementById('leaderForm').reset();
+                document.getElementById('modalIdNumber').readOnly = false;
+            }
+            modal.classList.remove('hidden');
+        }
+
+        function closeAddLeaderModal() {
+            document.getElementById('addLeaderModal').classList.add('hidden');
+        }
+
+        // ==========================================
         // 分頁切換 (levels / sop / dashboard)
+        // ==========================================
         function switchMainTab(tab) {
             const levelsTab = document.getElementById('tabContentLevels');
             const sopTab = document.getElementById('tabContentSOP');
@@ -1285,7 +1474,6 @@
             const btnSOP = document.getElementById('navTabSOP');
             const btnDash = document.getElementById('navTabDashboard');
 
-            // 預設樣式還原
             [btnLevels, btnSOP, btnDash].forEach(btn => {
                 btn.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 text-slate-300 hover:text-white";
             });
@@ -1310,8 +1498,12 @@
         }
 
         // ==========================================
-        // SOP 手冊認證邏輯
+        // SOP 手冊認證邏輯（自動比對最新名單）
         // ==========================================
+        function isSopAuthenticated() {
+            return sessionStorage.getItem('horaz_sop_auth') === 'true';
+        }
+
         function renderSopState() {
             const authGate = document.getElementById('sopAuthGate');
             const protectedContent = document.getElementById('sopProtectedContent');
@@ -1334,7 +1526,7 @@
             const errorMsg = document.getElementById('authErrorMsg');
             const inputVal = inputField.value.trim().toUpperCase();
 
-            const isMatch = AUTHORIZED_IDS.includes(inputVal);
+            const isMatch = LEADER_DATABASE.some(l => l.idNumber.toUpperCase() === inputVal);
 
             if (isMatch) {
                 errorMsg.classList.add('hidden');
@@ -1363,7 +1555,6 @@
             const errorMsg = document.getElementById('dashErrorMsg');
             const inputVal = inputField.value.trim().toUpperCase();
 
-            // 判斷是否為管理者
             if (inputVal === ADMIN_PASSWORD.toUpperCase()) {
                 sessionStorage.setItem('horaz_dash_role', 'ADMIN');
                 sessionStorage.removeItem('horaz_dash_leader_id');
@@ -1373,7 +1564,6 @@
                 return;
             }
 
-            // 判斷是否為領隊身分證
             const leader = LEADER_DATABASE.find(l => l.idNumber.toUpperCase() === inputVal);
             if (leader) {
                 sessionStorage.setItem('horaz_dash_role', 'LEADER');
@@ -1384,7 +1574,6 @@
                 return;
             }
 
-            // 驗證失敗
             errorMsg.classList.remove('hidden');
             inputField.classList.add('border-rose-500', 'bg-rose-50');
         }
@@ -1412,7 +1601,7 @@
                 leaderView.classList.add('hidden');
                 roleBadge.className = "px-2.5 py-1 rounded-md text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300";
                 roleBadge.textContent = "管理者模式 (全體名冊)";
-                welcomeText.textContent = "歡迎進入國內領隊職級管理總台，可掌握全體領隊考核現況。";
+                welcomeText.textContent = "歡迎進入國內領隊職級管理總台，可在此直接新增、修改領隊資料並自動同步至試算表。";
                 buildAdminDashboard();
             } else if (role === 'LEADER') {
                 adminView.classList.add('hidden');
@@ -1435,7 +1624,6 @@
 
         // 建立管理者總覽
         function buildAdminDashboard() {
-            // 統計各等級人數
             const counts = { S: 0, A: 0, B: 0, C: 0 };
             LEADER_DATABASE.forEach(l => {
                 if (counts[l.currentLevel] !== undefined) counts[l.currentLevel]++;
@@ -1462,7 +1650,7 @@
             });
 
             if (filtered.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="8" class="text-center py-8 text-slate-400">查無相符之領隊紀錄</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="9" class="text-center py-8 text-slate-400">查無相符之領隊紀錄</td></tr>`;
                 return;
             }
 
@@ -1491,9 +1679,18 @@
                         </div>
                     </td>
                     <td class="p-3.5 text-[11px] text-slate-500 max-w-xs truncate" title="${l.statusNote}">${l.statusNote}</td>
+                    <td class="p-3.5 text-center">
+                        <button onclick='editLeaderRow(${JSON.stringify(l)})' class="px-2 py-1 text-sky-600 hover:text-sky-800 font-semibold rounded hover:bg-sky-50 transition">
+                            <i class="fa-solid fa-pen-to-square"></i> 編輯
+                        </button>
+                    </td>
                 `;
                 tbody.appendChild(tr);
             });
+        }
+
+        function editLeaderRow(leader) {
+            openAddLeaderModal(leader);
         }
 
         // 建立個人領隊狀態卡
@@ -1528,7 +1725,6 @@
 
             document.getElementById('leaderNotes').textContent = `考核備註：${l.statusNote}`;
 
-            // 動態產生權益清單
             const list = document.getElementById('leaderBenefitsList');
             list.innerHTML = '';
             if (l.currentLevel === 'S') {
