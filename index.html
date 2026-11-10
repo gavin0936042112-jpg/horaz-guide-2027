@@ -227,6 +227,19 @@
                                 <div class="p-2.5 bg-amber-100/70 rounded-lg text-amber-900 font-medium text-[11px] leading-relaxed mt-2 border border-amber-200">
                                     <i class="fa-solid fa-bullhorn mr-1 text-amber-700"></i>能在行程中主動、真誠地分享何時旅遊核心理念與品牌溫度。
                                 </div>
+
+                                <!-- 半年效期與資格維持機制 -->
+                                <div class="mt-3 p-2.5 bg-amber-50 rounded-xl border border-amber-200/80 text-[11px] text-amber-950 leading-relaxed">
+                                    <div class="font-bold text-amber-900 flex items-center gap-1 mb-1">
+                                        <i class="fa-solid fa-hourglass-half text-amber-600"></i>
+                                        <span>半年效期與資格維持機制：</span>
+                                    </div>
+                                    <ul class="space-y-1 list-disc pl-3.5 text-amber-900/90">
+                                        <li>考取之級別認證效期為<strong>半年（6 個月）</strong>。</li>
+                                        <li>若要持續維持 S 級各項福利與日費，每半年需依當初同等標準（出團穩定無疏失客訴、維持 6 種主題專長、半年指定達 6 團、主管專案考核）重新檢視通過。</li>
+                                        <li>屆期若未達維持標準，則依實際出團考核現況調降一級核定。</li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                         <div class="p-4 bg-gradient-to-br from-amber-100 via-amber-50 to-orange-50 border-t-2 border-amber-300">
@@ -281,6 +294,19 @@
                                     <li>具備可帶 <strong class="text-slate-900 underline decoration-sky-400">3 種（含）以上</strong>同好主題旅遊之能力。</li>
                                     <li>半年內整團客人或業務指定出團達 <strong class="text-slate-900">3 團</strong>。</li>
                                 </ul>
+
+                                <!-- 半年效期與資格維持機制 -->
+                                <div class="mt-3 p-2.5 bg-sky-50 rounded-xl border border-sky-200/80 text-[11px] text-sky-950 leading-relaxed">
+                                    <div class="font-bold text-sky-900 flex items-center gap-1 mb-1">
+                                        <i class="fa-solid fa-hourglass-half text-sky-600"></i>
+                                        <span>半年效期與資格維持機制：</span>
+                                    </div>
+                                    <ul class="space-y-1 list-disc pl-3.5 text-sky-900/90">
+                                        <li>考取之級別認證效期為<strong>半年（6 個月）</strong>。</li>
+                                        <li>若要持續維持 A 級專業職能維持津貼（NT$ 2,700/月）與日費，每半年需依當初同等標準（出團穩定無客訴、維持 3 種主題專長、半年指定達 3 團、主管專案考核）重新複審通過。</li>
+                                        <li>屆期若未達維持標準，則調降為 B 級對應標準核定。</li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                         <div class="p-4 bg-gradient-to-br from-sky-100 via-sky-50 to-blue-50 border-t-2 border-sky-300">
@@ -1720,7 +1746,7 @@
             "一人旅行", "不准客訴", "探索者", "旅拍拾光", "運動美學"
         ];
 
-        // 預設名單已清空，完全依賴 Google 試算表即時載入
+        // 預設名單清空，完全由 Google 試算表載入
         let LEADER_DATABASE = [];
 
         window.addEventListener('DOMContentLoaded', () => {
