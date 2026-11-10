@@ -721,7 +721,7 @@
                                     <th class="p-3.5 whitespace-nowrap">出團穩定度 (半年)</th>
                                     <th class="p-3.5 min-w-[200px]">考核主題專長 & 差距</th>
                                     <th class="p-3.5 min-w-[230px]">業務/客指定明細 & 差距</th>
-                                    <th class="p-3.5 min-w-[150px]">考核時程</th>
+                                    <th class="p-3.5 min-w-[170px]">考核時程與複審狀態</th>
                                     <th class="p-3.5 min-w-[140px]">備註狀態</th>
                                     <th class="p-3.5 text-center whitespace-nowrap">操作</th>
                                 </tr>
@@ -735,7 +735,7 @@
             <!-- 視圖 B：個人領隊狀態卡 + 點選才展開之雙手冊清單 (支援平滑捲動與防呆) -->
             <div id="leaderView" class="hidden max-w-4xl mx-auto space-y-10">
                 
-                <!-- 1. 個人狀態卡 -->
+                <!-- 1. 個人狀態卡 (已整合半年複審倒數與維持標準提示) -->
                 <div class="bg-white rounded-2xl border border-slate-200 shadow-lg overflow-hidden">
                     <div class="p-6 sm:p-8 bg-gradient-to-r from-slate-900 to-sky-950 text-white flex flex-col sm:flex-row items-center justify-between gap-4">
                         <div class="flex items-center gap-4 text-center sm:text-left">
@@ -743,7 +743,10 @@
                                 S
                             </div>
                             <div>
-                                <h3 class="text-2xl font-black text-white" id="leaderCardName">領隊姓名</h3>
+                                <div class="flex items-center gap-2 justify-center sm:justify-start">
+                                    <h3 class="text-2xl font-black text-white" id="leaderCardName">領隊姓名</h3>
+                                    <span id="leaderStatusDaysTag" class="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-400 text-slate-950 shadow-sm">--</span>
+                                </div>
                                 <p class="text-xs text-slate-300 font-mono mt-1" id="leaderCardMaskedId">身分證字號</p>
                             </div>
                         </div>
@@ -754,14 +757,25 @@
                     </div>
 
                     <div class="p-6 sm:p-8 space-y-6">
-                        <div class="grid grid-cols-2 gap-3 p-3.5 bg-slate-100/80 rounded-xl border border-slate-200">
-                            <div>
-                                <span class="text-[11px] text-slate-500 block font-medium">當前職級通過日期</span>
-                                <span class="text-sm font-bold text-slate-800 font-mono" id="leaderCardPassedDate">--</span>
+                        <!-- 考核時程與複審提醒區塊 -->
+                        <div class="p-4 bg-slate-100/90 rounded-xl border border-slate-200 space-y-2">
+                            <div class="grid grid-cols-2 gap-3 pb-2 border-b border-slate-200/70">
+                                <div>
+                                    <span class="text-[11px] text-slate-500 block font-medium">本級通過日期</span>
+                                    <span class="text-sm font-bold text-slate-800 font-mono" id="leaderCardPassedDate">--</span>
+                                </div>
+                                <div>
+                                    <span class="text-[11px] text-slate-500 block font-medium">預計下一階段考核（半年複審日）</span>
+                                    <span class="text-sm font-bold text-sky-700 font-mono" id="leaderCardNextDate">--</span>
+                                </div>
                             </div>
-                            <div>
-                                <span class="text-[11px] text-slate-500 block font-medium">預計下一階段考核</span>
-                                <span class="text-sm font-bold text-sky-700 font-mono" id="leaderCardNextDate">--</span>
+                            <!-- 複審倒數與達成狀態提示 -->
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-1 text-xs">
+                                <div class="flex items-center gap-1.5 text-slate-700" id="leaderReviewCountdownText">
+                                    <i class="fa-solid fa-clock-rotate-left text-sky-600"></i>
+                                    <span>--</span>
+                                </div>
+                                <div id="leaderRenewalStatusBadge" class="font-bold">--</div>
                             </div>
                         </div>
 
@@ -1600,7 +1614,7 @@
                             <h3>2. 意見回饋與謝車詞情感昇華</h3>
                             <blockquote>
                                 <strong>【完整謝車詞與結尾話術】</strong><br>
-                                「這幾天的行程大家都還開心嗎？如果過程中有任何能讓我們改善的地方，都非常歡迎隨時跟我說；如果害羞當面提，也可以利用我們的匿名意見調查表。大家願意給我們指教，代表大家還在乎、還喜歡我們，這都是我們進步最重要的動力。<br><br>
+                                「這幾天的行程大家都還開心嗎？如果過程中有任何能讓我們改善的地方，都非常歡迎隨時跟我說；如果害羞當面提，也可以利用我們的匿名意見調查表。<br><br>
                                 卡卡常常提醒我們：『狗狗的生命只有短短十到二十年。許多風景我們人一輩子能去無數次，但對毛寶貝來說，有些地方這一生可能就和主人來這麼一次。』<br><br>
                                 寵物團的存在，就是為了替主人與毛孩記錄最珍貴的生命回憶。看著寶貝在草地上笑得合不攏嘴、跑到氣喘吁吁，上車後滿足地呼呼大睡，這些畫面就是無可取代的永恆。參加哪一家的寵物團真的不重要，最重要的是好好珍惜與寶貝相伴的時光。如果這幾天我們的服務讓大家感到舒心滿意，也請幫我們推薦給身邊養狗的朋友，讓更多家庭能輕鬆、無壓力地帶著毛孩看世界。何時旅遊每一團都會維持第一團的初衷與熱情，最後代表何時旅遊全體團隊，謝謝大家在假期選擇與我們同行，祝福大家與狗寶貝平安健康、幸福滿滿！」
                             </blockquote>
@@ -1932,41 +1946,65 @@
             }
         }
 
+        // 計算距離維持門檻或下一級差距，並回傳維持判定
         function getRequirementsDiff(currentLevel, themeCount, designatedCount) {
             let nextLevel = "";
             let reqThemes = 0;
             let reqDesignated = 0;
 
-            if (currentLevel === "C") {
+            if (currentLevel === "S") {
+                const diffT = Math.max(0, 6 - themeCount);
+                const diffD = Math.max(0, 6 - designatedCount);
+                const isMaintained = (diffT === 0 && diffD === 0);
                 return {
-                    nextLevel: "B",
-                    themesText: "C 升 B 無主題硬性門檻",
-                    designatedText: "每月配合出團達 5 團即可提報"
+                    isMaintained,
+                    statusText: isMaintained ? "✓ 已達本期續約維持標準" : `！維持本級還差 ${diffT > 0 ? diffT + ' 種主題 ' : ''}${diffD > 0 ? diffD + ' 團指定' : ''}`,
+                    themesText: diffT === 0 ? "✓ 主題維持達標 (6/6)" : `維持還差 ${diffT} 種`,
+                    designatedText: diffD === 0 ? "✓ 指定維持達標 (6/6)" : `維持還差 ${diffD} 團`,
+                    adminRenewalText: isMaintained ? "S 級維持符合" : `需補指定 ${diffD} 團`
+                };
+            } else if (currentLevel === "A") {
+                const diffT = Math.max(0, 3 - themeCount);
+                const diffD = Math.max(0, 3 - designatedCount);
+                const isMaintained = (diffT === 0 && diffD === 0);
+                return {
+                    isMaintained,
+                    statusText: isMaintained ? "✓ 已達本期續約維持標準" : `！維持本級還差 ${diffT > 0 ? diffT + ' 種主題 ' : ''}${diffD > 0 ? diffD + ' 團指定' : ''}`,
+                    themesText: diffT === 0 ? "✓ 主題維持達標 (3/3)" : `維持還差 ${diffT} 種`,
+                    designatedText: diffD === 0 ? "✓ 指定維持達標 (3/3)" : `維持還差 ${diffD} 團`,
+                    adminRenewalText: isMaintained ? "A 級維持符合" : `需補指定 ${diffD} 團`
                 };
             } else if (currentLevel === "B") {
-                nextLevel = "A";
-                reqThemes = 3;
-                reqDesignated = 3;
-            } else if (currentLevel === "A") {
-                nextLevel = "S";
-                reqThemes = 6;
-                reqDesignated = 6;
-            } else if (currentLevel === "S") {
+                const diffT = Math.max(0, 3 - themeCount);
+                const diffD = Math.max(0, 3 - designatedCount);
                 return {
-                    nextLevel: "最高級別",
-                    themesText: "已具頂級專長資格",
-                    designatedText: "已達最高考核標準"
+                    isMaintained: false,
+                    statusText: `距晉升 A 級還差 ${diffT} 種主題、${diffD} 團指定`,
+                    themesText: diffT === 0 ? "✓ 晉升主題達標" : `距 A 級還缺 ${diffT} 種`,
+                    designatedText: diffD === 0 ? "✓ 晉升指定達標" : `距 A 級還缺 ${diffD} 團`,
+                    adminRenewalText: `距 A 級缺 ${diffD} 團`
+                };
+            } else {
+                return {
+                    isMaintained: false,
+                    statusText: "每月配合出團達 5 團即可申請升階 B 級",
+                    themesText: "C 升 B 無主題硬性門檻",
+                    designatedText: "每月配合出團達 5 團即可提報",
+                    adminRenewalText: "配合月達 5 團可升 B"
                 };
             }
+        }
 
-            const diffThemes = Math.max(0, reqThemes - themeCount);
-            const diffDesignated = Math.max(0, reqDesignated - designatedCount);
-
-            return {
-                nextLevel,
-                themesText: diffThemes === 0 ? "✓ 專長門檻已達標" : `距 ${nextLevel} 級還缺 ${diffThemes} 種`,
-                designatedText: diffDesignated === 0 ? "✓ 指定門檻已達標" : `距 ${nextLevel} 級還缺 ${diffDesignated} 團`
-            };
+        // 計算剩餘天數
+        function getRemainingDays(nextDateStr) {
+            if (!nextDateStr) return null;
+            const target = new Date(nextDateStr);
+            if (isNaN(target.getTime())) return null;
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            target.setHours(0, 0, 0, 0);
+            const diffTime = target - today;
+            return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         }
 
         function switchMainTab(tab) {
@@ -2122,6 +2160,10 @@
                     `;
                 }
 
+                // 考核性質直觀標註
+                const nextDateFormatted = l.nextAssessmentDate ? l.nextAssessmentDate.replace(/-/g, '/') : '待安排';
+                const passDateFormatted = l.passedDate ? l.passedDate.replace(/-/g, '/') : '無紀錄';
+
                 tr.innerHTML = `
                     <td class="p-3.5 font-bold text-slate-900 whitespace-nowrap">${l.name}</td>
                     <td class="p-3.5 font-mono text-slate-500 whitespace-nowrap">${l.idNumber.substring(0, 3)}****${l.idNumber.substring(7)}</td>
@@ -2141,9 +2183,12 @@
                         </div>
                         ${detailsHtml}
                     </td>
-                    <td class="p-3.5 whitespace-nowrap">
-                        <div class="text-[11px] text-slate-500">通過：<strong class="text-slate-800 font-mono">${l.passedDate || '無紀錄'}</strong></div>
-                        <div class="text-[11px] text-sky-700 mt-1">下一階段：<strong class="font-mono">${l.nextAssessmentDate || '待安排'}</strong></div>
+                    <td class="p-3.5 whitespace-nowrap leading-relaxed">
+                        <div class="text-[11px] text-slate-600">通過日期：<strong class="font-mono text-slate-900">${passDateFormatted}</strong></div>
+                        <div class="text-[11px] text-sky-800">半年複審日：<strong class="font-mono">${nextDateFormatted}</strong></div>
+                        <div class="text-[11px] font-bold mt-0.5 ${diff.isMaintained ? 'text-emerald-600' : 'text-amber-600'}">
+                            續約狀態：${diff.adminRenewalText}
+                        </div>
                     </td>
                     <td class="p-3.5 text-[11px] text-slate-500 max-w-[150px] truncate" title="${l.statusNote}">${l.statusNote}</td>
                     <td class="p-3.5 text-center whitespace-nowrap">
@@ -2187,8 +2232,36 @@
             document.getElementById('leaderCardNextDate').textContent = l.nextAssessmentDate || '待線控排定';
             document.getElementById('leaderMetricStability').textContent = l.stability;
 
+            // 計算剩餘天數與維持標準
+            const daysLeft = getRemainingDays(l.nextAssessmentDate);
+            const daysTag = document.getElementById('leaderStatusDaysTag');
+            const countdownText = document.getElementById('leaderReviewCountdownText');
+            const renewalBadge = document.getElementById('leaderRenewalStatusBadge');
+
+            if (daysLeft !== null) {
+                if (daysLeft > 0) {
+                    daysTag.textContent = `${l.currentLevel} 級認證（效期剩餘 ${daysLeft} 天）`;
+                    daysTag.className = "px-2 py-0.5 rounded text-[11px] font-bold bg-amber-400 text-slate-950 shadow-sm";
+                    countdownText.innerHTML = `<i class="fa-solid fa-clock-rotate-left text-sky-600 mr-1"></i>距本次半年效期屆滿尚有 <strong>${daysLeft} 天</strong>，預計於 <strong>${l.nextAssessmentDate.replace(/-/g, '/')}</strong> 啟動續約複審`;
+                } else if (daysLeft === 0) {
+                    daysTag.textContent = `${l.currentLevel} 級認證（效期今日屆滿）`;
+                    daysTag.className = "px-2 py-0.5 rounded text-[11px] font-bold bg-rose-500 text-white shadow-sm";
+                    countdownText.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-rose-600 mr-1"></i>本次半年認證效期<strong>今日屆滿</strong>，將由線控主管啟動續約複審`;
+                } else {
+                    daysTag.textContent = `${l.currentLevel} 級認證（效期已逾期 ${Math.abs(daysLeft)} 天）`;
+                    daysTag.className = "px-2 py-0.5 rounded text-[11px] font-bold bg-rose-600 text-white shadow-sm";
+                    countdownText.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-rose-600 mr-1"></i>本期認證已屆滿，請聯繫線控主管卡卡進行續約複審評定`;
+                }
+            } else {
+                daysTag.textContent = `${l.currentLevel} 級認證`;
+                countdownText.innerHTML = `<i class="fa-solid fa-info-circle text-slate-400 mr-1"></i>尚未排定下一階段複審時程`;
+            }
+
             const diff = getRequirementsDiff(l.currentLevel, l.themeCount || 0, l.designatedCount || 0);
-            
+
+            renewalBadge.textContent = diff.statusText;
+            renewalBadge.className = `font-bold ${diff.isMaintained ? 'text-emerald-700' : 'text-amber-700'}`;
+
             const themeBadge = document.getElementById('leaderThemesDiffBadge');
             themeBadge.textContent = diff.themesText;
             themeBadge.className = `text-xs font-bold ${diff.themesText.includes('✓') ? 'text-emerald-600' : 'text-amber-600'}`;
