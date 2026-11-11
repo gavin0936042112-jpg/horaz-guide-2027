@@ -263,8 +263,6 @@
                                     <i class="fa-solid fa-hotel text-amber-600 mt-1 text-xs"></i>
                                     <span>年終獎金：<strong class="text-amber-900 underline decoration-amber-400">依績效發放年終獎金</strong></span>
                                 </li>
-
-                                </li>
                                 <li class="flex items-start gap-2">
                                     <i class="fa-solid fa-hotel text-amber-600 mt-1 text-xs"></i>
                                     <span>生日當月：<strong class="text-amber-900 underline decoration-amber-400">全額補助五星住宿乙晚</strong></span>
@@ -581,6 +579,8 @@
                                         <strong class="text-amber-300 block">年終績效獎金</strong>
                                         <span>何時S級領隊夥伴也是員工家人，每年歲末依照個人績效發放年終獎金，達成績效巔峰。</span>
                                     </div>
+                                </li>
+                                <li class="flex items-start gap-3">
                                     <div class="w-7 h-7 rounded-lg bg-amber-900/60 text-amber-300 flex items-center justify-center flex-shrink-0 mt-0.5 border border-amber-500/30">
                                         <i class="fa-solid fa-hotel text-xs"></i>
                                     </div>
@@ -1809,6 +1809,19 @@
             });
         }
 
+        // 統一將任何格式的日期轉換為乾淨的 YYYY/MM/DD 斜線格式
+        function formatToSlashDate(dateStr) {
+            if (!dateStr || dateStr === '無紀錄' || dateStr === '待安排') return dateStr || '無紀錄';
+            const d = new Date(dateStr);
+            if (isNaN(d.getTime())) {
+                return String(dateStr).replace(/-/g, '/');
+            }
+            const year = d.getFullYear();
+            const month = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            return `${year}/${month}/${day}`;
+        }
+
         async function fetchLeaderDataFromGoogle(showNotice = false) {
             try {
                 const res = await fetch(GOOGLE_SHEET_API_URL);
@@ -2185,8 +2198,9 @@
                     `;
                 }
 
-                const nextDateFormatted = l.nextAssessmentDate ? l.nextAssessmentDate.replace(/-/g, '/') : '待安排';
-                const passDateFormatted = l.passedDate ? l.passedDate.replace(/-/g, '/') : '無紀錄';
+                // 統一轉為 YYYY/MM/DD 斜線格式
+                const nextDateFormatted = formatToSlashDate(l.nextAssessmentDate);
+                const passDateFormatted = formatToSlashDate(l.passedDate);
 
                 tr.innerHTML = `
                     <td class="p-3.5 font-bold text-slate-900 whitespace-nowrap">${l.name}</td>
@@ -2252,8 +2266,9 @@
                 fee.textContent = "NT$ 2,800 / 日";
             }
 
-            document.getElementById('leaderCardPassedDate').textContent = l.passedDate || '無紀錄';
-            document.getElementById('leaderCardNextDate').textContent = l.nextAssessmentDate || '待線控排定';
+            // 統一轉換為 YYYY/MM/DD 斜線格式
+            document.getElementById('leaderCardPassedDate').textContent = formatToSlashDate(l.passedDate);
+            document.getElementById('leaderCardNextDate').textContent = formatToSlashDate(l.nextAssessmentDate);
             document.getElementById('leaderMetricStability').textContent = l.stability;
 
             const daysLeft = getRemainingDays(l.nextAssessmentDate);
@@ -2262,10 +2277,11 @@
             const renewalBadge = document.getElementById('leaderRenewalStatusBadge');
 
             if (daysLeft !== null) {
+                const nextDateFormatted = formatToSlashDate(l.nextAssessmentDate);
                 if (daysLeft > 0) {
                     daysTag.textContent = `${l.currentLevel} 級認證（效期剩餘 ${daysLeft} 天）`;
                     daysTag.className = "px-2 py-0.5 rounded text-[11px] font-bold bg-amber-400 text-slate-950 shadow-sm";
-                    countdownText.innerHTML = `<i class="fa-solid fa-clock-rotate-left text-sky-600 mr-1"></i>距本次半年效期屆滿尚有 <strong>${daysLeft} 天</strong>，預計於 <strong>${l.nextAssessmentDate.replace(/-/g, '/')}</strong> 啟動續約複審`;
+                    countdownText.innerHTML = `<i class="fa-solid fa-clock-rotate-left text-sky-600 mr-1"></i>距本次半年效期屆滿尚有 <strong>${daysLeft} 天</strong>，預計於 <strong>${nextDateFormatted}</strong> 啟動續約複審`;
                 } else if (daysLeft === 0) {
                     daysTag.textContent = `${l.currentLevel} 級認證（效期今日屆滿）`;
                     daysTag.className = "px-2 py-0.5 rounded text-[11px] font-bold bg-rose-500 text-white shadow-sm";
